@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio — Remy Reyne</title>
+  <style>
+    /* Reset simple */
+    body, h1, h2, p, ul {margin:0; padding:0;}
+    body {font-family: Arial, sans-serif; line-height:1.6; color:#222;}
+
+    /* Navigation */
+    nav {
+      background:#111;
+      padding:10px;
+      position:fixed; top:0; left:0; right:0;
+      z-index:100;
+    }
+    nav ul {list-style:none; display:flex; justify-content:center;}
+    nav ul li {margin:0 15px;}
+    nav ul li a {color:#fff; text-decoration:none; font-weight:bold;}
+    nav ul li a:hover {color:#f0c;}
+
+    /* Hero */
+    #hero {
+      height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      color:#fff;
+      background: linear-gradient(-45deg, #12c2e9, #c471ed, #f64f59, #3a1c71);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      padding-top:50px;
+    }
+    #hero h1 {font-size:3em; margin-bottom:10px;}
+    #hero p {font-size:1.2em; margin-bottom:20px;}
+    .btn {
+      display:inline-block;
+      background:#fff; color:#111; padding:10px 20px;
+      border-radius:5px; text-decoration:none;
+      transition:0.3s;
+    }
+    .btn:hover {background:#f0c; color:#fff;}
+
+    @keyframes gradient {
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
+    }
+
+    /* Sections */
+    section, footer {padding:60px 20px; max-width:1000px; margin:0 auto;}
+    section h2, footer h2 {margin-bottom:20px;}
+    .grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
+    .card {background:#f9f9f9; border:1px solid #ddd; padding:20px; border-radius:8px; text-align:center;}
+    footer {text-align:center; background:#f7f7f7; border-top:1px solid #eee;}
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="#hero">Accueil</a></li>
+      <li><a href="#cv">CV</a></li>
+      <li><a href="#graphisme">Graphisme</a></li>
+      <li><a href="#photo">Photo</a></li>
+      <li><a href="#videos">Vidéos</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <header id="hero">
+    <h1>Remy Reyne</h1>
+    <p>Des créations sur mesure pour sublimer votre image</p>
+    <a class="btn" href="#cv">Découvrir</a>
+  </header>
+
+  <!-- CV -->
+  <section id="cv">
+    <h2>Mon CV</h2>
+    <p>20 ans d’expérience en graphisme, motion design et photo.</p>
+    <a class="btn" href="cv.pdf" target="_blank">Télécharger mon CV</a>
+  </section>
+
+  <!-- Graphisme -->
+  <section id="graphisme">
+    <h2>Graphisme</h2>
+    <div class="grid">
+      <div class="card">Projet 1</div>
+      <div class="card">Projet 2</div>
+      <div class="card">Projet 3</div>
+    </div>
+  </section>
+
+  <!-- Photo -->
+  <section id="photo">
+    <h2>Photos</h2>
+    <div class="grid">
+      <div class="card">Photo 1</div>
+      <div class="card">Photo 2</div>
+      <div class="card">Photo 3</div>
+    </div>
+  </section>
+
+  <!-- Vidéos -->
+  <section id="videos">
+    <h2>Vidéos</h2>
+    <div class="grid">
+      <iframe width="100%" height="200" src="https://www.youtube.com/embed/VIDEOCODE" frameborder="0" allowfullscreen></iframe>
+      <iframe width="100%" height="200" src="https://player.vimeo.com/video/VIDEOCODE" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <footer id="contact">
+    <h2>Contact</h2>
+    <p>Email : <a href="mailto:remy.reyne@gmail.com">remy.reyne@gmail.com</a></p>
+    <p><a href="https://www.behance.net">Mon Behance</a> | <a href="https://www.linkedin.com">LinkedIn</a></p>
+  </footer>
+
+</body>
+</html>
