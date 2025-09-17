@@ -148,15 +148,21 @@
     </div>
   </section>
 
-  <!-- ====== SECTION VIDEOS ====== -->
-  <section id="videos">
-    <h2>Vidéos</h2>
-    <div class="carousel">
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/qAsG_P2ZtGk" frameborder="0" allowfullscreen></iframe>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/uEW7lNnpXJw" frameborder="0" allowfullscreen></iframe>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/gmBgCF2VcV8" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
+/* SECTION VIDEOS */
+.videos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.videos-grid iframe {
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+}
+
 
   <!-- ====== CONTACT ====== -->
   <footer id="contact">
