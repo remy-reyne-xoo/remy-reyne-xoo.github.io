@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio - Remy Reyne</title>
   <style>
-    /* ====== STYLE GLOBAL ====== */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -14,7 +13,6 @@
       scroll-behavior: smooth;
     }
 
-    /* ====== NAVIGATION ====== */
     nav {
       position: fixed;
       top: 0;
@@ -36,10 +34,9 @@
       color: #4da6ff;
     }
 
-    /* ====== HEADER ====== */
     header {
       min-height: 80vh;
-      padding-top: 100px; /* espace pour nav fixe */
+      padding: 40px 20px;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -48,41 +45,24 @@
     }
 
     header h1 {
-      font-size: 4em; /* plus grand */
+      font-size: 4em;
       margin-bottom: 20px;
       color: #4da6ff;
     }
 
     .typing {
       font-size: 1.8em;
-      border-right: 2px solid #4da6ff;
+      display: inline-block;
       white-space: nowrap;
       overflow: hidden;
-      display: inline-block;
-      max-width: 0;
-      animation: typing 4s steps(40, end) forwards, blink 0.75s step-end infinite;
+      border-right: 2px solid #4da6ff;
     }
 
-    .typing.done {
-      border-right: none; /* supprime le curseur quand fini */
-    }
-
-    @keyframes typing {
-      from { max-width: 0; }
-      to { max-width: 100%; }
-    }
-
-    @keyframes blink {
-      from, to { border-color: transparent; }
-      50% { border-color: #4da6ff; }
-    }
-
-    /* ====== SECTIONS ====== */
     section {
-      padding: 80px 20px;
+      padding: 60px 20px;
       max-width: 1000px;
       margin: auto;
-      scroll-margin-top: 90px; /* pour nav fixe */
+      scroll-margin-top: 70px;
     }
 
     section h2 {
@@ -92,7 +72,6 @@
       font-size: 2.5em;
     }
 
-    /* ====== SECTION CV ====== */
     #cv p {
       text-align: center;
       font-size: 1.2em;
@@ -113,7 +92,6 @@
       background: #1a75d1;
     }
 
-    /* ====== CAROUSEL ====== */
     .carousel {
       display: flex;
       overflow-x: auto;
@@ -131,7 +109,6 @@
       object-fit: cover;
     }
 
-    /* ====== VIDEOS ====== */
     .videos-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -144,7 +121,6 @@
       border-radius: 10px;
     }
 
-    /* ====== FOOTER ====== */
     footer {
       text-align: center;
       padding: 30px;
@@ -161,16 +137,10 @@
     footer a:hover {
       text-decoration: underline;
     }
-
-    /* ====== LIENS ====== */
-    a {
-      color: #4da6ff;
-    }
   </style>
 </head>
-<body>
+<body onload="window.scrollTo(0,0)">
 
-  <!-- ====== NAVIGATION ====== -->
   <nav>
     <a href="#accueil">Accueil</a>
     <a href="#cv">CV</a>
@@ -179,19 +149,16 @@
     <a href="#contact">Contact</a>
   </nav>
 
-  <!-- ====== HEADER ====== -->
   <header id="accueil">
     <h1>Remy Reyne</h1>
-    <p class="typing">Des créations sur mesure pour sublimer votre image.</p>
+    <p class="typing" id="typing"></p>
   </header>
 
-  <!-- ====== SECTION CV ====== -->
   <section id="cv">
     <h2>Mon CV</h2>
     <p><a href="cv.pdf" target="_blank">📄 Télécharger mon CV</a></p>
   </section>
 
-  <!-- ====== SECTION GRAPHISME ====== -->
   <section id="graphisme">
     <h2>Graphisme</h2>
     <div class="carousel">
@@ -201,32 +168,15 @@
     </div>
   </section>
 
-  <!-- ====== SECTION VIDEOS ====== -->
   <section id="videos">
     <h2>Vidéos</h2>
     <div class="videos-grid">
-      <iframe src="https://www.youtube.com/embed/qAsG_P2ZtGk" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/uEW7lNnpXJw" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/gmBgCF2VcV8" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/lbvV0KJK0C8" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/uMWTLTYN1RI" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/KPJuC8V4o3E" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/qw8sg7PVUXI" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/YuCIzb6xlQM" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/sftigWJkCMk" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/qAsG_P2ZtGk" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/uEW7lNnpXJw" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/gmBgCF2VcV8" frameborder="0" allowfullscreen></iframe>
     </div>
   </section>
 
-  <!-- ====== FOOTER ====== -->
   <footer id="contact">
     <p>Contactez-moi :</p>
     <a href="mailto:remy.reyne@gmail.com">Email</a> |
@@ -234,13 +184,26 @@
     <a href="https://www.linkedin.com/in/r%C3%A9my-reyne-699519b5/" target="_blank">LinkedIn</a>
   </footer>
 
-  <!-- ====== SCRIPT ====== -->
   <script>
-    // Stoppe le curseur après l'animation de typing
-    const typing = document.querySelector('.typing');
-    typing.addEventListener('animationend', () => {
-      setTimeout(() => typing.classList.add('done'), 300);
-    });
+    // Texte à afficher
+    const text = "Des créations sur mesure pour sublimer votre image.";
+    const typingElement = document.getElementById('typing');
+    let i = 0;
+
+    function typeWriter() {
+      if (i < text.length) {
+        typingElement.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 50); // vitesse frappe
+      } else {
+        // Supprime le curseur à la fin
+        typingElement.style.borderRight = 'none';
+      }
+    }
+
+    // Commence la frappe
+    typeWriter();
   </script>
+
 </body>
 </html>
