@@ -1,207 +1,309 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio - Remy Reyne</title>
-<style>
-body { margin:0; font-family:Arial,sans-serif; background:linear-gradient(to bottom,#0a0a0a,#001a33); color:#fff; scroll-behavior:smooth;}
-nav { position:fixed; top:0; width:100%; background:rgba(0,0,0,0.85); padding:15px; text-align:center; z-index:1000;}
-nav a { color:#fff; margin:0 15px; text-decoration:none; font-weight:bold;}
-nav a:hover { color:#4da6ff;}
-header { min-height:80vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding-top:40px;}
-header h1 { font-size:4em; margin-bottom:10px; color:#4da6ff; text-align:center;}
-header p.qualif { text-align:center; font-size:1.5em; margin-top:10px; color:#4da6ff; background: rgba(255,255,255,0.05); padding:8px 20px; border-radius:25px; display:inline-block; line-height:1.4;}
-section { padding:60px 20px; max-width:1000px; margin:auto; scroll-margin-top:70px;}
-section h2 { text-align:center; margin-bottom:40px; color:#4da6ff; font-size:2.5em;}
-#cv img { max-width:300px; border:1px solid #4da6ff; border-radius:10px;}
-#cv a.button { display:inline-block; padding:12px 20px; background:#4da6ff; color:#fff; border-radius:6px; text-decoration:none; font-weight:bold; margin-top:20px; transition:0.3s;}
-#cv a.button:hover { background:#1a75d1;}
-header video { width:1200px; max-width:90vw; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - Remy Reyne</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #0a0a0a, #001a33);
+      color: #fff;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 15px;
+      text-align: center;
+      z-index: 1000;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover { color: #4da6ff; }
 
-.slider { position:relative; width:100%; max-width:1000px; margin:auto; display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:40px;}
-.slides { display:flex; transition:0.5s; gap:10px; }
-.slides img { height:150px; border-radius:10px; cursor:pointer; opacity:0.5; transition:0.3s; object-fit:cover; }
-.slides img.center { height:250px; opacity:1; }
-.arrow { position:absolute; top:50%; transform:translateY(-50%); font-size:2.5em; color:#4da6ff; cursor:pointer; user-select:none; }
-.arrow.left { left:10px; }
-.arrow.right { right:10px; }
+    header {
+      padding: 120px 20px 60px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      color: #4da6ff;
+    }
+    header h2 {
+      font-size: 1.3em;
+      font-weight: normal;
+      margin-bottom: 20px;
+      color: #ccc;
+    }
+    header video {
+      max-width: 300px;
+      display: block;
+      margin: 20px auto;
+    }
 
-.videos-grid { display:flex; overflow-x:auto; gap:20px; padding:10px 20px; scroll-behavior:smooth; justify-content:flex-start;}
-.videos-grid iframe { flex:0 0 auto; width:300px; aspect-ratio:16/9; border-radius:10px;}
+    section {
+      padding: 80px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    section h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #4da6ff;
+    }
 
-footer { text-align:center; padding:30px; background:#000; margin-top:50px;}
-footer a { color:#4da6ff; margin:0 10px; text-decoration:none;}
-footer a:hover { text-decoration:underline;}
+    /* Coverflow */
+    .slider {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      height: 280px;
+      margin: auto;
+      overflow: hidden;
+    }
+    .slides {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .slides img {
+      border-radius: 10px;
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: all 0.5s ease;
+      max-height: 220px;
+      object-fit: cover;
+    }
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2.5em;
+      color: #4da6ff;
+      cursor: pointer;
+      user-select: none;
+      z-index: 10;
+    }
+    .arrow.left { left: 10px; }
+    .arrow.right { right: 10px; }
 
-@media (max-width:768px) { header h1{ font-size:3em;} .videos-grid iframe{ width:80vw;} .slides img{ height:120px;} .slides img.center{ height:180px;} }
-@media (max-width:480px){ header h1{ font-size:2.5em;} .slides img{ height:100px;} .slides img.center{ height:150px;} }
+    /* Lightbox */
+    #lightbox {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      align-items: center;
+      justify-content: center;
+    }
+    #lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+    }
+    #lightbox .close {
+      position: absolute;
+      top: 20px; right: 30px;
+      font-size: 40px;
+      color: #fff;
+      cursor: pointer;
+    }
+    #lightbox .nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 50px;
+      color: #fff;
+      cursor: pointer;
+      user-select: none;
+    }
+    #lightbox .prev { left: 30px; }
+    #lightbox .next { right: 30px; }
 
-/* Lightbox */
-#lightbox { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:2000; }
-#lightbox img { max-width:90%; max-height:90%; border-radius:10px; }
-#close, #prev, #next { position:absolute; color:#fff; font-size:3em; cursor:pointer; user-select:none; }
-#close { top:20px; right:30px;}
-#prev { left:30px; top:50%; transform:translateY(-50%);}
-#next { right:30px; top:50%; transform:translateY(-50%);}
-</style>
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #000;
+      margin-top: 50px;
+    }
+    footer a {
+      color: #4da6ff;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+  </style>
 </head>
-<body onload="window.scrollTo(0,0)">
+<body>
 
-<nav>
-  <a href="#accueil">Accueil</a>
-  <a href="#cv">CV</a>
-  <a href="#graphisme">Graphisme</a>
-  <a href="#videos">Vidéos</a>
-  <a href="#contact">Contact</a>
-</nav>
+  <nav>
+    <a href="#accueil">Accueil</a>
+    <a href="#cv">CV</a>
+    <a href="#logos">Logos</a>
+    <a href="#affiches">Affiches</a>
+    <a href="#flyers">Flyers</a>
+    <a href="#mockups">Mockups</a>
+    <a href="#cd">CD</a>
+    <a href="#videos">Vidéos</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-<header id="accueil">
-  <h1>Remy Reyne</h1>
-  <p class="qualif">Graphiste Senior • Illustrateur • Motion Designer • Photographe</p>
-  <div>
+  <header id="accueil">
+    <h1>Remy Reyne</h1>
+    <h2>Graphiste senior 360° • Illustrateur • Motion Designer • Photographe</h2>
     <video autoplay loop muted playsinline>
       <source src="videos/logo&slogan.webm" type="video/webm">
-      <p style="color:#fff;">Votre navigateur ne supporte pas la lecture de la vidéo.</p>
     </video>
+  </header>
+
+  <section id="cv">
+    <h2>Mon CV</h2>
+    <a href="cv.pdf" target="_blank">
+      <img src="images/cv_preview.jpg" alt="Aperçu CV" style="max-width:400px;display:block;margin:auto;border-radius:10px;">
+    </a>
+  </section>
+
+  <!-- Carrousels -->
+  <section id="logos"><h2>Logos</h2>
+    <div class="slider">
+      <span class="arrow left" onclick="slideLeft('logos')">&#10094;</span>
+      <div class="slides" id="carousel-logos"></div>
+      <span class="arrow right" onclick="slideRight('logos')">&#10095;</span>
+    </div>
+  </section>
+
+  <section id="affiches"><h2>Affiches</h2>
+    <div class="slider">
+      <span class="arrow left" onclick="slideLeft('affiches')">&#10094;</span>
+      <div class="slides" id="carousel-affiches"></div>
+      <span class="arrow right" onclick="slideRight('affiches')">&#10095;</span>
+    </div>
+  </section>
+
+  <section id="flyers"><h2>Flyers</h2>
+    <div class="slider">
+      <span class="arrow left" onclick="slideLeft('flyers')">&#10094;</span>
+      <div class="slides" id="carousel-flyers"></div>
+      <span class="arrow right" onclick="slideRight('flyers')">&#10095;</span>
+    </div>
+  </section>
+
+  <section id="mockups"><h2>Mockups</h2>
+    <div class="slider">
+      <span class="arrow left" onclick="slideLeft('mockups')">&#10094;</span>
+      <div class="slides" id="carousel-mockups"></div>
+      <span class="arrow right" onclick="slideRight('mockups')">&#10095;</span>
+    </div>
+  </section>
+
+  <section id="cd"><h2>CD</h2>
+    <div class="slider">
+      <span class="arrow left" onclick="slideLeft('cd')">&#10094;</span>
+      <div class="slides" id="carousel-cd"></div>
+      <span class="arrow right" onclick="slideRight('cd')">&#10095;</span>
+    </div>
+  </section>
+
+  <!-- Vidéos YouTube -->
+  <section id="videos">
+    <h2>Vidéos</h2>
+    <div class="videos-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;">
+      <iframe src="https://www.youtube.com/embed/qAsG_P2ZtGk" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/uEW7lNnpXJw" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/gmBgCF2VcV8" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/lbvV0KJK0C8" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/uMWTLTYN1RI" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/KPJuC8V4o3E" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/qw8sg7PVUXI" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/YuCIzb6xlQM" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/sftigWJkCMk" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <p>Contactez-moi :</p>
+    <a href="mailto:remy.reyne@gmail.com">Email</a> |
+    <a href="https://www.facebook.com/XooDesign/" target="_blank">Facebook</a> |
+    <a href="https://www.linkedin.com/in/r%C3%A9my-reyne-699519b5/" target="_blank">LinkedIn</a>
+  </footer>
+
+  <!-- Lightbox -->
+  <div id="lightbox">
+    <span class="close" onclick="closeLightbox()">&times;</span>
+    <span class="nav prev" onclick="prevImage()">&#10094;</span>
+    <img id="lightbox-img">
+    <span class="nav next" onclick="nextImage()">&#10095;</span>
   </div>
-</header>
-
-<section id="cv">
-  <h2>Mon CV</h2>
-  <p style="text-align:center;">
-    <a href="cv.pdf" target="_blank"><img src="images/cv_preview.jpg" alt="Aperçu CV"></a>
-  </p>
-  <p style="text-align:center;">
-    <a href="cv.pdf" target="_blank" class="button">📄 Télécharger mon CV</a>
-  </p>
-</section>
-
-<section id="graphisme">
-  <h2>Logos</h2>
-  <div class="slider" id="slider-logos">
-    <span class="arrow left" onclick="slideLeft('logos')">‹</span>
-    <div class="slides"></div>
-    <span class="arrow right" onclick="slideRight('logos')">›</span>
-  </div>
-
-  <h2>Affiches</h2>
-  <div class="slider" id="slider-affiches">
-    <span class="arrow left" onclick="slideLeft('affiches')">‹</span>
-    <div class="slides"></div>
-    <span class="arrow right" onclick="slideRight('affiches')">›</span>
-  </div>
-
-  <h2>Flyers</h2>
-  <div class="slider" id="slider-flyers">
-    <span class="arrow left" onclick="slideLeft('flyers')">‹</span>
-    <div class="slides"></div>
-    <span class="arrow right" onclick="slideRight('flyers')">›</span>
-  </div>
-
-  <h2>Mockups</h2>
-  <div class="slider" id="slider-mockups">
-    <span class="arrow left" onclick="slideLeft('mockups')">‹</span>
-    <div class="slides"></div>
-    <span class="arrow right" onclick="slideRight('mockups')">›</span>
-  </div>
-
-  <h2>CD</h2>
-  <div class="slider" id="slider-cd">
-    <span class="arrow left" onclick="slideLeft('cd')">‹</span>
-    <div class="slides"></div>
-    <span class="arrow right" onclick="slideRight('cd')">›</span>
-  </div>
-</section>
-
-<section id="videos">
-  <h2>Vidéos</h2>
-  <div class="videos-grid">
-    <iframe src="https://www.youtube.com/embed/KPJuC8V4o3E" frameborder="0" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/uMWTLTYN1RI" frameborder="0" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/qw8sg7PVUXI" frameborder="0" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/uEW7lNnpXJw" frameborder="0" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/gmBgCF2VcV8" frameborder="0" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/lbvV0KJK0C8" frameborder="0" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/YuCIzb6xlQM" frameborder="0" allowfullscreen></iframe>
-    <iframe src="https://www.youtube.com/embed/sftigWJkCMk" frameborder="0" allowfullscreen></iframe>
-  </div>
-</section>
-
-<footer id="contact">
-  <p>Contactez-moi :</p>
-  <a href="mailto:remy.reyne@gmail.com">Email</a> |
-  <a href="https://www.facebook.com/XooDesign/" target="_blank">Facebook</a> |
-  <a href="https://www.linkedin.com/in/r%C3%A9my-reyne-699519b5/" target="_blank">LinkedIn</a>
-</footer>
-
-<!-- Lightbox -->
-<div id="lightbox">
-  <span id="close" onclick="closeLightbox()">×</span>
-  <img id="lightbox-img" src="">
-  <span id="prev" onclick="prevImage()">‹</span>
-  <span id="next" onclick="nextImage()">›</span>
-</div>
 
 <script>
-// Images catégories
 const categories = {
-  'logos': ['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'],
-  'affiches': ['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg','images/affiches/affiche5.jpg','images/affiches/affiche6.jpg','images/affiches/affiche7.jpg','images/affiches/affiche8.jpg','images/affiches/affiche9.jpg','images/affiches/affiche10.jpg'],
-  'flyers': ['images/flyers/flyers1.jpg','images/flyers/flyers2.jpg'],
+  'logos': Array.from({length:9},(_,i)=>`images/logos/logo${i+1}.jpg`),
+  'affiches': Array.from({length:10},(_,i)=>`images/affiches/affiche${i+1}.jpg`),
+  'flyers': Array.from({length:2},(_,i)=>`images/flyers/flyers${i+1}.jpg`),
   'mockups': ['images/mockups/mockup2.jpg','images/mockups/mockup1.jpg'],
-  'cd': ['images/cd/cd1.jpg','images/cd/cd2.jpg']
+  'cd': Array.from({length:2},(_,i)=>`images/cd/cd${i+1}.jpg`)
 };
 
-let currentImages = [], currentIndex = 0;
-function openLightbox(src, imagesArray){
-  currentImages = imagesArray;
-  currentIndex = imagesArray.indexOf(src);
-  document.getElementById('lightbox-img').src = src;
+let sliders = {};
+let currentImages = [];
+let currentIndex = 0;
+
+function openLightbox(src, arr){
   document.getElementById('lightbox').style.display='flex';
+  document.getElementById('lightbox-img').src=src;
+  currentImages=arr;
+  currentIndex=arr.indexOf(src);
 }
 function closeLightbox(){ document.getElementById('lightbox').style.display='none'; }
 function prevImage(){ currentIndex=(currentIndex-1+currentImages.length)%currentImages.length; document.getElementById('lightbox-img').src=currentImages[currentIndex]; }
 function nextImage(){ currentIndex=(currentIndex+1)%currentImages.length; document.getElementById('lightbox-img').src=currentImages[currentIndex]; }
 
-// Slider
-const sliders = {};
-Object.keys(categories).forEach(cat => {
-  const container = document.getElementById('slider-' + cat);
-  if(!container) return;
-  const slidesDiv = container.querySelector('.slides');
-  categories[cat].forEach(src => {
-    const img = document.createElement('img');
-    img.src = src;
-    img.onclick = () => openLightbox(src, categories[cat]);
-    slidesDiv.appendChild(img);
-  });
-  sliders[cat] = { slidesDiv, index: 0 };
-  updateSlider(cat);
-});
-
 function updateSlider(cat){
   const { slidesDiv, index } = sliders[cat];
   const imgs = slidesDiv.querySelectorAll('img');
+  const total = imgs.length;
   imgs.forEach((img,i)=>{
-    const pos = (i - index + imgs.length) % imgs.length;
-    img.classList.remove('center');
-    img.style.order = pos;
-    img.style.opacity = 0.5;
-    img.style.transform = 'scale(0.8)';
+    let diff = i - index;
+    if(diff<-Math.floor(total/2)) diff+=total;
+    if(diff>Math.floor(total/2)) diff-=total;
+    const absDiff=Math.abs(diff);
+    img.style.zIndex=total-absDiff;
+    img.style.opacity=1-0.3*absDiff;
+    img.style.transform=`translate(${diff*150}px,-50%) scale(${1-0.2*absDiff})`;
   });
-  imgs[sliders[cat].index].classList.add('center');
-  imgs[sliders[cat].index].style.transform = 'scale(1)';
-  imgs[sliders[cat].index].style.opacity = 1;
 }
 function slideLeft(cat){
-  sliders[cat].index = (sliders[cat].index-1+categories[cat].length)%categories[cat].length;
+  sliders[cat].index=(sliders[cat].index-1+categories[cat].length)%categories[cat].length;
   updateSlider(cat);
 }
 function slideRight(cat){
-  sliders[cat].index = (sliders[cat].index+1)%categories[cat].length;
+  sliders[cat].index=(sliders[cat].index+1)%categories[cat].length;
   updateSlider(cat);
 }
+
+Object.keys(categories).forEach(cat=>{
+  const slidesDiv=document.getElementById('carousel-'+cat);
+  categories[cat].forEach(src=>{
+    const img=document.createElement('img');
+    img.src=src;
+    img.onclick=()=>openLightbox(src,categories[cat]);
+    slidesDiv.appendChild(img);
+  });
+  sliders[cat]={slidesDiv,index:0};
+  updateSlider(cat);
+});
 </script>
 </body>
 </html>
