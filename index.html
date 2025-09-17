@@ -47,14 +47,7 @@
       font-size: 4em;
       margin-bottom: 20px;
       color: #4da6ff;
-    }
-
-    .typing {
-      font-size: 1.8em;
-      display: inline-block;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 2px solid #4da6ff;
+      text-align: center;
     }
 
     section {
@@ -71,7 +64,6 @@
       font-size: 2.5em;
     }
 
-    /* CV */
     #cv img {
       max-width: 300px;
       border: 1px solid #4da6ff;
@@ -94,7 +86,6 @@
       background: #1a75d1;
     }
 
-    /* Carousel graphisme */
     .carousel {
       display: flex;
       overflow-x: auto;
@@ -112,13 +103,13 @@
       object-fit: cover;
     }
 
-    /* Carousel vidéos */
     .videos-grid {
       display: flex;
       overflow-x: auto;
       gap: 20px;
       padding-bottom: 10px;
       scroll-behavior: smooth;
+      justify-content: center;
     }
 
     .videos-grid iframe {
@@ -145,6 +136,41 @@
       text-decoration: underline;
     }
 
+    /* ===== Responsiveness ===== */
+    @media (max-width: 1200px) {
+      header video {
+        width: 80vw;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header video {
+        width: 90vw;
+      }
+
+      header h1 {
+        font-size: 3em;
+      }
+
+      .videos-grid iframe {
+        width: 80vw;
+        aspect-ratio: 16/9;
+      }
+
+      .carousel img {
+        max-height: 180px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2.5em;
+      }
+
+      .carousel img {
+        max-height: 120px;
+      }
+    }
   </style>
 </head>
 <body onload="window.scrollTo(0,0)">
@@ -160,33 +186,23 @@
 
   <!-- Header avec vidéo du logo -->
   <header id="accueil">
-    <!-- Vidéo du logo avec fond transparent -->
     <div style="text-align:center; margin-bottom:20px;">
-      <video autoplay loop muted playsinline style="max-width:400px;">
+      <video autoplay loop muted playsinline style="width:1200px; max-width:90vw;">
         <source src="videos/logo&slogan.webm" type="video/webm">
         <p style="color:#fff;">Votre navigateur ne supporte pas la lecture de la vidéo.</p>
       </video>
     </div>
-
-    <!-- Nom -->
     <h1>Remy Reyne</h1>
-
-    <!-- Typing -->
-    <p class="typing" id="typing"></p>
   </header>
 
   <!-- CV -->
   <section id="cv">
     <h2>Mon CV</h2>
-
-    <!-- Miniature du CV -->
     <p style="text-align:center;">
       <a href="cv.pdf" target="_blank">
         <img src="images/cv_preview.jpg" alt="Aperçu CV">
       </a>
     </p>
-
-    <!-- Bouton téléchargement -->
     <p style="text-align:center;">
       <a href="cv.pdf" target="_blank" class="button">📄 Télécharger mon CV</a>
     </p>
@@ -209,16 +225,16 @@
     <h2>Vidéos</h2>
     <div class="videos-grid">
       <!-- Carrousel ordre : 6,5,7 -->
-      <iframe src="https://www.youtube.com/embed/KPJuC8V4o3E" frameborder="0" allowfullscreen></iframe> <!-- Vidéo 6 -->
-      <iframe src="https://www.youtube.com/embed/uMWTLTYN1RI" frameborder="0" allowfullscreen></iframe> <!-- Vidéo 5 -->
-      <iframe src="https://www.youtube.com/embed/qw8sg7PVUXI" frameborder="0" allowfullscreen></iframe> <!-- Vidéo 7 -->
+      <iframe src="https://www.youtube.com/embed/KPJuC8V4o3E" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/uMWTLTYN1RI" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/qw8sg7PVUXI" frameborder="0" allowfullscreen></iframe>
 
       <!-- Vidéos corpo 2,3,4,8,9 -->
-      <iframe src="https://www.youtube.com/embed/uEW7lNnpXJw" frameborder="0" allowfullscreen></iframe> <!-- Vidéo 2 -->
-      <iframe src="https://www.youtube.com/embed/gmBgCF2VcV8" frameborder="0" allowfullscreen></iframe> <!-- Vidéo 3 -->
-      <iframe src="https://www.youtube.com/embed/lbvV0KJK0C8" frameborder="0" allowfullscreen></iframe> <!-- Vidéo 4 -->
-      <iframe src="https://www.youtube.com/embed/YuCIzb6xlQM" frameborder="0" allowfullscreen></iframe> <!-- Vidéo 8 -->
-      <iframe src="https://www.youtube.com/embed/sftigWJkCMk" frameborder="0" allowfullscreen></iframe> <!-- Vidéo 9 -->
+      <iframe src="https://www.youtube.com/embed/uEW7lNnpXJw" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/gmBgCF2VcV8" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/lbvV0KJK0C8" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/YuCIzb6xlQM" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/sftigWJkCMk" frameborder="0" allowfullscreen></iframe>
     </div>
   </section>
 
@@ -229,25 +245,6 @@
     <a href="https://www.facebook.com/XooDesign/" target="_blank">Facebook</a> |
     <a href="https://www.linkedin.com/in/r%C3%A9my-reyne-699519b5/" target="_blank">LinkedIn</a>
   </footer>
-
-  <!-- Script typing -->
-  <script>
-    const text = "Des créations sur mesure pour sublimer votre image.";
-    const typingElement = document.getElementById('typing');
-    let i = 0;
-
-    function typeWriter() {
-      if (i < text.length) {
-        typingElement.innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typeWriter, 50);
-      } else {
-        typingElement.style.borderRight = 'none';
-      }
-    }
-
-    typeWriter();
-  </script>
 
 </body>
 </html>
