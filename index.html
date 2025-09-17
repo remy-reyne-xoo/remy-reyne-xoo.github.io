@@ -30,9 +30,7 @@
       font-weight: bold;
     }
 
-    nav a:hover {
-      color: #4da6ff;
-    }
+    nav a:hover { color: #4da6ff; }
 
     header {
       min-height: 80vh;
@@ -45,9 +43,21 @@
 
     header h1 {
       font-size: 4em;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       color: #4da6ff;
       text-align: center;
+    }
+
+    header p.qualif {
+      text-align:center;
+      font-size:1.5em;
+      margin-top:10px;
+      color:#4da6ff;
+      background: rgba(255,255,255,0.05);
+      padding:8px 20px;
+      border-radius:25px;
+      display:inline-block;
+      line-height:1.4;
     }
 
     section {
@@ -82,9 +92,7 @@
       margin-top: 20px;
     }
 
-    #cv a.button:hover {
-      background: #1a75d1;
-    }
+    #cv a.button:hover { background: #1a75d1; }
 
     .carousel {
       display: flex;
@@ -132,44 +140,18 @@
       text-decoration: none;
     }
 
-    footer a:hover {
-      text-decoration: underline;
-    }
+    footer a:hover { text-decoration: underline; }
 
-    /* ===== Responsiveness ===== */
-    @media (max-width: 1200px) {
-      header video {
-        width: 80vw;
-      }
-    }
-
+    @media (max-width: 1200px) { header video { width: 80vw; } }
     @media (max-width: 768px) {
-      header video {
-        width: 90vw;
-      }
-
-      header h1 {
-        font-size: 3em;
-      }
-
-      .videos-grid iframe {
-        width: 80vw;
-        aspect-ratio: 16/9;
-      }
-
-      .carousel img {
-        max-height: 180px;
-      }
+      header video { width: 90vw; }
+      header h1 { font-size: 3em; }
+      .videos-grid iframe { width: 80vw; aspect-ratio: 16/9; }
+      .carousel img { max-height: 180px; }
     }
-
     @media (max-width: 480px) {
-      header h1 {
-        font-size: 2.5em;
-      }
-
-      .carousel img {
-        max-height: 120px;
-      }
+      header h1 { font-size: 2.5em; }
+      .carousel img { max-height: 120px; }
     }
   </style>
 </head>
@@ -184,22 +166,10 @@
     <a href="#contact">Contact</a>
   </nav>
 
-  <!-- Header avec nom, sous-titre et vidéo -->
+  <!-- Header -->
   <header id="accueil">
     <h1>Remy Reyne</h1>
-    <p style="
-      text-align:center;
-      font-size:1.5em;
-      margin-top:10px;
-      color:#4da6ff;
-      background: rgba(255,255,255,0.05);
-      padding:8px 20px;
-      border-radius:25px;
-      display:inline-block;
-      line-height:1.4;
-    ">
-      Graphiste Senior • Illustrateur • Motion Designer • Photographe
-    </p>
+    <p class="qualif">Graphiste Senior • Illustrateur • Motion Designer • Photographe</p>
     <div style="text-align:center; margin-top:20px;">
       <video autoplay loop muted playsinline style="width:1200px; max-width:90vw;">
         <source src="videos/logo&slogan.webm" type="video/webm">
@@ -224,54 +194,16 @@
   <!-- Graphisme -->
   <section id="graphisme">
     <h2>Graphisme</h2>
-    <div class="carousel">
-      <!-- Affiches -->
-      <img src="images/affiches/affiche1.jpg" alt="Affiche 1">
-      <img src="images/affiches/affiche2.jpg" alt="Affiche 2">
-      <img src="images/affiches/affiche3.jpg" alt="Affiche 3">
-      <img src="images/affiches/affiche4.jpg" alt="Affiche 4">
-      <img src="images/affiches/affiche5.jpg" alt="Affiche 5">
-      <img src="images/affiches/affiche6.jpg" alt="Affiche 6">
-      <img src="images/affiches/affiche7.jpg" alt="Affiche 7">
-      <img src="images/affiches/affiche8.jpg" alt="Affiche 8">
-      <img src="images/affiches/affiche9.jpg" alt="Affiche 9">
-      <img src="images/affiches/affiche10.jpg" alt="Affiche 10">
-
-      <!-- CD -->
-      <img src="images/cd/cd1.jpg" alt="CD 1">
-      <img src="images/cd/cd2.jpg" alt="CD 2">
-
-      <!-- Flyers -->
-      <img src="images/flyers/flyers1.jpg" alt="Flyer 1">
-      <img src="images/flyers/flyers2.jpg" alt="Flyer 2">
-
-      <!-- Logos -->
-      <img src="images/logos/logo1.jpg" alt="Logo 1">
-      <img src="images/logos/logo2.jpg" alt="Logo 2">
-      <img src="images/logos/logo3.jpg" alt="Logo 3">
-      <img src="images/logos/logo4.jpg" alt="Logo 4">
-      <img src="images/logos/logo5.jpg" alt="Logo 5">
-      <img src="images/logos/logo6.jpg" alt="Logo 6">
-      <img src="images/logos/logo7.jpg" alt="Logo 7">
-      <img src="images/logos/logo8.jpg" alt="Logo 8">
-      <img src="images/logos/logo9.jpg" alt="Logo 9">
-
-      <!-- Mockups -->
-      <img src="images/mockups/minia1.jpg" alt="Miniature 1">
-      <img src="images/mockups/mockup1.jpg" alt="Mockup 1">
-    </div>
+    <div class="carousel" id="carousel"></div>
   </section>
 
   <!-- Vidéos -->
   <section id="videos">
     <h2>Vidéos</h2>
     <div class="videos-grid">
-      <!-- Carrousel ordre : 6,5,7 -->
       <iframe src="https://www.youtube.com/embed/KPJuC8V4o3E" frameborder="0" allowfullscreen></iframe>
       <iframe src="https://www.youtube.com/embed/uMWTLTYN1RI" frameborder="0" allowfullscreen></iframe>
       <iframe src="https://www.youtube.com/embed/qw8sg7PVUXI" frameborder="0" allowfullscreen></iframe>
-
-      <!-- Vidéos corpo 2,3,4,8,9 -->
       <iframe src="https://www.youtube.com/embed/uEW7lNnpXJw" frameborder="0" allowfullscreen></iframe>
       <iframe src="https://www.youtube.com/embed/gmBgCF2VcV8" frameborder="0" allowfullscreen></iframe>
       <iframe src="https://www.youtube.com/embed/lbvV0KJK0C8" frameborder="0" allowfullscreen></iframe>
@@ -288,5 +220,31 @@
     <a href="https://www.linkedin.com/in/r%C3%A9my-reyne-699519b5/" target="_blank">LinkedIn</a>
   </footer>
 
+  <!-- Script pour carrousel Graphisme -->
+  <script>
+    const carousel = document.getElementById('carousel');
+
+    // Ordre des images : Logos → Affiches → Flyers → Mockups → CD
+    const images = [
+      // Logos
+      'images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg',
+      'images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg',
+      'images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg',
+      // Affiches
+      'images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg',
+      // Flyers
+      'images/flyers/flyers1.jpg','images/flyers/flyers2.jpg',
+      // Mockups
+      'images/mockups/minia1.jpg','images/mockups/mockup1.jpg',
+      // CD
+      'images/cd/cd1.jpg','images/cd/cd2.jpg'
+    ];
+
+    images.forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      carousel.appendChild(img);
+    });
+  </script>
 </body>
 </html>
