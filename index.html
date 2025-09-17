@@ -39,22 +39,27 @@
     /* ====== HEADER ====== */
     header {
       min-height: 80vh;
-      padding-top: 80px; /* espace pour nav fixe */
+      padding-top: 100px; /* espace pour nav fixe */
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     header h1 {
-      font-size: 3em;
-      margin-bottom: 10px;
+      font-size: 4em; /* plus grand */
+      margin-bottom: 20px;
       color: #4da6ff;
     }
 
     .typing {
-      font-size: 1.5em;
+      font-size: 1.8em;
       border-right: 2px solid #4da6ff;
       white-space: nowrap;
       overflow: hidden;
       display: inline-block;
+      max-width: 0;
       animation: typing 4s steps(40, end) forwards, blink 0.75s step-end infinite;
     }
 
@@ -63,8 +68,8 @@
     }
 
     @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
+      from { max-width: 0; }
+      to { max-width: 100%; }
     }
 
     @keyframes blink {
@@ -77,13 +82,35 @@
       padding: 80px 20px;
       max-width: 1000px;
       margin: auto;
-      scroll-margin-top: 70px; /* pour nav fixe */
+      scroll-margin-top: 90px; /* pour nav fixe */
     }
 
     section h2 {
       text-align: center;
       margin-bottom: 40px;
       color: #4da6ff;
+      font-size: 2.5em;
+    }
+
+    /* ====== SECTION CV ====== */
+    #cv p {
+      text-align: center;
+      font-size: 1.2em;
+    }
+
+    #cv a {
+      display: inline-block;
+      padding: 12px 20px;
+      background: #4da6ff;
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    #cv a:hover {
+      background: #1a75d1;
     }
 
     /* ====== CAROUSEL ====== */
@@ -93,12 +120,15 @@
       gap: 20px;
       scroll-behavior: smooth;
       padding-bottom: 10px;
+      justify-content: center;
     }
 
     .carousel img {
       flex: 0 0 auto;
       border-radius: 10px;
-      max-height: 300px;
+      max-height: 250px;
+      max-width: 100%;
+      object-fit: cover;
     }
 
     /* ====== VIDEOS ====== */
@@ -209,7 +239,7 @@
     // Stoppe le curseur après l'animation de typing
     const typing = document.querySelector('.typing');
     typing.addEventListener('animationend', () => {
-      setTimeout(() => typing.classList.add('done'), 500);
+      setTimeout(() => typing.classList.add('done'), 300);
     });
   </script>
 </body>
