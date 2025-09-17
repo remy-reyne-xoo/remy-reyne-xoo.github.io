@@ -14,18 +14,28 @@ header h1 { font-size:4em; margin-bottom:10px; color:#4da6ff; text-align:center;
 header p.qualif { text-align:center; font-size:1.5em; margin-top:10px; color:#4da6ff; background: rgba(255,255,255,0.05); padding:8px 20px; border-radius:25px; display:inline-block; line-height:1.4;}
 section { padding:60px 20px; max-width:1000px; margin:auto; scroll-margin-top:70px;}
 section h2 { text-align:center; margin-bottom:40px; color:#4da6ff; font-size:2.5em;}
-.carousel { display:flex; overflow-x:auto; gap:20px; padding-bottom:10px; justify-content:center;}
-.carousel img { flex:0 0 auto; border-radius:10px; max-height:200px; cursor:pointer; object-fit:cover;}
 #cv img { max-width:300px; border:1px solid #4da6ff; border-radius:10px;}
 #cv a.button { display:inline-block; padding:12px 20px; background:#4da6ff; color:#fff; border-radius:6px; text-decoration:none; font-weight:bold; margin-top:20px; transition:0.3s;}
 #cv a.button:hover { background:#1a75d1;}
+header video { width:1200px; max-width:90vw; }
+
+.slider { position:relative; width:100%; max-width:1000px; margin:auto; display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:40px;}
+.slides { display:flex; transition:0.5s; gap:10px; }
+.slides img { height:150px; border-radius:10px; cursor:pointer; opacity:0.5; transition:0.3s; object-fit:cover; }
+.slides img.center { height:250px; opacity:1; }
+.arrow { position:absolute; top:50%; transform:translateY(-50%); font-size:2.5em; color:#4da6ff; cursor:pointer; user-select:none; }
+.arrow.left { left:10px; }
+.arrow.right { right:10px; }
+
 .videos-grid { display:flex; overflow-x:auto; gap:20px; padding:10px 20px; scroll-behavior:smooth; justify-content:flex-start;}
 .videos-grid iframe { flex:0 0 auto; width:300px; aspect-ratio:16/9; border-radius:10px;}
+
 footer { text-align:center; padding:30px; background:#000; margin-top:50px;}
 footer a { color:#4da6ff; margin:0 10px; text-decoration:none;}
 footer a:hover { text-decoration:underline;}
-@media (max-width:768px) { header video { width:90vw;} header h1{ font-size:3em;} .videos-grid iframe{ width:80vw;} .carousel img{ max-height:150px;}}
-@media (max-width:480px){ header h1{ font-size:2.5em;} .carousel img{ max-height:120px;}}
+
+@media (max-width:768px) { header h1{ font-size:3em;} .videos-grid iframe{ width:80vw;} .slides img{ height:120px;} .slides img.center{ height:180px;} }
+@media (max-width:480px){ header h1{ font-size:2.5em;} .slides img{ height:100px;} .slides img.center{ height:150px;} }
 
 /* Lightbox */
 #lightbox { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:2000; }
@@ -49,8 +59,8 @@ footer a:hover { text-decoration:underline;}
 <header id="accueil">
   <h1>Remy Reyne</h1>
   <p class="qualif">Graphiste Senior • Illustrateur • Motion Designer • Photographe</p>
-  <div style="text-align:center; margin-top:20px;">
-    <video autoplay loop muted playsinline style="width:1200px; max-width:90vw;">
+  <div>
+    <video autoplay loop muted playsinline>
       <source src="videos/logo&slogan.webm" type="video/webm">
       <p style="color:#fff;">Votre navigateur ne supporte pas la lecture de la vidéo.</p>
     </video>
@@ -60,9 +70,7 @@ footer a:hover { text-decoration:underline;}
 <section id="cv">
   <h2>Mon CV</h2>
   <p style="text-align:center;">
-    <a href="cv.pdf" target="_blank">
-      <img src="images/cv_preview.jpg" alt="Aperçu CV">
-    </a>
+    <a href="cv.pdf" target="_blank"><img src="images/cv_preview.jpg" alt="Aperçu CV"></a>
   </p>
   <p style="text-align:center;">
     <a href="cv.pdf" target="_blank" class="button">📄 Télécharger mon CV</a>
@@ -71,19 +79,39 @@ footer a:hover { text-decoration:underline;}
 
 <section id="graphisme">
   <h2>Logos</h2>
-  <div class="carousel" id="carousel-logos"></div>
+  <div class="slider" id="slider-logos">
+    <span class="arrow left" onclick="slideLeft('logos')">‹</span>
+    <div class="slides"></div>
+    <span class="arrow right" onclick="slideRight('logos')">›</span>
+  </div>
 
   <h2>Affiches</h2>
-  <div class="carousel" id="carousel-affiches"></div>
+  <div class="slider" id="slider-affiches">
+    <span class="arrow left" onclick="slideLeft('affiches')">‹</span>
+    <div class="slides"></div>
+    <span class="arrow right" onclick="slideRight('affiches')">›</span>
+  </div>
 
   <h2>Flyers</h2>
-  <div class="carousel" id="carousel-flyers"></div>
+  <div class="slider" id="slider-flyers">
+    <span class="arrow left" onclick="slideLeft('flyers')">‹</span>
+    <div class="slides"></div>
+    <span class="arrow right" onclick="slideRight('flyers')">›</span>
+  </div>
 
   <h2>Mockups</h2>
-  <div class="carousel" id="carousel-mockups"></div>
+  <div class="slider" id="slider-mockups">
+    <span class="arrow left" onclick="slideLeft('mockups')">‹</span>
+    <div class="slides"></div>
+    <span class="arrow right" onclick="slideRight('mockups')">›</span>
+  </div>
 
   <h2>CD</h2>
-  <div class="carousel" id="carousel-cd"></div>
+  <div class="slider" id="slider-cd">
+    <span class="arrow left" onclick="slideLeft('cd')">‹</span>
+    <div class="slides"></div>
+    <span class="arrow right" onclick="slideRight('cd')">›</span>
+  </div>
 </section>
 
 <section id="videos">
@@ -116,17 +144,16 @@ footer a:hover { text-decoration:underline;}
 </div>
 
 <script>
+// Images catégories
 const categories = {
   'logos': ['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'],
-  'affiches': ['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg'],
+  'affiches': ['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg','images/affiches/affiche5.jpg','images/affiches/affiche6.jpg','images/affiches/affiche7.jpg','images/affiches/affiche8.jpg','images/affiches/affiche9.jpg','images/affiches/affiche10.jpg'],
   'flyers': ['images/flyers/flyers1.jpg','images/flyers/flyers2.jpg'],
   'mockups': ['images/mockups/mockup2.jpg','images/mockups/mockup1.jpg'],
   'cd': ['images/cd/cd1.jpg','images/cd/cd2.jpg']
 };
 
-// Carrousels et lightbox
 let currentImages = [], currentIndex = 0;
-
 function openLightbox(src, imagesArray){
   currentImages = imagesArray;
   currentIndex = imagesArray.indexOf(src);
@@ -137,19 +164,44 @@ function closeLightbox(){ document.getElementById('lightbox').style.display='non
 function prevImage(){ currentIndex=(currentIndex-1+currentImages.length)%currentImages.length; document.getElementById('lightbox-img').src=currentImages[currentIndex]; }
 function nextImage(){ currentIndex=(currentIndex+1)%currentImages.length; document.getElementById('lightbox-img').src=currentImages[currentIndex]; }
 
+// Slider
+const sliders = {};
 Object.keys(categories).forEach(cat => {
-  const carousel = document.getElementById('carousel-' + cat);
+  const container = document.getElementById('slider-' + cat);
+  if(!container) return;
+  const slidesDiv = container.querySelector('.slides');
   categories[cat].forEach(src => {
     const img = document.createElement('img');
     img.src = src;
     img.onclick = () => openLightbox(src, categories[cat]);
-    carousel.appendChild(img);
+    slidesDiv.appendChild(img);
   });
-
-  // Auto-scroll
-  let scrollAmount = 0, speed=1;
-  setInterval(()=>{ scrollAmount+=speed; if(scrollAmount>carousel.scrollWidth-carousel.clientWidth) scrollAmount=0; carousel.scrollLeft=scrollAmount; },20);
+  sliders[cat] = { slidesDiv, index: 0 };
+  updateSlider(cat);
 });
+
+function updateSlider(cat){
+  const { slidesDiv, index } = sliders[cat];
+  const imgs = slidesDiv.querySelectorAll('img');
+  imgs.forEach((img,i)=>{
+    const pos = (i - index + imgs.length) % imgs.length;
+    img.classList.remove('center');
+    img.style.order = pos;
+    img.style.opacity = 0.5;
+    img.style.transform = 'scale(0.8)';
+  });
+  imgs[sliders[cat].index].classList.add('center');
+  imgs[sliders[cat].index].style.transform = 'scale(1)';
+  imgs[sliders[cat].index].style.opacity = 1;
+}
+function slideLeft(cat){
+  sliders[cat].index = (sliders[cat].index-1+categories[cat].length)%categories[cat].length;
+  updateSlider(cat);
+}
+function slideRight(cat){
+  sliders[cat].index = (sliders[cat].index+1)%categories[cat].length;
+  updateSlider(cat);
+}
 </script>
 </body>
 </html>
