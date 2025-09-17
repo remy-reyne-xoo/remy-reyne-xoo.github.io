@@ -17,7 +17,7 @@
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0,0,0,0.85);
       padding: 15px;
       text-align: center;
       z-index: 1000;
@@ -36,12 +36,11 @@
 
     header {
       min-height: 80vh;
-      padding: 40px 20px;
-      text-align: center;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      padding-top: 40px;
     }
 
     header h1 {
@@ -145,6 +144,7 @@
     footer a:hover {
       text-decoration: underline;
     }
+
   </style>
 </head>
 <body onload="window.scrollTo(0,0)">
@@ -158,9 +158,18 @@
     <a href="#contact">Contact</a>
   </nav>
 
-  <!-- Header -->
+  <!-- Header avec vidéo -->
   <header id="accueil">
+    <!-- Vidéo du logo -->
+    <video autoplay loop muted playsinline style="max-width:500px; margin-bottom:20px; border-radius:10px;">
+      <source src="videos/logo_animation.mp4" type="video/mp4">
+      Votre navigateur ne supporte pas la vidéo.
+    </video>
+
+    <!-- Nom -->
     <h1>Remy Reyne</h1>
+
+    <!-- Typing -->
     <p class="typing" id="typing"></p>
   </header>
 
@@ -217,8 +226,8 @@
     <a href="https://www.linkedin.com/in/r%C3%A9my-reyne-699519b5/" target="_blank">LinkedIn</a>
   </footer>
 
+  <!-- Script typing -->
   <script>
-    // Texte à afficher
     const text = "Des créations sur mesure pour sublimer votre image.";
     const typingElement = document.getElementById('typing');
     let i = 0;
