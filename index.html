@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
-    /* Reset simple */
     body, h1, h2, p, ul {margin:0; padding:0;}
     body {font-family: 'Montserrat', sans-serif; line-height:1.6; color:#fff; background:#0a0a0a;}
 
@@ -48,7 +47,7 @@
     #typed-text {
       font-size:1.5em;
       margin-bottom:20px;
-      min-height:1.5em; /* évite un saut quand le texte s'affiche */
+      min-height:1.5em;
     }
     .btn {
       display:inline-block;
@@ -64,18 +63,45 @@
       100%{background-position:0% 50%;}
     }
 
-    /* Sections */
     section, footer {padding:60px 20px; max-width:1000px; margin:0 auto;}
     section h2, footer h2 {margin-bottom:20px; color:#00aaff;}
-    .grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;}
-    .card {
+
+    /* Carrousel */
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .carousel-item {
+      min-width: 300px;
+      margin-right: 20px;
       background:#111;
       border:1px solid #222;
-      padding:20px;
       border-radius:8px;
+      padding:10px;
       text-align:center;
-      color:#fff;
     }
+    .carousel-item img, .carousel-item iframe {
+      width:100%;
+      border-radius:5px;
+    }
+    .carousel-button {
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      background:#00aaff; color:#fff;
+      border:none; padding:10px;
+      cursor:pointer; border-radius:5px;
+      z-index:10;
+    }
+    .carousel-button:hover {background:#fff; color:#00aaff;}
+    .prev {left:10px;}
+    .next {right:10px;}
+
     footer {text-align:center; background:#0b0b0b; border-top:1px solid #111; color:#fff;}
     footer a {color:#00aaff; text-decoration:none;}
     footer a:hover {text-decoration:underline;}
@@ -89,7 +115,6 @@
       <li><a href="#hero">Accueil</a></li>
       <li><a href="#cv">CV</a></li>
       <li><a href="#graphisme">Graphisme</a></li>
-      <li><a href="#photo">Photo</a></li>
       <li><a href="#videos">Vidéos</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -112,29 +137,28 @@
   <!-- Graphisme -->
   <section id="graphisme">
     <h2>Graphisme</h2>
-    <div class="grid">
-      <div class="card">Logo Sullibrugers</div>
-      <div class="card">Affiche Les Délices d'Arras</div>
-      <div class="card">Habillage camion</div>
-    </div>
-  </section>
-
-  <!-- Photo -->
-  <section id="photo">
-    <h2>Photos</h2>
-    <div class="grid">
-      <div class="card">Photo 1</div>
-      <div class="card">Photo 2</div>
-      <div class="card">Photo 3</div>
+    <div class="carousel-container">
+      <button class="carousel-button prev" onclick="moveCarousel('graphisme', -1)">&#10094;</button>
+      <div class="carousel-track" id="carousel-graphisme">
+        <div class="carousel-item"><img src="images/logo_sullibrugers.jpg" alt="Logo Sullibrugers"><p>Logo Sullibrugers</p></div>
+        <div class="carousel-item"><img src="images/affiche_delices.jpg" alt="Affiche Les Délices d'Arras"><p>Affiche Les Délices d'Arras</p></div>
+        <div class="carousel-item"><img src="images/habillage_camion.jpg" alt="Habillage camion"><p>Habillage camion</p></div>
+      </div>
+      <button class="carousel-button next" onclick="moveCarousel('graphisme', 1)">&#10095;</button>
     </div>
   </section>
 
   <!-- Vidéos -->
   <section id="videos">
     <h2>Vidéos</h2>
-    <div class="grid">
-      <iframe width="100%" height="200" src="https://www.youtube.com/embed/VIDEOCODE" frameborder="0" allowfullscreen></iframe>
-      <iframe width="100%" height="200" src="https://player.vimeo.com/video/VIDEOCODE" frameborder="0" allowfullscreen></iframe>
+    <div class="carousel-container">
+      <button class="carousel-button prev" onclick="moveCarousel('videos', -1)">&#10094;</button>
+      <div class="carousel-track" id="carousel-videos">
+        <div class="carousel-item"><iframe src="https://www.youtube.com/embed/VIDEOCODE1" frameborder="0" allowfullscreen></iframe><p>Projet vidéo 1</p></div>
+        <div class="carousel-item"><iframe src="https://www.youtube.com/embed/VIDEOCODE2" frameborder="0" allowfullscreen></iframe><p>Projet vidéo 2</p></div>
+        <div class="carousel-item"><iframe src="https://www.youtube.com/embed/VIDEOCODE3" frameborder="0" allowfullscreen></iframe><p>Projet vidéo 3</p></div>
+      </div>
+      <button class="carousel-button next" onclick="moveCarousel('videos', 1)">&#10095;</button>
     </div>
   </section>
 
@@ -148,21 +172,32 @@
     </p>
   </footer>
 
-  <!-- Script machine à écrire -->
+  <!-- Scripts -->
   <script>
+    // Machine à écrire
     const text = "Des créations sur mesure pour sublimer votre image";
     const typedText = document.getElementById("typed-text");
     let i = 0;
-
     function typeWriter() {
       if (i < text.length) {
         typedText.innerHTML += text.charAt(i);
         i++;
-        setTimeout(typeWriter, 50); // vitesse de frappe
+        setTimeout(typeWriter, 50);
       }
     }
-
     typeWriter();
+
+    // Carrousel
+    function moveCarousel(section, direction) {
+      const track = document.getElementById('carousel-' + section);
+      const itemWidth = track.children[0].offsetWidth + 20; // largeur + margin
+      const currentTransform = track.style.transform ? parseInt(track.style.transform.replace('translateX(','').replace('px)','')) : 0;
+      let newTransform = currentTransform - (itemWidth * direction);
+      const maxTransform = -(itemWidth * (track.children.length - Math.floor(track.parentElement.offsetWidth / itemWidth)));
+      if(newTransform > 0) newTransform = 0;
+      if(newTransform < maxTransform) newTransform = maxTransform;
+      track.style.transform = 'translateX(' + newTransform + 'px)';
+    }
   </script>
 
 </body>
