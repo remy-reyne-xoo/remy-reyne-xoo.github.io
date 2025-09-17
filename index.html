@@ -73,14 +73,13 @@
     }
 
     /* CV */
-    #cv iframe {
-      width: 100%;
-      height: 600px;
+    #cv img {
+      max-width: 300px;
       border: 1px solid #4da6ff;
       border-radius: 10px;
     }
 
-    #cv a {
+    #cv a.button {
       display: inline-block;
       padding: 12px 20px;
       background: #4da6ff;
@@ -92,7 +91,7 @@
       margin-top: 20px;
     }
 
-    #cv a:hover {
+    #cv a.button:hover {
       background: #1a75d1;
     }
 
@@ -169,12 +168,16 @@
   <section id="cv">
     <h2>Mon CV</h2>
 
-    <!-- Aperçu PDF -->
-    <iframe src="cv.pdf"></iframe>
+    <!-- Miniature du CV -->
+    <p style="text-align:center;">
+      <a href="cv.pdf" target="_blank">
+        <img src="images/cv_preview.jpg" alt="Aperçu CV">
+      </a>
+    </p>
 
     <!-- Bouton téléchargement -->
     <p style="text-align:center;">
-      <a href="cv.pdf" target="_blank">📄 Télécharger mon CV</a>
+      <a href="cv.pdf" target="_blank" class="button">📄 Télécharger mon CV</a>
     </p>
   </section>
 
