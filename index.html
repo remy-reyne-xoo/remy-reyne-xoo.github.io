@@ -28,8 +28,12 @@ footer a:hover { text-decoration:underline;}
 @media (max-width:480px){ header h1{ font-size:2.5em;} .carousel img{ max-height:120px;}}
 
 /* Lightbox */
-#lightbox { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:2000;}
-#lightbox img { max-width:90%; max-height:90%; border-radius:10px;}
+#lightbox { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:2000; }
+#lightbox img { max-width:90%; max-height:90%; border-radius:10px; }
+#close, #prev, #next { position:absolute; color:#fff; font-size:3em; cursor:pointer; user-select:none; }
+#close { top:20px; right:30px;}
+#prev { left:30px; top:50%; transform:translateY(-50%);}
+#next { right:30px; top:50%; transform:translateY(-50%);}
 </style>
 </head>
 <body onload="window.scrollTo(0,0)">
@@ -104,41 +108,48 @@ footer a:hover { text-decoration:underline;}
 </footer>
 
 <!-- Lightbox -->
-<div id="lightbox" onclick="this.style.display='none'">
+<div id="lightbox">
+  <span id="close" onclick="closeLightbox()">×</span>
   <img id="lightbox-img" src="">
+  <span id="prev" onclick="prevImage()">‹</span>
+  <span id="next" onclick="nextImage()">›</span>
 </div>
 
 <script>
-  // Images par catégorie
-  const categories = {
-    'logos': ['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'],
-    'affiches': ['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg'],
-    'flyers': ['images/flyers/flyers1.jpg','images/flyers/flyers2.jpg'],
-    'mockups': ['images/mockups/minia1.jpg','images/mockups/mockup1.jpg'],
-    'cd': ['images/cd/cd1.jpg','images/cd/cd2.jpg']
-  };
+const categories = {
+  'logos': ['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'],
+  'affiches': ['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg'],
+  'flyers': ['images/flyers/flyers1.jpg','images/flyers/flyers2.jpg'],
+  'mockups': ['images/mockups/mockup2.jpg','images/mockups/mockup1.jpg'],
+  'cd': ['images/cd/cd1.jpg','images/cd/cd2.jpg']
+};
 
-  Object.keys(categories).forEach(cat => {
-    const carousel = document.getElementById('carousel-' + cat);
-    categories[cat].forEach(src => {
-      const img = document.createElement('img');
-      img.src = src;
-      img.onclick = () => {
-        document.getElementById('lightbox-img').src = src;
-        document.getElementById('lightbox').style.display = 'flex';
-      };
-      carousel.appendChild(img);
-    });
+// Carrousels et lightbox
+let currentImages = [], currentIndex = 0;
 
-    // Auto-scroll
-    let scrollAmount = 0;
-    const speed = 1; 
-    setInterval(() => {
-      scrollAmount += speed;
-      if(scrollAmount > carousel.scrollWidth - carousel.clientWidth) scrollAmount = 0;
-      carousel.scrollLeft = scrollAmount;
-    }, 20);
+function openLightbox(src, imagesArray){
+  currentImages = imagesArray;
+  currentIndex = imagesArray.indexOf(src);
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').style.display='flex';
+}
+function closeLightbox(){ document.getElementById('lightbox').style.display='none'; }
+function prevImage(){ currentIndex=(currentIndex-1+currentImages.length)%currentImages.length; document.getElementById('lightbox-img').src=currentImages[currentIndex]; }
+function nextImage(){ currentIndex=(currentIndex+1)%currentImages.length; document.getElementById('lightbox-img').src=currentImages[currentIndex]; }
+
+Object.keys(categories).forEach(cat => {
+  const carousel = document.getElementById('carousel-' + cat);
+  categories[cat].forEach(src => {
+    const img = document.createElement('img');
+    img.src = src;
+    img.onclick = () => openLightbox(src, categories[cat]);
+    carousel.appendChild(img);
   });
+
+  // Auto-scroll
+  let scrollAmount = 0, speed=1;
+  setInterval(()=>{ scrollAmount+=speed; if(scrollAmount>carousel.scrollWidth-carousel.clientWidth) scrollAmount=0; carousel.scrollLeft=scrollAmount; },20);
+});
 </script>
 </body>
 </html>
