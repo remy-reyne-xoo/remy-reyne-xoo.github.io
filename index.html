@@ -1,244 +1,174 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Portfolio — Remy Reyne</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - Remy Reyne</title>
   <style>
-    body, h1, h2, p, ul {margin:0; padding:0;}
-    body {font-family: 'Montserrat', sans-serif; line-height:1.6; color:#fff; background:#0a0a0a;}
-
-    /* Navigation */
-    nav {
-      background:#0b0b0b;
-      padding:10px;
-      position:fixed; top:0; left:0; right:0;
-      z-index:100;
-      border-bottom:1px solid #111;
-    }
-    nav ul {list-style:none; display:flex; justify-content:center;}
-    nav ul li {margin:0 15px;}
-    nav ul li a {color:#fff; text-decoration:none; font-weight:bold;}
-    nav ul li a:hover {color:#00aaff;}
-
-    /* Hero */
-    #hero {
-      height:100vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-      color:#fff;
-      background: linear-gradient(-45deg, #000000, #001f3f, #000000, #001f3f);
-      background-size: 400% 400%;
-      animation: gradient 20s ease infinite;
-      padding-top:50px;
-    }
-    #hero h1 {
-      font-size:5em;        
-      margin-bottom:10px;
-      text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
-    }
-    #typed-text {
-      font-size:1.5em;
-      margin-bottom:20px;
-      min-height:1.5em;
-    }
-    .btn {
-      display:inline-block;
-      background:#00aaff; color:#fff; padding:10px 20px;
-      border-radius:5px; text-decoration:none;
-      transition:0.3s;
-    }
-    .btn:hover {background:#fff; color:#00aaff;}
-
-    @keyframes gradient {
-      0%{background-position:0% 50%;}
-      50%{background-position:100% 50%;}
-      100%{background-position:0% 50%;}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #000000, #0a1a2f);
+      color: white;
+      text-align: center;
     }
 
-    section, footer {padding:60px 20px; max-width:1000px; margin:0 auto;}
-    section h2, footer h2 {margin-bottom:20px; color:#00aaff;}
+    header {
+      padding: 80px 20px;
+    }
 
-    /* Carrousel */
-    .carousel-container {
-      position: relative;
+    header h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      color: #4da6ff;
+    }
+
+    .typing {
+      font-size: 1.5em;
+      border-right: 2px solid #4da6ff;
+      white-space: nowrap;
       overflow: hidden;
-      width: 100%;
+      width: 0;
+      margin: 0 auto;
+      animation: typing 4s steps(40, end) forwards, blink 0.75s step-end infinite;
     }
-    .carousel-track {
-      display: flex;
-      transition: transform 0.5s ease;
-    }
-    .carousel-item {
-      min-width: 300px;
-      margin-right: 20px;
-      background:#111;
-      border:1px solid #222;
-      border-radius:8px;
-      padding:10px;
-      text-align:center;
-    }
-    .carousel-item img, .carousel-item iframe {
-      width:100%;
-      border-radius:5px;
-    }
-    .carousel-button {
-      position:absolute;
-      top:50%;
-      transform:translateY(-50%);
-      background:#00aaff; color:#fff;
-      border:none; padding:10px;
-      cursor:pointer; border-radius:5px;
-      z-index:10;
-    }
-    .carousel-button:hover {background:#fff; color:#00aaff;}
-    .prev {left:10px;}
-    .next {right:10px;}
 
-    footer {text-align:center; background:#0b0b0b; border-top:1px solid #111; color:#fff;}
-    footer a {color:#00aaff; text-decoration:none;}
-    footer a:hover {text-decoration:underline;}
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent; }
+      50% { border-color: #4da6ff; }
+    }
+
+    .section {
+      padding: 50px 20px;
+    }
+
+    .section h2 {
+      font-size: 2em;
+      color: #4da6ff;
+      margin-bottom: 20px;
+    }
+
+    /* Vidéos - carrousel */
+    .video-carousel {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 20px 0;
+    }
+
+    .video-item {
+      flex: 0 0 400px;
+      scroll-snap-align: start;
+      text-align: center;
+      background: #111;
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    .video-item iframe {
+      width: 100%;
+      height: 225px;
+      border-radius: 10px;
+    }
+
+    footer {
+      background: #000;
+      padding: 20px;
+    }
+
+    footer a {
+      color: #4da6ff;
+      text-decoration: none;
+      margin: 0 10px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav>
-    <ul>
-      <li><a href="#hero">Accueil</a></li>
-      <li><a href="#cv">CV</a></li>
-      <li><a href="#graphisme">Graphisme</a></li>
-      <li><a href="#videos">Vidéos</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- Hero -->
-  <header id="hero">
+  <!-- ACCUEIL -->
+  <header>
     <h1>Remy Reyne</h1>
-    <p id="typed-text"></p>
-    <a class="btn" href="#cv">Découvrir</a>
+    <p class="typing">Des créations sur mesure pour sublimer votre image.</p>
   </header>
 
   <!-- CV -->
-  <section id="cv">
+  <section id="cv" class="section">
     <h2>Mon CV</h2>
-    <p>20 ans d’expérience en graphisme, motion design et photo.</p>
-    <a class="btn" href="cv.pdf" target="_blank">Télécharger mon CV</a>
+    <p>20 ans d'expérience en graphisme, motion design et photographie.</p>
+    <a href="cv.pdf" target="_blank" style="color:#4da6ff;">Télécharger mon CV</a>
   </section>
 
-  <!-- Graphisme -->
-  <section id="graphisme">
+  <!-- GRAPHISME -->
+  <section id="graphisme" class="section">
     <h2>Graphisme</h2>
-    <div class="carousel-container">
-      <button class="carousel-button prev" onclick="moveCarousel('graphisme', -1)">&#10094;</button>
-      <div class="carousel-track" id="carousel-graphisme">
-        <div class="carousel-item"><img src="images/logo_sullibrugers.jpg" alt="Logo Sullibrugers"><p>Logo Sullibrugers</p></div>
-        <div class="carousel-item"><img src="images/affiche_delices.jpg" alt="Affiche Les Délices d'Arras"><p>Affiche Les Délices d'Arras</p></div>
-        <div class="carousel-item"><img src="images/habillage_camion.jpg" alt="Habillage camion"><p>Habillage camion</p></div>
+    <p>Section bientôt remplie avec mes logos, affiches et habillages.</p>
+  </section>
+
+  <!-- VIDEOS -->
+  <section id="videos" class="section">
+    <h2>Mes Vidéos</h2>
+    <div class="video-carousel">
+
+      <div class="video-item">
+        <iframe src="https://www.youtube.com/embed/qAsG_P2ZtGk" frameborder="0" allowfullscreen></iframe>
+        <p>Vidéo 1</p>
       </div>
-      <button class="carousel-button next" onclick="moveCarousel('graphisme', 1)">&#10095;</button>
+
+      <div class="video-item">
+        <iframe src="https://www.youtube.com/embed/uEW7lNnpXJw" frameborder="0" allowfullscreen></iframe>
+        <p>Vidéo 2</p>
+      </div>
+
+      <div class="video-item">
+        <iframe src="https://www.youtube.com/embed/gmBgCF2VcV8" frameborder="0" allowfullscreen></iframe>
+        <p>Vidéo 3</p>
+      </div>
+
+      <div class="video-item">
+        <iframe src="https://www.youtube.com/embed/lbvV0KJK0C8" frameborder="0" allowfullscreen></iframe>
+        <p>Vidéo 4</p>
+      </div>
+
+      <div class="video-item">
+        <iframe src="https://www.youtube.com/embed/uMWTLTYN1RI" frameborder="0" allowfullscreen></iframe>
+        <p>Vidéo 5</p>
+      </div>
+
+      <div class="video-item">
+        <iframe src="https://www.youtube.com/embed/KPJuC8V4o3E" frameborder="0" allowfullscreen></iframe>
+        <p>Vidéo 6</p>
+      </div>
+
+      <div class="video-item">
+        <iframe src="https://www.youtube.com/embed/qw8sg7PVUXI" frameborder="0" allowfullscreen></iframe>
+        <p>Vidéo Short 1</p>
+      </div>
+
+      <div class="video-item">
+        <iframe src="https://www.youtube.com/embed/YuCIzb6xlQM" frameborder="0" allowfullscreen></iframe>
+        <p>Vidéo Short 2</p>
+      </div>
+
+      <div class="video-item">
+        <iframe src="https://www.youtube.com/embed/sftigWJkCMk" frameborder="0" allowfullscreen></iframe>
+        <p>Vidéo Short 3</p>
+      </div>
+
     </div>
   </section>
 
-  <!-- Vidéos -->
-<section id="videos" class="section">
-  <h2>Mes Vidéos</h2>
-  <div class="carousel">
-    
-    <div class="carousel-item">
-      <iframe src="https://www.youtube.com/embed/qAsG_P2ZtGk" frameborder="0" allowfullscreen></iframe>
-      <p>Vidéo 1</p>
-    </div>
-
-    <div class="carousel-item">
-      <iframe src="https://www.youtube.com/embed/uEW7lNnpXJw" frameborder="0" allowfullscreen></iframe>
-      <p>Vidéo 2</p>
-    </div>
-
-    <div class="carousel-item">
-      <iframe src="https://www.youtube.com/embed/gmBgCF2VcV8" frameborder="0" allowfullscreen></iframe>
-      <p>Vidéo 3</p>
-    </div>
-
-    <div class="carousel-item">
-      <iframe src="https://www.youtube.com/embed/lbvV0KJK0C8" frameborder="0" allowfullscreen></iframe>
-      <p>Vidéo 4</p>
-    </div>
-
-    <div class="carousel-item">
-      <iframe src="https://www.youtube.com/embed/uMWTLTYN1RI" frameborder="0" allowfullscreen></iframe>
-      <p>Vidéo 5</p>
-    </div>
-
-    <div class="carousel-item">
-      <iframe src="https://www.youtube.com/embed/KPJuC8V4o3E" frameborder="0" allowfullscreen></iframe>
-      <p>Vidéo 6</p>
-    </div>
-
-    <div class="carousel-item">
-      <iframe src="https://www.youtube.com/embed/qw8sg7PVUXI" frameborder="0" allowfullscreen></iframe>
-      <p>Vidéo Short 1</p>
-    </div>
-
-    <div class="carousel-item">
-      <iframe src="https://www.youtube.com/embed/YuCIzb6xlQM" frameborder="0" allowfullscreen></iframe>
-      <p>Vidéo Short 2</p>
-    </div>
-
-    <div class="carousel-item">
-      <iframe src="https://www.youtube.com/embed/sftigWJkCMk" frameborder="0" allowfullscreen></iframe>
-      <p>Vidéo Short 3</p>
-    </div>
-
-  </div>
-</section>
-
-
-  <!-- Contact -->
-  <footer id="contact">
-    <h2>Contact</h2>
-    <p>Email : <a href="mailto:remy.reyne@gmail.com">remy.reyne@gmail.com</a></p>
-    <p>
-      <a href="https://www.facebook.com/tonprofilpro">Mon Facebook Pro</a> | 
-      <a href="https://www.linkedin.com">LinkedIn</a>
-    </p>
+  <!-- CONTACT -->
+  <footer>
+    <p>Contact : <a href="mailto:remy.reyne@gmail.com">remy.reyne@gmail.com</a></p>
+    <a href="https://www.facebook.com/XooDesign/" target="_blank">Facebook</a> |
+    <a href="https://www.linkedin.com/in/r%C3%A9my-reyne-699519b5/" target="_blank">LinkedIn</a>
   </footer>
-
-  <!-- Scripts -->
-  <script>
-    // Machine à écrire
-    const text = "Des créations sur mesure pour sublimer votre image";
-    const typedText = document.getElementById("typed-text");
-    let i = 0;
-    function typeWriter() {
-      if (i < text.length) {
-        typedText.innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typeWriter, 50);
-      }
-    }
-    typeWriter();
-
-    // Carrousel
-    function moveCarousel(section, direction) {
-      const track = document.getElementById('carousel-' + section);
-      const itemWidth = track.children[0].offsetWidth + 20; // largeur + margin
-      const currentTransform = track.style.transform ? parseInt(track.style.transform.replace('translateX(','').replace('px)','')) : 0;
-      let newTransform = currentTransform - (itemWidth * direction);
-      const maxTransform = -(itemWidth * (track.children.length - Math.floor(track.parentElement.offsetWidth / itemWidth)));
-      if(newTransform > 0) newTransform = 0;
-      if(newTransform < maxTransform) newTransform = maxTransform;
-      track.style.transform = 'translateX(' + newTransform + 'px)';
-    }
-  </script>
 
 </body>
 </html>
