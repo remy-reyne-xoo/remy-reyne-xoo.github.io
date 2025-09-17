@@ -1,250 +1,144 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio - Remy Reyne</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #0a0a0a, #001a33);
-      color: #fff;
-      scroll-behavior: smooth;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio - Remy Reyne</title>
+<style>
+body { margin:0; font-family:Arial,sans-serif; background:linear-gradient(to bottom,#0a0a0a,#001a33); color:#fff; scroll-behavior:smooth;}
+nav { position:fixed; top:0; width:100%; background:rgba(0,0,0,0.85); padding:15px; text-align:center; z-index:1000;}
+nav a { color:#fff; margin:0 15px; text-decoration:none; font-weight:bold;}
+nav a:hover { color:#4da6ff;}
+header { min-height:80vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding-top:40px;}
+header h1 { font-size:4em; margin-bottom:10px; color:#4da6ff; text-align:center;}
+header p.qualif { text-align:center; font-size:1.5em; margin-top:10px; color:#4da6ff; background: rgba(255,255,255,0.05); padding:8px 20px; border-radius:25px; display:inline-block; line-height:1.4;}
+section { padding:60px 20px; max-width:1000px; margin:auto; scroll-margin-top:70px;}
+section h2 { text-align:center; margin-bottom:40px; color:#4da6ff; font-size:2.5em;}
+.carousel { display:flex; overflow-x:auto; gap:20px; padding-bottom:10px; justify-content:center;}
+.carousel img { flex:0 0 auto; border-radius:10px; max-height:200px; cursor:pointer; object-fit:cover;}
+#cv img { max-width:300px; border:1px solid #4da6ff; border-radius:10px;}
+#cv a.button { display:inline-block; padding:12px 20px; background:#4da6ff; color:#fff; border-radius:6px; text-decoration:none; font-weight:bold; margin-top:20px; transition:0.3s;}
+#cv a.button:hover { background:#1a75d1;}
+.videos-grid { display:flex; overflow-x:auto; gap:20px; padding:10px 20px; scroll-behavior:smooth; justify-content:flex-start;}
+.videos-grid iframe { flex:0 0 auto; width:300px; aspect-ratio:16/9; border-radius:10px;}
+footer { text-align:center; padding:30px; background:#000; margin-top:50px;}
+footer a { color:#4da6ff; margin:0 10px; text-decoration:none;}
+footer a:hover { text-decoration:underline;}
+@media (max-width:768px) { header video { width:90vw;} header h1{ font-size:3em;} .videos-grid iframe{ width:80vw;} .carousel img{ max-height:150px;}}
+@media (max-width:480px){ header h1{ font-size:2.5em;} .carousel img{ max-height:120px;}}
 
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(0,0,0,0.85);
-      padding: 15px;
-      text-align: center;
-      z-index: 1000;
-    }
-
-    nav a {
-      color: #fff;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    nav a:hover { color: #4da6ff; }
-
-    header {
-      min-height: 80vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding-top: 40px;
-    }
-
-    header h1 {
-      font-size: 4em;
-      margin-bottom: 10px;
-      color: #4da6ff;
-      text-align: center;
-    }
-
-    header p.qualif {
-      text-align:center;
-      font-size:1.5em;
-      margin-top:10px;
-      color:#4da6ff;
-      background: rgba(255,255,255,0.05);
-      padding:8px 20px;
-      border-radius:25px;
-      display:inline-block;
-      line-height:1.4;
-    }
-
-    section {
-      padding: 60px 20px;
-      max-width: 1000px;
-      margin: auto;
-      scroll-margin-top: 70px;
-    }
-
-    section h2 {
-      text-align: center;
-      margin-bottom: 40px;
-      color: #4da6ff;
-      font-size: 2.5em;
-    }
-
-    #cv img {
-      max-width: 300px;
-      border: 1px solid #4da6ff;
-      border-radius: 10px;
-    }
-
-    #cv a.button {
-      display: inline-block;
-      padding: 12px 20px;
-      background: #4da6ff;
-      color: #fff;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-      margin-top: 20px;
-    }
-
-    #cv a.button:hover { background: #1a75d1; }
-
-    .carousel {
-      display: flex;
-      overflow-x: auto;
-      gap: 20px;
-      scroll-behavior: smooth;
-      padding-bottom: 10px;
-      justify-content: center;
-    }
-
-    .carousel img {
-      flex: 0 0 auto;
-      border-radius: 10px;
-      max-height: 250px;
-      max-width: 100%;
-      object-fit: cover;
-    }
-
-    .videos-grid {
-      display: flex;
-      overflow-x: auto;
-      gap: 20px;
-      padding: 10px 20px;
-      scroll-behavior: smooth;
-      justify-content: flex-start;
-    }
-
-    .videos-grid iframe {
-      flex: 0 0 auto;
-      width: 300px;
-      aspect-ratio: 16/9;
-      border-radius: 10px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      background: #000;
-      margin-top: 50px;
-    }
-
-    footer a {
-      color: #4da6ff;
-      margin: 0 10px;
-      text-decoration: none;
-    }
-
-    footer a:hover { text-decoration: underline; }
-
-    @media (max-width: 1200px) { header video { width: 80vw; } }
-    @media (max-width: 768px) {
-      header video { width: 90vw; }
-      header h1 { font-size: 3em; }
-      .videos-grid iframe { width: 80vw; aspect-ratio: 16/9; }
-      .carousel img { max-height: 180px; }
-    }
-    @media (max-width: 480px) {
-      header h1 { font-size: 2.5em; }
-      .carousel img { max-height: 120px; }
-    }
-  </style>
+/* Lightbox */
+#lightbox { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:2000;}
+#lightbox img { max-width:90%; max-height:90%; border-radius:10px;}
+</style>
 </head>
 <body onload="window.scrollTo(0,0)">
 
-  <!-- Navigation -->
-  <nav>
-    <a href="#accueil">Accueil</a>
-    <a href="#cv">CV</a>
-    <a href="#graphisme">Graphisme</a>
-    <a href="#videos">Vidéos</a>
-    <a href="#contact">Contact</a>
-  </nav>
+<nav>
+  <a href="#accueil">Accueil</a>
+  <a href="#cv">CV</a>
+  <a href="#graphisme">Graphisme</a>
+  <a href="#videos">Vidéos</a>
+  <a href="#contact">Contact</a>
+</nav>
 
-  <!-- Header -->
-  <header id="accueil">
-    <h1>Remy Reyne</h1>
-    <p class="qualif">Graphiste Senior • Illustrateur • Motion Designer • Photographe</p>
-    <div style="text-align:center; margin-top:20px;">
-      <video autoplay loop muted playsinline style="width:1200px; max-width:90vw;">
-        <source src="videos/logo&slogan.webm" type="video/webm">
-        <p style="color:#fff;">Votre navigateur ne supporte pas la lecture de la vidéo.</p>
-      </video>
-    </div>
-  </header>
+<header id="accueil">
+  <h1>Remy Reyne</h1>
+  <p class="qualif">Graphiste Senior • Illustrateur • Motion Designer • Photographe</p>
+  <div style="text-align:center; margin-top:20px;">
+    <video autoplay loop muted playsinline style="width:1200px; max-width:90vw;">
+      <source src="videos/logo&slogan.webm" type="video/webm">
+      <p style="color:#fff;">Votre navigateur ne supporte pas la lecture de la vidéo.</p>
+    </video>
+  </div>
+</header>
 
-  <!-- CV -->
-  <section id="cv">
-    <h2>Mon CV</h2>
-    <p style="text-align:center;">
-      <a href="cv.pdf" target="_blank">
-        <img src="images/cv_preview.jpg" alt="Aperçu CV">
-      </a>
-    </p>
-    <p style="text-align:center;">
-      <a href="cv.pdf" target="_blank" class="button">📄 Télécharger mon CV</a>
-    </p>
-  </section>
+<section id="cv">
+  <h2>Mon CV</h2>
+  <p style="text-align:center;">
+    <a href="cv.pdf" target="_blank">
+      <img src="images/cv_preview.jpg" alt="Aperçu CV">
+    </a>
+  </p>
+  <p style="text-align:center;">
+    <a href="cv.pdf" target="_blank" class="button">📄 Télécharger mon CV</a>
+  </p>
+</section>
 
-  <!-- Graphisme -->
-  <section id="graphisme">
-    <h2>Graphisme</h2>
-    <div class="carousel" id="carousel"></div>
-  </section>
+<section id="graphisme">
+  <h2>Logos</h2>
+  <div class="carousel" id="carousel-logos"></div>
 
-  <!-- Vidéos -->
-  <section id="videos">
-    <h2>Vidéos</h2>
-    <div class="videos-grid">
-      <iframe src="https://www.youtube.com/embed/KPJuC8V4o3E" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/uMWTLTYN1RI" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/qw8sg7PVUXI" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/uEW7lNnpXJw" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/gmBgCF2VcV8" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/lbvV0KJK0C8" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/YuCIzb6xlQM" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/sftigWJkCMk" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
+  <h2>Affiches</h2>
+  <div class="carousel" id="carousel-affiches"></div>
 
-  <!-- Footer -->
-  <footer id="contact">
-    <p>Contactez-moi :</p>
-    <a href="mailto:remy.reyne@gmail.com">Email</a> |
-    <a href="https://www.facebook.com/XooDesign/" target="_blank">Facebook</a> |
-    <a href="https://www.linkedin.com/in/r%C3%A9my-reyne-699519b5/" target="_blank">LinkedIn</a>
-  </footer>
+  <h2>Flyers</h2>
+  <div class="carousel" id="carousel-flyers"></div>
 
-  <!-- Script pour carrousel Graphisme -->
-  <script>
-    const carousel = document.getElementById('carousel');
+  <h2>Mockups</h2>
+  <div class="carousel" id="carousel-mockups"></div>
 
-    // Ordre des images : Logos → Affiches → Flyers → Mockups → CD
-    const images = [
-      // Logos
-      'images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg',
-      'images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg',
-      'images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg',
-      // Affiches
-      'images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg',
-      // Flyers
-      'images/flyers/flyers1.jpg','images/flyers/flyers2.jpg',
-      // Mockups
-      'images/mockups/minia1.jpg','images/mockups/mockup1.jpg',
-      // CD
-      'images/cd/cd1.jpg','images/cd/cd2.jpg'
-    ];
+  <h2>CD</h2>
+  <div class="carousel" id="carousel-cd"></div>
+</section>
 
-    images.forEach(src => {
+<section id="videos">
+  <h2>Vidéos</h2>
+  <div class="videos-grid">
+    <iframe src="https://www.youtube.com/embed/KPJuC8V4o3E" frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/uMWTLTYN1RI" frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/qw8sg7PVUXI" frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/uEW7lNnpXJw" frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/gmBgCF2VcV8" frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/lbvV0KJK0C8" frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/YuCIzb6xlQM" frameborder="0" allowfullscreen></iframe>
+    <iframe src="https://www.youtube.com/embed/sftigWJkCMk" frameborder="0" allowfullscreen></iframe>
+  </div>
+</section>
+
+<footer id="contact">
+  <p>Contactez-moi :</p>
+  <a href="mailto:remy.reyne@gmail.com">Email</a> |
+  <a href="https://www.facebook.com/XooDesign/" target="_blank">Facebook</a> |
+  <a href="https://www.linkedin.com/in/r%C3%A9my-reyne-699519b5/" target="_blank">LinkedIn</a>
+</footer>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="this.style.display='none'">
+  <img id="lightbox-img" src="">
+</div>
+
+<script>
+  // Images par catégorie
+  const categories = {
+    'logos': ['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'],
+    'affiches': ['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg'],
+    'flyers': ['images/flyers/flyers1.jpg','images/flyers/flyers2.jpg'],
+    'mockups': ['images/mockups/minia1.jpg','images/mockups/mockup1.jpg'],
+    'cd': ['images/cd/cd1.jpg','images/cd/cd2.jpg']
+  };
+
+  Object.keys(categories).forEach(cat => {
+    const carousel = document.getElementById('carousel-' + cat);
+    categories[cat].forEach(src => {
       const img = document.createElement('img');
       img.src = src;
+      img.onclick = () => {
+        document.getElementById('lightbox-img').src = src;
+        document.getElementById('lightbox').style.display = 'flex';
+      };
       carousel.appendChild(img);
     });
-  </script>
+
+    // Auto-scroll
+    let scrollAmount = 0;
+    const speed = 1; 
+    setInterval(() => {
+      scrollAmount += speed;
+      if(scrollAmount > carousel.scrollWidth - carousel.clientWidth) scrollAmount = 0;
+      carousel.scrollLeft = scrollAmount;
+    }, 20);
+  });
+</script>
 </body>
 </html>
