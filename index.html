@@ -28,9 +28,9 @@ header h2 { display:inline-block; background: rgba(0,0,0,0.3); border-radius:25p
 .arrow.left { left:0; }
 .arrow.right { right:0; }
 
-/* Grilles Flyers / Mockups / CD centrées et serrées */
-.grid { display:flex; justify-content:center; flex-wrap:wrap; gap:5px; margin-top:20px; }
-.grid img { width:140px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.5); cursor:pointer; transition: transform 0.3s ease; }
+/* Grilles Flyers / Mockups / CD centrées et images respectées */
+.grid { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-top:20px; }
+.grid img { width:auto; height:140px; object-fit:contain; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.5); cursor:pointer; transition: transform 0.3s ease; }
 .grid img:hover { transform:scale(1.05); }
 
 #lightbox { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:none; justify-content:center; align-items:center; z-index:100; opacity:0; transition: opacity 0.4s ease; }
@@ -91,7 +91,7 @@ let sliders = {};
 function initSliders(){
   for(const cat in data){
     const slidesDiv = document.querySelector(`#slider-${cat} .slides`);
-    sliders[cat]={ index:0, slidesDiv };
+    sliders[cat] = { index:0, slidesDiv };
 
     data[cat].forEach(src=>{
       let el;
@@ -116,12 +116,13 @@ function initSliders(){
 
     updateSlider(cat);
 
-    if(cat!=='videos') setInterval(()=>moveSlide(cat,1),7000); // auto pour logos/affiches
+    // Auto pour logos et affiches uniquement
+    if(cat!=='videos') setInterval(()=>moveSlide(cat,1),7000);
   }
 }
 
 function updateSlider(cat){
-  const {slidesDiv,index}=sliders[cat];
+  const {slidesDiv,index} = sliders[cat];
   const els = slidesDiv.children;
   const total = els.length;
   const sliderWidth = slidesDiv.clientWidth;
@@ -132,7 +133,7 @@ function updateSlider(cat){
     if(diff>Math.floor(total/2)) diff-=total;
 
     const absDiff=Math.abs(diff);
-    const offset=diff*(sliderWidth/4);
+    const offset=diff*(sliderWidth/5); // 5 images visibles
     const rotateY=diff*30;
     const translateZ=(diff===0)?0:-absDiff*120;
     const scale=1-absDiff*0.15;
