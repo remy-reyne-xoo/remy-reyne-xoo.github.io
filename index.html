@@ -9,9 +9,18 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: #111;
-      color: #f1f1f1;
       text-align: center;
+      color: #f1f1f1;
+      /* Fond animé */
+      background: linear-gradient(270deg, #0a0a0a, #001a33, #0a0a0a);
+      background-size: 600% 600%;
+      animation: gradientBG 20s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
     }
 
     header {
@@ -233,7 +242,6 @@
         img.style.opacity = opacity;
         img.style.transform = `translate(calc(-50% + ${offset}px), -50%) scale(${scale}) rotateY(${rotateY}deg)`;
 
-        // Bonus avancé : flou sur les côtés
         img.style.filter = absDiff >= 2 ? 'blur(3px)' : 'none';
       });
     }
