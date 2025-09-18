@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio - Remy Reyne</title>
 <style>
-body { font-family: Arial, sans-serif; margin:0; padding:0; text-align:center; color:#f1f1f1; background:#001a33; }
+body { font-family: Arial,sans-serif; margin:0; padding:0; text-align:center; color:#f1f1f1; background:#001a33; }
+
 nav { background:#001a33; padding:10px; position:sticky; top:0; z-index:50; }
 nav a { color:#fff; margin:0 15px; text-decoration:none; font-weight:bold; }
 nav a:hover { color:#4da6ff; }
+
 header { padding:20px; }
 header video { width:85%; max-width:1000px; height:auto; display:block; margin:20px auto; }
 header h1 { font-size:3em; margin:10px 0 5px; }
@@ -19,16 +21,16 @@ header h2 { display:inline-block; background: rgba(0,0,0,0.3); border-radius:25p
 
 .slider { position: relative; width: 100%; max-width: 1000px; margin: 0 auto; overflow: hidden; perspective: 1200px; }
 .slides { position: relative; width: 100%; height: 350px; transform-style: preserve-3d; }
-.slides img, .slides iframe { position: absolute; top: 50%; left: 50%; transform-origin: center center; max-height:100%; width:auto; border-radius:12px; cursor:pointer; transition: transform 0.8s ease, opacity 0.8s ease, filter 0.6s ease, box-shadow 0.6s ease; backface-visibility:hidden; }
+.slides img, .slides iframe { position: absolute; top: 50%; left: 50%; transform-origin: center center; width:auto; max-height:100%; border-radius:12px; cursor:pointer; transition: transform 0.8s ease, opacity 0.8s ease; backface-visibility:hidden; }
 .slides img.active, .slides iframe.active { box-shadow:0 0 40px rgba(77,166,255,0.8); transform: scale(1.1); }
 .arrow { position:absolute; top:50%; transform:translateY(-50%); font-size:2.5em; color:#4da6ff; cursor:pointer; user-select:none; z-index:10; }
-.arrow:hover {color:#82c6ff;}
-.arrow.left {left:0;}
-.arrow.right {right:0;}
+.arrow:hover { color:#82c6ff; }
+.arrow.left { left:0; }
+.arrow.right { right:0; }
 
-/* Grilles Flyers / Mockups / CD */
-.grid { display:grid; grid-auto-flow: row; justify-content:center; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:5px; margin-top:20px; }
-.grid img { width:100%; max-width:180px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.5); cursor:pointer; transition: transform 0.3s ease; }
+/* Grilles Flyers / Mockups / CD centrées et serrées */
+.grid { display:flex; justify-content:center; flex-wrap:wrap; gap:5px; margin-top:20px; }
+.grid img { width:140px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.5); cursor:pointer; transition: transform 0.3s ease; }
 .grid img:hover { transform:scale(1.05); }
 
 #lightbox { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:none; justify-content:center; align-items:center; z-index:100; opacity:0; transition: opacity 0.4s ease; }
@@ -80,8 +82,8 @@ footer a:hover { text-decoration:underline; }
 <script>
 const data = {
   logos:['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'],
-  affiches:['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg'],
-  videos:['https://www.youtube.com/embed/qAsG_P2ZtGk','https://www.youtube.com/embed/uEW7lNnpXJw','https://www.youtube.com/embed/gmBgCF2VcV8','https://www.youtube.com/embed/lbvV0KJK0C8','https://www.youtube.com/embed/uMWTLTYN1RI','https://www.youtube.com/embed/KPJuC8V4o3E','https://www.youtube.com/embed/qw8sg7PVUXI','https://www.youtube.com/embed/YuCIzb6xlQM','https://www.youtube.com/embed/sftigWJkCMk']
+  affiches:['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg','images/affiches/affiche5.jpg','images/affiches/affiche6.jpg'],
+  videos:['https://www.youtube.com/embed/qAsG_P2ZtGk','https://www.youtube.com/embed/uEW7lNnpXJw','https://www.youtube.com/embed/gmBgCF2VcV8','https://www.youtube.com/embed/lbvV0KJK0C8','https://www.youtube.com/embed/uMWTLTYN1RI']
 };
 
 let sliders = {};
@@ -89,7 +91,7 @@ let sliders = {};
 function initSliders(){
   for(const cat in data){
     const slidesDiv = document.querySelector(`#slider-${cat} .slides`);
-    sliders[cat] = { index:0, slidesDiv };
+    sliders[cat]={ index:0, slidesDiv };
 
     data[cat].forEach(src=>{
       let el;
@@ -114,8 +116,7 @@ function initSliders(){
 
     updateSlider(cat);
 
-    // Auto-défilement pour tous sauf vidéos
-    if(cat!=='videos') setInterval(()=>moveSlide(cat,1),7000);
+    if(cat!=='videos') setInterval(()=>moveSlide(cat,1),7000); // auto pour logos/affiches
   }
 }
 
@@ -129,12 +130,14 @@ function updateSlider(cat){
     let diff=i-index;
     if(diff<-Math.floor(total/2)) diff+=total;
     if(diff>Math.floor(total/2)) diff-=total;
+
     const absDiff=Math.abs(diff);
-    const offset=diff*(sliderWidth/4.5);
-    const rotateY=diff*35;
+    const offset=diff*(sliderWidth/4);
+    const rotateY=diff*30;
     const translateZ=(diff===0)?0:-absDiff*120;
     const scale=1-absDiff*0.15;
     const opacity=1-absDiff*0.25;
+
     el.classList.toggle('active', diff===0);
     el.style.zIndex=(diff===0)?total+10:total-absDiff;
     el.style.opacity=opacity;
@@ -148,14 +151,11 @@ function moveSlide(cat,step){
   updateSlider(cat);
 }
 
-function openLightbox(src){
-  const lb=document.getElementById('lightbox');
-  lb.querySelector('img').src=src;
-  lb.classList.add('show');
-}
+function openLightbox(src){ const lb=document.getElementById('lightbox'); lb.querySelector('img').src=src; lb.classList.add('show'); }
 function closeLightbox(){ document.getElementById('lightbox').classList.remove('show'); }
 
 initSliders();
 </script>
+
 </body>
 </html>
