@@ -51,21 +51,24 @@ header h2 {
 .slider {
   position: relative;
   width: 100%;
-  max-width: 1000px;
+  max-width: 1000px;   /* Limite la largeur */
   margin: 0 auto;
-  overflow: visible;
+  overflow: hidden;     /* Empêche de dépasser */
   perspective: 1200px;
 }
 
 .slides {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.8s ease;
 }
 
 .slides img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
   max-height: 300px;
   width: auto;
   object-fit: contain;
@@ -216,13 +219,13 @@ document.addEventListener('DOMContentLoaded', function(){
 
     imgs.forEach((img,i)=>{
       let diff = i-index;
-      if(diff<-Math.floor(total/2)) diff+=total;
-      if(diff>Math.floor(total/2)) diff-=total;
+      if(diff < -Math.floor(total/2)) diff += total;
+      if(diff > Math.floor(total/2)) diff -= total;
 
       positions.push(diff);
 
       const absDiff = Math.abs(diff);
-      const offset = diff * (sliderWidth / 5); // proportionnel à la largeur
+      const offset = diff * (sliderWidth / 5);
       const scale = 1 - absDiff*0.2;
       const rotateY = diff*-40;
       const opacity = 1 - absDiff*0.3;
@@ -230,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function(){
       img.classList.toggle('active', diff===0);
       img.style.zIndex = total - absDiff;
       img.style.opacity = opacity;
-      img.style.transform = `translateX(${offset}px) translateZ(${-absDiff*100}px) scale(${scale}) rotateY(${rotateY}deg)`;
+      img.style.transform = `translateX(${offset}px) translate(-50%, -50%) translateZ(${-absDiff*100}px) scale(${scale}) rotateY(${rotateY}deg)`;
       img.style.filter = absDiff>=2?'blur(4px)':'none';
     });
 
