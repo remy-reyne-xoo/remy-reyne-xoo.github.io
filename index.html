@@ -114,7 +114,8 @@ header h2 {
   margin-top: 20px;
 }
 .grid img {
-  width: 80%;
+  width: 60%;
+  max-width: 300px;
   margin: auto;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -122,6 +123,12 @@ header h2 {
   transition: transform 0.3s ease;
 }
 .grid img:hover {transform: scale(1.05);}
+
+#mockups .grid img,
+#cd .grid img {
+  width: 70%;
+  max-width: 350px;
+}
 
 #lightbox {
   position: fixed; top:0; left:0; width:100%; height:100%;
@@ -246,11 +253,12 @@ const data={
 };
 
 let sliders={};
+let sliderIntervals={};
 
 function initSliders(){
   for(const cat in data){
     const slidesDiv=document.querySelector(`#slider-${cat} .slides`);
-    sliders[cat]={index:0, slidesDiv};
+    sliders[cat]={index:0, slidesDiv, paused:false};
 
     data[cat].forEach((src,i)=>{
       let el;
@@ -261,20 +269,29 @@ function initSliders(){
         el.frameBorder="0";
         el.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
         el.allowFullscreen=true;
+        el.onmouseover = ()=>sliders[cat].paused = true;
+        el.onmouseout = ()=>sliders[cat].paused = false;
       } else {
         el=document.createElement('img');
         el.src=src;
         el.alt=`${cat} image ${i+1}`;
         el.onclick=()=>openLightbox(src);
+        el.onmouseover = ()=>sliders[cat].paused = true;
+        el.onmouseout = ()=>sliders[cat].paused = false;
       }
       slidesDiv.appendChild(el);
     });
 
-    slidesDiv.parentElement.querySelector('.arrow.left').onclick = ()=>moveSlide(cat,-1);
-    slidesDiv.parentElement.querySelector('.arrow.right').onclick = ()=>moveSlide(cat,1);
+    slidesDiv.parentElement.querySelector('.arrow.left').onclick = ()=>{ moveSlide(cat,-1); sliders[cat].paused=true; setTimeout(()=>sliders[cat].paused=false,3000); };
+    slidesDiv.parentElement.querySelector('.arrow.right').onclick = ()=>{ moveSlide(cat,1); sliders[cat].paused=true; setTimeout(()=>sliders[cat].paused=false,3000); };
 
     updateSlider(cat);
-    setInterval(()=>moveSlide(cat,1),7000);
+
+    const autoSlide = ()=>{
+      if(!sliders[cat].paused) moveSlide(cat,1);
+      sliderIntervals[cat] = setTimeout(autoSlide,7000);
+    }
+    autoSlide();
   }
 }
 
@@ -311,13 +328,19 @@ function moveSlide(cat,step){
 
 function openLightbox(src){
   const lightbox=document.getElementById('lightbox');
-  lightbox.querySelector('img').src=src;
+  const img = lightbox.querySelector('img');
+  img.src=src;
+  img.onerror = ()=>console.error('Image introuvable:', src);
   lightbox.classList.add('show');
+  // Pause tous les sliders pendant lightbox
+  Object.values(sliders).forEach(s=>s.paused=true);
 }
 
 function closeLightbox(){
   const lightbox=document.getElementById('lightbox');
   lightbox.classList.remove('show');
+  // Reprendre les sliders
+  Object.values(sliders).forEach(s=>s.paused=false);
 }
 
 initSliders();
