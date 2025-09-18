@@ -25,7 +25,7 @@ nav {
 }
 nav a {
   color:#fff;
-  margin:0 10px;
+  margin:0 15px;
   text-decoration:none;
   font-weight:bold;
 }
@@ -109,7 +109,7 @@ header h2 {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 10px;
   margin-top: 20px;
 }
@@ -140,14 +140,6 @@ footer {
 }
 footer a {color:#4da6ff; margin:0 15px; text-decoration:none;}
 footer a:hover {text-decoration:underline;}
-
-/* Iframes responsive */
-.slides iframe {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16/9;
-  border-radius: 12px;
-}
 </style>
 </head>
 <body>
@@ -156,8 +148,8 @@ footer a:hover {text-decoration:underline;}
   <a href="#slider-logos">Logos</a>
   <a href="#slider-affiches">Affiches</a>
   <a href="#slider-youtube">Vidéos YouTube</a>
-  <a href="#slider-fb1">Vidéos FB 1</a>
-  <a href="#slider-fb2">Vidéos FB 2</a>
+  <a href="#slider-fb-1">Vidéos Facebook 1</a>
+  <a href="#slider-fb-2">Vidéos Facebook 2</a>
   <a href="#flyers">Flyers</a>
   <a href="#mockups">Mockups</a>
   <a href="#cd">CD</a>
@@ -204,7 +196,7 @@ footer a:hover {text-decoration:underline;}
 <!-- Carrousel Facebook 1 -->
 <div class="section">
   <h2>Vidéos Facebook 1</h2>
-  <div class="slider" id="slider-fb1">
+  <div class="slider" id="slider-fb-1">
     <span class="arrow left">&#10094;</span>
     <div class="slides"></div>
     <span class="arrow right">&#10095;</span>
@@ -214,7 +206,7 @@ footer a:hover {text-decoration:underline;}
 <!-- Carrousel Facebook 2 -->
 <div class="section">
   <h2>Vidéos Facebook 2</h2>
-  <div class="slider" id="slider-fb2">
+  <div class="slider" id="slider-fb-2">
     <span class="arrow left">&#10094;</span>
     <div class="slides"></div>
     <span class="arrow right">&#10095;</span>
@@ -259,33 +251,40 @@ footer a:hover {text-decoration:underline;}
 </footer>
 
 <script>
-const data={
-  logos:[
+// Données
+const data = {
+  logos: [
     'images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg',
     'images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'
   ],
-  affiches:[
+  affiches: [
     'images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg',
     'images/affiches/affiche5.jpg','images/affiches/affiche6.jpg','images/affiches/affiche7.jpg','images/affiches/affiche8.jpg'
   ],
-  youtube:[
-    'https://www.youtube.com/embed/qAsG_P2ZtGk','https://www.youtube.com/embed/uEW7lNnpXJw','https://www.youtube.com/embed/gmBgCF2VcV8',
-    'https://www.youtube.com/embed/lbvV0KJK0C8','https://www.youtube.com/embed/uMWTLTYN1RI','https://www.youtube.com/embed/KPJuC8V4o3E',
-    'https://www.youtube.com/embed/qw8sg7PVUXI','https://www.youtube.com/embed/YuCIzb6xlQM','https://www.youtube.com/embed/sftigWJkCMk'
+  youtube: [
+    'https://www.youtube.com/embed/qAsG_P2ZtGk',
+    'https://www.youtube.com/embed/uEW7lNnpXJw',
+    'https://www.youtube.com/embed/gmBgCF2VcV8',
+    'https://www.youtube.com/embed/lbvV0KJK0C8',
+    'https://www.youtube.com/embed/uMWTLTYN1RI',
+    'https://www.youtube.com/embed/KPJuC8V4o3E',
+    'https://www.youtube.com/embed/qw8sg7PVUXI',
+    'https://www.youtube.com/embed/YuCIzb6xlQM',
+    'https://www.youtube.com/embed/sftigWJkCMk'
   ],
-  fb1:[
+  fb1: [
     'https://www.facebook.com/XooDesign/videos/992019422192079',
     'https://www.facebook.com/XooDesign/videos/1046719850354572',
     'https://www.facebook.com/XooDesign/videos/1871767593301350',
     'https://www.facebook.com/XooDesign/videos/8182628635105181',
     'https://www.facebook.com/XooDesign/videos/1128191708465484',
-    'https://www.facebook.com/XooDesign/videos/3392508274380366'
-  ],
-  fb2:[
+    'https://www.facebook.com/XooDesign/videos/3392508274380366',
     'https://www.facebook.com/XooDesign/videos/457573133705162',
     'https://www.facebook.com/XooDesign/videos/820511136706394',
     'https://www.facebook.com/XooDesign/videos/766437438901830',
-    'https://www.facebook.com/XooDesign/videos/1517265682500481',
+    'https://www.facebook.com/XooDesign/videos/1517265682500481'
+  ],
+  fb2: [
     'https://www.facebook.com/XooDesign/videos/1527111301524646',
     'https://www.facebook.com/XooDesign/videos/426339150382242',
     'https://www.facebook.com/XooDesign/videos/1630542697429917',
@@ -299,51 +298,47 @@ const data={
   ]
 };
 
-let sliders={};
+// Sliders
+let sliders = {};
 
-function initSliders(){
-  for(const cat in data){
-    const slidesDiv=document.querySelector(`#slider-${cat} .slides`);
-    sliders[cat]={index:0, slidesDiv};
+function createSlider(id, items, type) {
+  const slidesDiv = document.querySelector(`#${id} .slides`);
+  sliders[id] = {index:0, slidesDiv, type};
 
-    data[cat].forEach((src,i)=>{
-      let el;
-      if(cat.startsWith('youtube')){
-        el=document.createElement('iframe');
-        el.src=src;
-        el.frameBorder="0";
-        el.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-        el.allowFullscreen=true;
-      } else if(cat.startsWith('fb')){
-        el=document.createElement('iframe');
-        el.src="https://www.facebook.com/plugins/video.php?href="+encodeURIComponent(src)+"&show_text=false&width=560";
-        el.frameBorder="0";
-        el.allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share";
-        el.allowFullscreen=true;
-      } else {
-        el=document.createElement('img');
-        el.src=src;
-        el.alt=`${cat} image ${i+1}`;
-        el.onclick=()=>openLightbox(src);
-      }
-      slidesDiv.appendChild(el);
-    });
+  items.forEach((src,i)=>{
+    let el;
+    if(type==='iframe') {
+      el = document.createElement('iframe');
+      el.src = src;
+      el.width = "100%";
+      el.height = "100%";
+      el.style.aspectRatio = "16/9";
+      el.frameBorder = "0";
+      el.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      el.allowFullscreen = true;
+    } else {
+      el = document.createElement('img');
+      el.src = src;
+      el.alt=`${id} ${i+1}`;
+      el.onclick = ()=>openLightbox(src);
+    }
+    slidesDiv.appendChild(el);
+  });
 
-    slidesDiv.parentElement.querySelector('.arrow.left').onclick = ()=>moveSlide(cat,-1);
-    slidesDiv.parentElement.querySelector('.arrow.right').onclick = ()=>moveSlide(cat,1);
+  slidesDiv.parentElement.querySelector('.arrow.left').onclick = ()=>moveSlide(id,-1);
+  slidesDiv.parentElement.querySelector('.arrow.right').onclick = ()=>moveSlide(id,1);
 
-    updateSlider(cat);
-  }
+  updateSlider(id);
 }
 
-function updateSlider(cat){
-  const {slidesDiv,index}=sliders[cat];
-  const els=slidesDiv.children;
-  const total=els.length;
-  const sliderWidth=slidesDiv.clientWidth;
+function updateSlider(id){
+  const {slidesDiv,index} = sliders[id];
+  const els = slidesDiv.children;
+  const total = els.length;
+  const sliderWidth = slidesDiv.clientWidth;
 
   Array.from(els).forEach((el,i)=>{
-    let diff=i-index;
+    let diff = i - index;
     if(diff<-Math.floor(total/2)) diff+=total;
     if(diff>Math.floor(total/2)) diff-=total;
 
@@ -362,9 +357,9 @@ function updateSlider(cat){
   });
 }
 
-function moveSlide(cat,step){
-  sliders[cat].index=(sliders[cat].index+step+data[cat].length)%data[cat].length;
-  updateSlider(cat);
+function moveSlide(id,step){
+  sliders[id].index = (sliders[id].index + step + sliders[id].slidesDiv.children.length) % sliders[id].slidesDiv.children.length;
+  updateSlider(id);
 }
 
 function openLightbox(src){
@@ -372,13 +367,17 @@ function openLightbox(src){
   lightbox.querySelector('img').src=src;
   lightbox.classList.add('show');
 }
-
 function closeLightbox(){
   const lightbox=document.getElementById('lightbox');
   lightbox.classList.remove('show');
 }
 
-initSliders();
+// Init
+createSlider('slider-logos', data.logos, 'img');
+createSlider('slider-affiches', data.affiches, 'img');
+createSlider('slider-youtube', data.youtube, 'iframe');
+createSlider('slider-fb-1', data.fb1, 'iframe');
+createSlider('slider-fb-2', data.fb2, 'iframe');
 </script>
 </body>
 </html>
