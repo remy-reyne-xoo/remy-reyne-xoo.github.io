@@ -25,7 +25,7 @@ header video {width:85%; max-width:1000px; height:auto; display:block; margin:30
 header h1 {font-size:3.2em; margin:10px 0 5px;}
 header h2 {font-size:1.4em; font-weight:normal; color:#aaa; margin-bottom:20px;}
 
-.section {margin:60px auto; max-width:1100px;}
+.section {margin:60px auto; max-width:1100px; position:relative;}
 .section h2 {margin-bottom:25px; font-size:2em; color:#4da6ff;}
 
 .slider {
@@ -33,9 +33,9 @@ header h2 {font-size:1.4em; font-weight:normal; color:#aaa; margin-bottom:20px;}
   width: 100%;
   max-width: 1000px;
   height: 380px;
-  margin: 0 auto 60px auto;
+  margin: 0 auto;
   perspective: 1500px;
-  overflow: visible;
+  overflow: hidden;
 }
 .slides {
   position: relative;
@@ -202,19 +202,19 @@ document.addEventListener('DOMContentLoaded', function(){
       positions.push(diff);
 
       const absDiff = Math.abs(diff);
-      const offset = diff*(sliderWidth/3);
+      const offset = diff*(sliderWidth/3);   // espacement suffisant
       const scale = 1 - absDiff*0.15;
-      const rotateY = diff*-20;
-      const opacity = 1 - absDiff*0.3;
+      const rotateY = diff*-10;              // rotation faible
+      const opacity = 1 - absDiff*0.2;       // légèrement plus lisible
 
       img.classList.toggle('active', diff===0);
       img.style.zIndex = total - absDiff;
       img.style.opacity = opacity;
-      img.style.transform = `translateX(${offset}px) translateZ(${-absDiff*60}px) scale(${scale}) rotateY(${rotateY}deg)`;
+      img.style.transform = `translateX(${offset}px) translateZ(${-absDiff*50}px) scale(${scale}) rotateY(${rotateY}deg)`;
       img.style.filter = absDiff>=total/2?'blur(2px)':'none';
     });
     fullIndex[cat]=positions;
-    console.log('Index complet :', fullIndex);
+    console.log('Index complet :', fullIndex); // <-- ton index complet
   }
 
   window.moveSlide = function(cat,step){
