@@ -35,7 +35,7 @@ header h2 {font-size:1.4em; font-weight:normal; color:#aaa; margin-bottom:20px;}
   height: 380px;
   margin: 0 auto 60px auto;
   perspective: 1500px;
-  overflow: hidden;
+  overflow: visible;
 }
 .slides {
   position: relative;
@@ -49,9 +49,11 @@ header h2 {font-size:1.4em; font-weight:normal; color:#aaa; margin-bottom:20px;}
   position: absolute;
   top: 50%;
   left: 50%;
-  max-height: 300px;
-  object-fit: cover;
+  max-height: 100%;
+  max-width: 90%;
+  object-fit: contain;
   backface-visibility: hidden;
+  transform: translate(-50%, -50%);
   transition: transform 0.8s ease, opacity 0.8s ease, filter 0.6s ease, box-shadow 0.6s ease;
 }
 .slides img.active {box-shadow:0 0 40px rgba(77,166,255,0.8);}
@@ -136,7 +138,6 @@ header h2 {font-size:1.4em; font-weight:normal; color:#aaa; margin-bottom:20px;}
   </div>
 </div>
 
-<!-- Lightbox -->
 <div id="lightbox" onclick="closeLightbox()">
   <img src="" alt="preview">
 </div>
@@ -144,8 +145,8 @@ header h2 {font-size:1.4em; font-weight:normal; color:#aaa; margin-bottom:20px;}
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   const data = {
-    logos:['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg'],
-    affiches:['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg'],
+    logos:['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg'],
+    affiches:['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg','images/affiches/affiche5.jpg','images/affiches/affiche6.jpg','images/affiches/affiche7.jpg','images/affiches/affiche8.jpg'],
     flyers:['images/flyers/flyers1.jpg','images/flyers/flyers2.jpg'],
     mockups:['images/mockups/mockup1.jpg','images/mockups/mockup2.jpg'],
     cd:['images/cd/cd1.jpg','images/cd/cd2.jpg']
@@ -201,16 +202,16 @@ document.addEventListener('DOMContentLoaded', function(){
       positions.push(diff);
 
       const absDiff = Math.abs(diff);
-      const offset = diff*(sliderWidth/4);
-      const scale = 1 - absDiff*0.2;
-      const rotateY = diff*-40;
+      const offset = diff*(sliderWidth/3);
+      const scale = 1 - absDiff*0.15;
+      const rotateY = diff*-20;
       const opacity = 1 - absDiff*0.3;
 
       img.classList.toggle('active', diff===0);
       img.style.zIndex = total - absDiff;
       img.style.opacity = opacity;
-      img.style.transform = `translateX(${offset}px) translateZ(${-absDiff*100}px) scale(${scale}) rotateY(${rotateY}deg)`;
-      img.style.filter = absDiff>=2?'blur(4px)':'none';
+      img.style.transform = `translateX(${offset}px) translateZ(${-absDiff*60}px) scale(${scale}) rotateY(${rotateY}deg)`;
+      img.style.filter = absDiff>=total/2?'blur(2px)':'none';
     });
     fullIndex[cat]=positions;
     console.log('Index complet :', fullIndex);
