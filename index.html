@@ -112,8 +112,8 @@ header h2 {
 #mockups .grid,
 #cd .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 10px; /* réduit l'espace entre miniatures */
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px; /* espacement réduit */
   justify-items: center;
   margin-top: 20px;
 }
@@ -121,8 +121,9 @@ header h2 {
 #flyers .grid img,
 #mockups .grid img,
 #cd .grid img {
-  width: 90%;
-  max-width: 250px; 
+  width: 100%;
+  max-width: 200px; 
+  display: block;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.5);
   cursor: pointer;
@@ -207,8 +208,8 @@ footer a:hover {text-decoration:underline;}
 <div class="section" id="flyers">
   <h2>Flyers</h2>
   <div class="grid">
-    <img src="images/flyers/flyer1.jpg" alt="Flyer 1" onclick="openLightbox(this.src)">
-    <img src="images/flyers/flyer2.jpg" alt="Flyer 2" onclick="openLightbox(this.src)">
+    <img src="images/flyers/flyers1.jpg" alt="Flyer 1" onclick="openLightbox(this.src)">
+    <img src="images/flyers/flyers2.jpg" alt="Flyer 2" onclick="openLightbox(this.src)">
   </div>
 </div>
 
@@ -240,70 +241,69 @@ footer a:hover {text-decoration:underline;}
   <div style="margin-top:10px;">&copy; 2025 Remy Reyne - Tous droits réservés</div>
 </footer>
 
+<script src="https://www.youtube.com/iframe_api"></script>
 <script>
 const data={
   logos:['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg'],
   affiches:['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg'],
   videos:[
-    'https://www.youtube.com/embed/qAsG_P2ZtGk',
-    'https://www.youtube.com/embed/uEW7lNnpXJw',
-    'https://www.youtube.com/embed/gmBgCF2VcV8',
-    'https://www.youtube.com/embed/lbvV0KJK0C8',
-    'https://www.youtube.com/embed/uMWTLTYN1RI',
-    'https://www.youtube.com/embed/KPJuC8V4o3E',
-    'https://www.youtube.com/embed/qw8sg7PVUXI',
-    'https://www.youtube.com/embed/YuCIzb6xlQM',
-    'https://www.youtube.com/embed/sftigWJkCMk'
+    'qAsG_P2ZtGk','uEW7lNnpXJw','gmBgCF2VcV8','lbvV0KJK0C8','uMWTLTYN1RI','KPJuC8V4o3E','qw8sg7PVUXI','YuCIzb6xlQM','sftigWJkCMk'
   ]
 };
 
 let sliders={};
-let sliderIntervals={};
+let players={};
 
-function initYouTubeIframes(){
-  document.querySelectorAll('iframe').forEach(iframe=>{
-    iframe.src += iframe.src.includes('?') ? '&enablejsapi=1' : '?enablejsapi=1';
-  });
-}
-
+// Init sliders
 function initSliders(){
-  for(const cat in data){
+  ['logos','affiches','videos'].forEach(cat=>{
     const slidesDiv=document.querySelector(`#slider-${cat} .slides`);
-    sliders[cat]={index:0, slidesDiv, paused:false};
+    sliders[cat]={index:0,slidesDiv,paused:false};
 
     data[cat].forEach((src,i)=>{
       let el;
       if(cat==='videos'){
-        el=document.createElement('iframe');
-        el.src=src;
-        el.width="560"; el.height="315";
-        el.frameBorder="0";
-        el.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-        el.allowFullscreen=true;
-        el.onmouseover = ()=>sliders[cat].paused = true;
-        el.onmouseout = ()=>sliders[cat].paused = false;
+        el=document.createElement('div');
+        el.id=`player-${i}`;
+        el.style.position='absolute';
+        el.style.top='50%';
+        el.style.left='50%';
+        el.style.transform='translate(-50%,-50%)';
+        slidesDiv.appendChild(el);
       } else {
         el=document.createElement('img');
         el.src=src;
         el.alt=`${cat} image ${i+1}`;
         el.onclick=()=>openLightbox(src);
-        el.onmouseover = ()=>sliders[cat].paused = true;
-        el.onmouseout = ()=>sliders[cat].paused = false;
+        slidesDiv.appendChild(el);
       }
-      slidesDiv.appendChild(el);
     });
 
-    slidesDiv.parentElement.querySelector('.arrow.left').onclick = ()=>{ moveSlide(cat,-1); sliders[cat].paused=true; setTimeout(()=>sliders[cat].paused=false,3000); };
-    slidesDiv.parentElement.querySelector('.arrow.right').onclick = ()=>{ moveSlide(cat,1); sliders[cat].paused=true; setTimeout(()=>sliders[cat].paused=false,3000); };
+    slidesDiv.parentElement.querySelector('.arrow.left').onclick=()=>{ moveSlide(cat,-1); sliders[cat].paused=true; setTimeout(()=>sliders[cat].paused=false,3000); };
+    slidesDiv.parentElement.querySelector('.arrow.right').onclick=()=>{ moveSlide(cat,1); sliders[cat].paused=true; setTimeout(()=>sliders[cat].paused=false,3000); };
 
     updateSlider(cat);
+    setInterval(()=>{if(!sliders[cat].paused) moveSlide(cat,1)},7000);
+  });
+}
 
-    const autoSlide = ()=>{
-      if(!sliders[cat].paused) moveSlide(cat,1);
-      sliderIntervals[cat] = setTimeout(autoSlide,7000);
-    }
-    autoSlide();
-  }
+// YouTube API
+function onYouTubeIframeAPIReady(){
+  data.videos.forEach((id,i)=>{
+    players[i]=new YT.Player(`player-${i}`, {
+      height: '315', width:'560', videoId:id,
+      playerVars:{'enablejsapi':1},
+      events:{
+        'onStateChange': e=>{
+          if(e.data===YT.PlayerState.PLAYING){
+            sliders.videos.paused=true;
+          } else if(e.data===YT.PlayerState.PAUSED || e.data===YT.PlayerState.ENDED){
+            sliders.videos.paused=false;
+          }
+        }
+      }
+    });
+  });
 }
 
 function updateSlider(cat){
@@ -316,7 +316,6 @@ function updateSlider(cat){
     let diff=i-index;
     if(diff<-Math.floor(total/2)) diff+=total;
     if(diff>Math.floor(total/2)) diff-=total;
-
     const absDiff=Math.abs(diff);
     const offset=diff*(sliderWidth/4.5);
     const rotateY=diff*35;
@@ -329,12 +328,6 @@ function updateSlider(cat){
     el.style.opacity=opacity;
     el.style.transform=`translateX(${offset}px) translate(-50%, -50%) translateZ(${translateZ}px) scale(${scale}) rotateY(${rotateY}deg)`;
     el.style.filter=absDiff>=2?'blur(3px)':'none';
-
-    if(el.tagName==='IFRAME'){
-      if(diff!==0){
-        el.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-      }
-    }
   });
 }
 
@@ -344,21 +337,18 @@ function moveSlide(cat,step){
 }
 
 function openLightbox(src){
-  const lightbox=document.getElementById('lightbox');
-  const img = lightbox.querySelector('img');
-  img.src=src;
-  img.onerror = ()=>console.error('Image introuvable:', src);
-  lightbox.classList.add('show');
+  const lb=document.getElementById('lightbox');
+  lb.querySelector('img').src=src;
+  lb.classList.add('show');
   Object.values(sliders).forEach(s=>s.paused=true);
 }
 
 function closeLightbox(){
-  const lightbox=document.getElementById('lightbox');
-  lightbox.classList.remove('show');
+  const lb=document.getElementById('lightbox');
+  lb.classList.remove('show');
   Object.values(sliders).forEach(s=>s.paused=false);
 }
 
-initYouTubeIframes();
 initSliders();
 </script>
 </body>
