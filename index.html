@@ -1,209 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio - Remy Reyne</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    color: #f1f1f1;
-    background: linear-gradient(270deg, #0a0a0a, #001a33, #0a0a0a);
-    background-size: 600% 600%;
-    animation: gradientBG 20s ease infinite;
-  }
-
-  @keyframes gradientBG {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
-  }
-
-  header {
-    padding: 20px;
-  }
-
-  header video {
-    width: 85%;
-    max-width: 1000px;
-    height: auto;
-    display: block;
-    margin: 30px auto;
-  }
-
-  header h1 {
-    font-size: 3.2em;
-    margin: 10px 0 5px;
-  }
-
-  header h2 {
-    font-size: 1.4em;
-    font-weight: normal;
-    color: #aaa;
-    margin-bottom: 20px;
-  }
-
-  .section {
-    margin: 60px auto;
-    max-width: 1100px;
-  }
-
-  .section h2 {
-    margin-bottom: 25px;
-    font-size: 2em;
-    color: #4da6ff;
-  }
-
-  /* Carrousel 3D */
-  .slider {
-    position: relative;
-    width: 100%;
-    max-width: 1000px;
-    height: 380px;
-    margin: auto;
-    perspective: 1500px;
-    overflow: visible;
-  }
-  .slides {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transition: transform 0.8s ease;
-  }
-  .slides img {
-    border-radius: 12px;
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    max-height: 300px;
-    object-fit: cover;
-    backface-visibility: hidden;
-    transition: transform 0.8s ease, opacity 0.8s ease, filter 0.6s ease, box-shadow 0.6s ease;
-  }
-  .slides img.active {
-    box-shadow: 0 0 40px rgba(77,166,255,0.8);
-  }
-
-  .arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 2.5em;
-    color: #4da6ff;
-    cursor: pointer;
-    user-select: none;
-    z-index: 10;
-    transition: color 0.3s ease;
-  }
-  .arrow:hover { color: #82c6ff; }
-  .arrow.left { left: 10px; }
-  .arrow.right { right: 10px; }
-
-  /* Lightbox */
-  #lightbox {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-  #lightbox.show {
-    display: flex;
-    opacity: 1;
-  }
-  #lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.7);
-  }
-
-  @media(max-width: 768px){
-    .slider { height: 250px; }
-    .slides img { max-height: 200px; }
-  }
-</style>
-</head>
-<body>
-
-<header>
-  <video autoplay loop muted playsinline>
-    <source src="videos/logo&slogan.webm" type="video/webm">
-  </video>
-  <h1>Remy Reyne</h1>
-  <h2>Graphiste senior 360 / Illustrateur / Motion designer / Photographe</h2>
-</header>
-
-<!-- Sections -->
-<div class="section">
-  <h2>Logos</h2>
-  <div class="slider" id="slider-logos">
-    <span class="arrow left" onclick="moveSlide('logos', -1)">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right" onclick="moveSlide('logos', 1)">&#10095;</span>
-  </div>
-</div>
-
-<div class="section">
-  <h2>Affiches</h2>
-  <div class="slider" id="slider-affiches">
-    <span class="arrow left" onclick="moveSlide('affiches', -1)">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right" onclick="moveSlide('affiches', 1)">&#10095;</span>
-  </div>
-</div>
-
-<div class="section">
-  <h2>Flyers</h2>
-  <div class="slider" id="slider-flyers">
-    <span class="arrow left" onclick="moveSlide('flyers', -1)">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right" onclick="moveSlide('flyers', 1)">&#10095;</span>
-  </div>
-</div>
-
-<div class="section">
-  <h2>Mockups</h2>
-  <div class="slider" id="slider-mockups">
-    <span class="arrow left" onclick="moveSlide('mockups', -1)">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right" onclick="moveSlide('mockups', 1)">&#10095;</span>
-  </div>
-</div>
-
-<div class="section">
-  <h2>CD</h2>
-  <div class="slider" id="slider-cd">
-    <span class="arrow left" onclick="moveSlide('cd', -1)">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right" onclick="moveSlide('cd', 1)">&#10095;</span>
-  </div>
-</div>
-
-<!-- Lightbox -->
-<div id="lightbox" onclick="closeLightbox()">
-  <img src="" alt="preview">
-</div>
-
-<script>
-const data = {
-  'logos': ['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'],
-  'affiches': ['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg','images/affiches/affiche5.jpg','images/affiches/affiche6.jpg','images/affiches/affiche7.jpg','images/affiches/affiche8.jpg'],
-  'flyers': ['images/flyers/flyers1.jpg','images/flyers/flyers2.jpg'],
-  'mockups': ['images/mockups/mockup1.jpg','images/mockups/mockup2.jpg'],
-  'cd': ['images/cd/cd1.jpg','images/cd/cd2.jpg']
-};
-
 let sliders = {};
 
 function initSliders(){
@@ -219,7 +13,7 @@ function initSliders(){
     });
     sliders[cat] = { index: 0, slidesDiv };
 
-    // Swipe
+    // Swipe mobile
     let startX = 0;
     slidesDiv.addEventListener('touchstart', e=> startX=e.touches[0].clientX);
     slidesDiv.addEventListener('touchend', e=>{
@@ -242,13 +36,15 @@ function updateSlider(cat){
   const { slidesDiv, index } = sliders[cat];
   const imgs = slidesDiv.querySelectorAll('img');
   const total = imgs.length;
+  const sliderWidth = slidesDiv.clientWidth;
+
   imgs.forEach((img,i)=>{
     let diff = i-index;
     if(diff<-Math.floor(total/2)) diff+=total;
     if(diff>Math.floor(total/2)) diff-=total;
 
     const absDiff = Math.abs(diff);
-    const offset = diff * 250;
+    const offset = diff * (sliderWidth / 4); // espace dynamique
     const scale = 1 - absDiff*0.2;
     const rotateY = diff* -40;
     const opacity = 1 - absDiff*0.3;
@@ -259,6 +55,8 @@ function updateSlider(cat){
     img.style.transform = `translateX(${offset}px) translateZ(${-absDiff*100}px) scale(${scale}) rotateY(${rotateY}deg)`;
     img.style.filter = absDiff>=2?'blur(4px)':'none';
   });
+
+  console.log(`Slider ${cat} index actuel : `, index); // <-- affichage de l'index
 }
 
 function moveSlide(cat, step){
@@ -278,13 +76,8 @@ function closeLightbox(){
   setTimeout(()=>lightbox.style.display='none',400);
 }
 
-// Animation continue
 function animateSlider(cat){
   setInterval(()=>{ moveSlide(cat,1); }, 5000);
 }
 
 initSliders();
-</script>
-
-</body>
-</html>
