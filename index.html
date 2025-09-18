@@ -1,383 +1,206 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio - Remy Reyne</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  margin:0; padding:0;
-  text-align:center;
-  color:#f1f1f1;
-  background: linear-gradient(270deg, #0a0a0a, #001a33, #0a0a0a);
-  background-size: 600% 600%;
-  animation: gradientBG 20s ease infinite;
-}
-@keyframes gradientBG {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Xoo Design</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #00111a, #003366);
+      color: white;
+      text-align: center;
+    }
 
-nav {
-  background:#001a33;
-  padding:10px;
-  position:sticky;
-  top:0;
-  z-index:50;
-}
-nav a {
-  color:#fff;
-  margin:0 15px;
-  text-decoration:none;
-  font-weight:bold;
-}
-nav a:hover {color:#4da6ff;}
+    h2 {
+      margin: 40px 0 20px;
+      font-size: 2rem;
+      background: #003366;
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 20px;
+    }
 
-header {padding:20px;}
-header video {width:85%; max-width:1000px; height:auto; display:block; margin:20px auto;}
-header h1 {font-size:3em; margin:10px 0 5px;}
-header h2 {
-  display: inline-block;
-  background: rgba(0,0,0,0.3);
-  border-radius: 25px;
-  border: 3px solid #4da6ff;
-  padding: 10px 20px;
-  color: #fff;
-  box-shadow: 0 8px 15px rgba(0,0,0,0.5);
-  font-size: 1.4em;
-  margin-bottom: 20px;
-}
+    .carousel-container {
+      position: relative;
+      perspective: 1500px;
+      margin: 40px auto;
+      width: 90%;
+      max-width: 1000px;
+      height: 400px;
+    }
 
-.section {
-  margin:60px auto;
-  max-width:1100px;
-  position:relative;
-}
+    .carousel {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+    }
 
-.section h2 {
-  display: inline-block;
-  background: rgba(0,0,0,0.3);
-  border-radius: 25px;
-  border: 3px solid #4da6ff;
-  padding: 10px 20px;
-  color: #fff;
-  box-shadow: 0 8px 15px rgba(0,0,0,0.5);
-  font-size: 2em;
-  margin-bottom: 25px;
-}
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform-origin: center center;
+      transition: transform 1s, opacity 1s;
+      opacity: 0.6;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
 
-.slider {
-  position: relative;
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  overflow: hidden;
-  perspective: 1200px;
-}
+    .slide.active {
+      opacity: 1;
+      z-index: 5;
+    }
 
-.slides {
-  position: relative;
-  width: 100%;
-  height: 350px;
-  transform-style: preserve-3d;
-}
+    .slide img, 
+    .slide iframe {
+      width: 560px;
+      max-width: 80vw;
+      height: 315px;
+      border-radius: 12px;
+      border: none;
+    }
 
-.slides img, .slides iframe {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform-origin: center center;
-  max-height: 100%;
-  width: auto;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.8s ease, opacity 0.8s ease, filter 0.6s ease, box-shadow 0.6s ease;
-  backface-visibility: hidden;
-}
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 50%;
+    }
 
-.slides img.active, .slides iframe.active {
-  box-shadow:0 0 40px rgba(77,166,255,0.8);
-  transform: scale(1.1);
-}
+    .nav-btn:hover {
+      background: rgba(0,0,0,0.8);
+    }
 
-.arrow {
-  position: absolute; top:50%; transform:translateY(-50%);
-  font-size:2.5em; color:#4da6ff; cursor:pointer; user-select:none; z-index:10;
-  transition: color 0.3s ease;
-}
-.arrow:hover {color:#82c6ff;}
-.arrow.left {left:0;}
-.arrow.right {right:0;}
+    .nav-left {
+      left: -50px;
+    }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 10px;
-  margin-top: 20px;
-}
-.grid img {
-  width: 90%;
-  margin: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-.grid img:hover {transform: scale(1.05);}
-
-#lightbox {
-  position: fixed; top:0; left:0; width:100%; height:100%;
-  background: rgba(0,0,0,0.9); display: none;
-  justify-content: center; align-items:center; z-index:100;
-  opacity:0; transition: opacity 0.4s ease;
-}
-#lightbox.show {display:flex; opacity:1;}
-#lightbox img {max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 20px rgba(0,0,0,0.7);}
-
-footer {
-  background:#001a33;
-  color:#fff;
-  padding:15px;
-  margin-top:40px;
-}
-footer a {color:#4da6ff; margin:0 15px; text-decoration:none;}
-footer a:hover {text-decoration:underline;}
-</style>
+    .nav-right {
+      right: -50px;
+    }
+  </style>
 </head>
 <body>
 
-<nav>
-  <a href="#slider-logos">Logos</a>
-  <a href="#slider-affiches">Affiches</a>
-  <a href="#slider-youtube">Vidéos YouTube</a>
-  <a href="#slider-fb-1">Vidéos Facebook 1</a>
-  <a href="#slider-fb-2">Vidéos Facebook 2</a>
-  <a href="#flyers">Flyers</a>
-  <a href="#mockups">Mockups</a>
-  <a href="#cd">CD</a>
-</nav>
-
-<header>
-  <video autoplay loop muted playsinline>
-    <source src="videos/logo&slogan.webm" type="video/webm">
-  </video>
-  <h1>Remy Reyne</h1>
-  <h2>Graphiste senior 360 / Illustrateur / Motion designer / Photographe</h2>
-</header>
-
-<!-- Carrousel Logos -->
-<div class="section">
   <h2>Logos</h2>
-  <div class="slider" id="slider-logos">
-    <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right">&#10095;</span>
+  <div class="carousel-container">
+    <div class="carousel" id="slider-logos">
+      <div class="slide"><img src="images/logos/logo1.jpg" alt="Logo 1"></div>
+      <div class="slide"><img src="images/logos/logo2.jpg" alt="Logo 2"></div>
+      <div class="slide"><img src="images/logos/logo3.jpg" alt="Logo 3"></div>
+      <div class="slide"><img src="images/logos/logo4.jpg" alt="Logo 4"></div>
+      <div class="slide"><img src="images/logos/logo5.jpg" alt="Logo 5"></div>
+      <div class="slide"><img src="images/logos/logo6.jpg" alt="Logo 6"></div>
+      <div class="slide"><img src="images/logos/logo7.jpg" alt="Logo 7"></div>
+      <div class="slide"><img src="images/logos/logo8.jpg" alt="Logo 8"></div>
+      <div class="slide"><img src="images/logos/logo9.jpg" alt="Logo 9"></div>
+    </div>
+    <button class="nav-btn nav-left" onclick="moveSlide('logos', -1)">&#10094;</button>
+    <button class="nav-btn nav-right" onclick="moveSlide('logos', 1)">&#10095;</button>
   </div>
-</div>
 
-<!-- Carrousel Affiches -->
-<div class="section">
   <h2>Affiches</h2>
-  <div class="slider" id="slider-affiches">
-    <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right">&#10095;</span>
+  <div class="carousel-container">
+    <div class="carousel" id="slider-affiches">
+      <div class="slide"><img src="images/affiches/affiche1.jpg" alt="Affiche 1"></div>
+      <div class="slide"><img src="images/affiches/affiche2.jpg" alt="Affiche 2"></div>
+      <div class="slide"><img src="images/affiches/affiche3.jpg" alt="Affiche 3"></div>
+      <div class="slide"><img src="images/affiches/affiche4.jpg" alt="Affiche 4"></div>
+      <div class="slide"><img src="images/affiches/affiche5.jpg" alt="Affiche 5"></div>
+      <div class="slide"><img src="images/affiches/affiche6.jpg" alt="Affiche 6"></div>
+      <div class="slide"><img src="images/affiches/affiche7.jpg" alt="Affiche 7"></div>
+      <div class="slide"><img src="images/affiches/affiche8.jpg" alt="Affiche 8"></div>
+    </div>
+    <button class="nav-btn nav-left" onclick="moveSlide('affiches', -1)">&#10094;</button>
+    <button class="nav-btn nav-right" onclick="moveSlide('affiches', 1)">&#10095;</button>
   </div>
-</div>
 
-<!-- Carrousel YouTube -->
-<div class="section">
-  <h2>Vidéos YouTube</h2>
-  <div class="slider" id="slider-youtube">
-    <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right">&#10095;</span>
+  <h2>Vidéos</h2>
+  <div class="carousel-container">
+    <div class="carousel" id="slider-videos">
+      <div class="slide active"><iframe src="https://www.youtube.com/embed/VIDEO_ID1" allowfullscreen></iframe></div>
+      <div class="slide"><iframe src="https://www.youtube.com/embed/VIDEO_ID2" allowfullscreen></iframe></div>
+      <div class="slide"><iframe src="https://www.youtube.com/embed/VIDEO_ID3" allowfullscreen></iframe></div>
+      <div class="slide"><iframe src="https://www.youtube.com/embed/VIDEO_ID4" allowfullscreen></iframe></div>
+      <!-- Ajoute ici toutes tes autres vidéos YouTube -->
+    </div>
+    <button class="nav-btn nav-left" onclick="moveSlide('videos', -1)">&#10094;</button>
+    <button class="nav-btn nav-right" onclick="moveSlide('videos', 1)">&#10095;</button>
   </div>
-</div>
 
-<!-- Carrousel Facebook 1 -->
-<div class="section">
-  <h2>Vidéos Facebook 1</h2>
-  <div class="slider" id="slider-fb-1">
-    <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right">&#10095;</span>
-  </div>
-</div>
-
-<!-- Carrousel Facebook 2 -->
-<div class="section">
-  <h2>Vidéos Facebook 2</h2>
-  <div class="slider" id="slider-fb-2">
-    <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right">&#10095;</span>
-  </div>
-</div>
-
-<!-- Grille Flyers -->
-<div class="section" id="flyers">
   <h2>Flyers</h2>
-  <div class="grid">
-    <img src="images/flyers/flyers1.jpg" alt="Flyer 1" onclick="openLightbox(this.src)">
-    <img src="images/flyers/flyers2.jpg" alt="Flyer 2" onclick="openLightbox(this.src)">
+  <div class="carousel-container">
+    <div class="carousel" id="slider-flyers">
+      <div class="slide"><img src="images/flyers/flyers1.jpg" alt="Flyer 1"></div>
+      <div class="slide"><img src="images/flyers/flyers2.jpg" alt="Flyer 2"></div>
+    </div>
+    <button class="nav-btn nav-left" onclick="moveSlide('flyers', -1)">&#10094;</button>
+    <button class="nav-btn nav-right" onclick="moveSlide('flyers', 1)">&#10095;</button>
   </div>
-</div>
 
-<!-- Grille Mockups -->
-<div class="section" id="mockups">
   <h2>Mockups</h2>
-  <div class="grid">
-    <img src="images/mockups/mockup1.jpg" alt="Mockup 1" onclick="openLightbox(this.src)">
-    <img src="images/mockups/mockup2.jpg" alt="Mockup 2" onclick="openLightbox(this.src)">
+  <div class="carousel-container">
+    <div class="carousel" id="slider-mockups">
+      <div class="slide"><img src="images/mockups/mockup1.jpg" alt="Mockup 1"></div>
+      <div class="slide"><img src="images/mockups/mockup2.jpg" alt="Mockup 2"></div>
+    </div>
+    <button class="nav-btn nav-left" onclick="moveSlide('mockups', -1)">&#10094;</button>
+    <button class="nav-btn nav-right" onclick="moveSlide('mockups', 1)">&#10095;</button>
   </div>
-</div>
 
-<!-- Grille CD -->
-<div class="section" id="cd">
   <h2>CD</h2>
-  <div class="grid">
-    <img src="images/cd/cd1.jpg" alt="CD 1" onclick="openLightbox(this.src)">
-    <img src="images/cd/cd2.jpg" alt="CD 2" onclick="openLightbox(this.src)">
+  <div class="carousel-container">
+    <div class="carousel" id="slider-cd">
+      <div class="slide"><img src="images/cd/cd1.jpg" alt="CD 1"></div>
+      <div class="slide"><img src="images/cd/cd2.jpg" alt="CD 2"></div>
+    </div>
+    <button class="nav-btn nav-left" onclick="moveSlide('cd', -1)">&#10094;</button>
+    <button class="nav-btn nav-right" onclick="moveSlide('cd', 1)">&#10095;</button>
   </div>
-</div>
 
-<div id="lightbox" onclick="closeLightbox()">
-  <img src="" alt="preview">
-</div>
+  <script>
+    const sliders = {
+      logos: { index: 0, el: document.getElementById("slider-logos") },
+      affiches: { index: 0, el: document.getElementById("slider-affiches") },
+      videos: { index: 0, el: document.getElementById("slider-videos") },
+      flyers: { index: 0, el: document.getElementById("slider-flyers") },
+      mockups: { index: 0, el: document.getElementById("slider-mockups") },
+      cd: { index: 0, el: document.getElementById("slider-cd") },
+    };
 
-<footer>
-  <a href="https://www.facebook.com/XooDesign/" target="_blank">Facebook</a>
-  <a href="https://www.linkedin.com/in/r%C3%A9my-reyne-699519b5/" target="_blank">LinkedIn</a>
-  <div style="margin-top:10px;">&copy; 2025 Remy Reyne - Tous droits réservés</div>
-</footer>
+    function updateCarousel(key) {
+      const slider = sliders[key];
+      const slides = slider.el.querySelectorAll(".slide");
+      const total = slides.length;
+      const angle = 360 / total;
 
-<script>
-// Données
-const data = {
-  logos: [
-    'images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg',
-    'images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'
-  ],
-  affiches: [
-    'images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg',
-    'images/affiches/affiche5.jpg','images/affiches/affiche6.jpg','images/affiches/affiche7.jpg','images/affiches/affiche8.jpg'
-  ],
-  youtube: [
-    'https://www.youtube.com/embed/qAsG_P2ZtGk',
-    'https://www.youtube.com/embed/uEW7lNnpXJw',
-    'https://www.youtube.com/embed/gmBgCF2VcV8',
-    'https://www.youtube.com/embed/lbvV0KJK0C8',
-    'https://www.youtube.com/embed/uMWTLTYN1RI',
-    'https://www.youtube.com/embed/KPJuC8V4o3E',
-    'https://www.youtube.com/embed/qw8sg7PVUXI',
-    'https://www.youtube.com/embed/YuCIzb6xlQM',
-    'https://www.youtube.com/embed/sftigWJkCMk'
-  ],
-  fb1: [
-    'https://www.facebook.com/XooDesign/videos/992019422192079',
-    'https://www.facebook.com/XooDesign/videos/1046719850354572',
-    'https://www.facebook.com/XooDesign/videos/1871767593301350',
-    'https://www.facebook.com/XooDesign/videos/8182628635105181',
-    'https://www.facebook.com/XooDesign/videos/1128191708465484',
-    'https://www.facebook.com/XooDesign/videos/3392508274380366',
-    'https://www.facebook.com/XooDesign/videos/457573133705162',
-    'https://www.facebook.com/XooDesign/videos/820511136706394',
-    'https://www.facebook.com/XooDesign/videos/766437438901830',
-    'https://www.facebook.com/XooDesign/videos/1517265682500481'
-  ],
-  fb2: [
-    'https://www.facebook.com/XooDesign/videos/1527111301524646',
-    'https://www.facebook.com/XooDesign/videos/426339150382242',
-    'https://www.facebook.com/XooDesign/videos/1630542697429917',
-    'https://www.facebook.com/XooDesign/videos/828698934869678',
-    'https://www.facebook.com/XooDesign/videos/263044686412619',
-    'https://www.facebook.com/XooDesign/videos/637041755124769',
-    'https://www.facebook.com/XooDesign/videos/639421378106278',
-    'https://www.facebook.com/XooDesign/videos/960168361911615',
-    'https://www.facebook.com/XooDesign/videos/1507945709728525',
-    'https://www.facebook.com/XooDesign/videos/1230940850788187'
-  ]
-};
-
-// Sliders
-let sliders = {};
-
-function createSlider(id, items, type) {
-  const slidesDiv = document.querySelector(`#${id} .slides`);
-  sliders[id] = {index:0, slidesDiv, type};
-
-  items.forEach((src,i)=>{
-    let el;
-    if(type==='iframe') {
-      el = document.createElement('iframe');
-      el.src = src;
-      el.width = "100%";
-      el.height = "100%";
-      el.style.aspectRatio = "16/9";
-      el.frameBorder = "0";
-      el.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-      el.allowFullscreen = true;
-    } else {
-      el = document.createElement('img');
-      el.src = src;
-      el.alt=`${id} ${i+1}`;
-      el.onclick = ()=>openLightbox(src);
+      slides.forEach((slide, i) => {
+        const offset = (i - slider.index + total) % total;
+        const theta = offset * angle;
+        slide.style.transform = `rotateY(${theta}deg) translateZ(600px)`;
+        slide.classList.toggle("active", i === slider.index);
+      });
     }
-    slidesDiv.appendChild(el);
-  });
 
-  slidesDiv.parentElement.querySelector('.arrow.left').onclick = ()=>moveSlide(id,-1);
-  slidesDiv.parentElement.querySelector('.arrow.right').onclick = ()=>moveSlide(id,1);
+    function moveSlide(key, dir) {
+      const slider = sliders[key];
+      const total = slider.el.querySelectorAll(".slide").length;
+      slider.index = (slider.index + dir + total) % total;
+      updateCarousel(key);
+    }
 
-  updateSlider(id);
-}
-
-function updateSlider(id){
-  const {slidesDiv,index} = sliders[id];
-  const els = slidesDiv.children;
-  const total = els.length;
-  const sliderWidth = slidesDiv.clientWidth;
-
-  Array.from(els).forEach((el,i)=>{
-    let diff = i - index;
-    if(diff<-Math.floor(total/2)) diff+=total;
-    if(diff>Math.floor(total/2)) diff-=total;
-
-    const absDiff=Math.abs(diff);
-    const offset=diff*(sliderWidth/4.5);
-    const rotateY=diff*35;
-    const translateZ=(diff===0)?0:-absDiff*120;
-    const scale=1-absDiff*0.15;
-    const opacity=1-absDiff*0.25;
-
-    el.classList.toggle('active', diff===0);
-    el.style.zIndex=(diff===0)?total+10:total-absDiff;
-    el.style.opacity=opacity;
-    el.style.transform=`translateX(${offset}px) translate(-50%, -50%) translateZ(${translateZ}px) scale(${scale}) rotateY(${rotateY}deg)`;
-    el.style.filter=absDiff>=2?'blur(3px)':'none';
-  });
-}
-
-function moveSlide(id,step){
-  sliders[id].index = (sliders[id].index + step + sliders[id].slidesDiv.children.length) % sliders[id].slidesDiv.children.length;
-  updateSlider(id);
-}
-
-function openLightbox(src){
-  const lightbox=document.getElementById('lightbox');
-  lightbox.querySelector('img').src=src;
-  lightbox.classList.add('show');
-}
-function closeLightbox(){
-  const lightbox=document.getElementById('lightbox');
-  lightbox.classList.remove('show');
-}
-
-// Init
-createSlider('slider-logos', data.logos, 'img');
-createSlider('slider-affiches', data.affiches, 'img');
-createSlider('slider-youtube', data.youtube, 'iframe');
-createSlider('slider-fb-1', data.fb1, 'iframe');
-createSlider('slider-fb-2', data.fb2, 'iframe');
-</script>
+    Object.keys(sliders).forEach(updateCarousel);
+  </script>
 </body>
 </html>
