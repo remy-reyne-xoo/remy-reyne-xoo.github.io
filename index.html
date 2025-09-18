@@ -52,31 +52,31 @@ header h2 {
   position: relative;
   width: 100%;
   max-width: 1000px;
-  height: 380px;
   margin: 0 auto;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 20px 0;
 }
+
 .slides {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
+
 .slides img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-height: 300px;
-  max-width: 90%;
-  object-fit: contain;
+  max-height: 300px;  /* limite la hauteur */
+  width: auto;         /* conserve la proportion */
+  object-fit: contain; /* jamais coupé */
   border-radius: 12px;
   cursor: pointer;
-  transition: transform 0.6s ease, opacity 0.6s ease;
-  z-index:1;
+  transition: transform 0.3s ease;
 }
+
 .slides img.active {
-  box-shadow: 0 0 40px rgba(77,166,255,0.8);
-  z-index:2;
+  transform: scale(1.05); /* léger zoom central */
+  box-shadow: 0 0 20px rgba(77,166,255,0.7);
 }
 
 .arrow {
@@ -96,11 +96,6 @@ header h2 {
 }
 #lightbox.show {display:flex; opacity:1;}
 #lightbox img {max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 20px rgba(0,0,0,0.7);}
-
-@media(max-width:768px){
-  .slider {height:250px;}
-  .slides img {max-height:200px;}
-}
 </style>
 </head>
 <body>
@@ -199,7 +194,6 @@ document.addEventListener('DOMContentLoaded', function(){
       });
 
       updateSlider(cat);
-      animateSlider(cat);
     }
 
     document.addEventListener('keydown', e=>{
@@ -211,23 +205,12 @@ document.addEventListener('DOMContentLoaded', function(){
   function updateSlider(cat){
     const {slidesDiv,index} = sliders[cat];
     const imgs = slidesDiv.querySelectorAll('img');
-    const total = imgs.length;
     let positions=[];
 
     imgs.forEach((img,i)=>{
       let diff = i-index;
-      if(diff<-Math.floor(total/2)) diff+=total;
-      if(diff>Math.floor(total/2)) diff-=total;
       positions.push(diff);
-
-      const absDiff = Math.abs(diff);
-      const offset = diff * 220;
-      const scale = 1 - absDiff*0.15;
-      const opacity = 1 - absDiff*0.3;
-
       img.classList.toggle('active', diff===0);
-      img.style.transform = `translateX(${offset}px) scale(${scale})`;
-      img.style.opacity = opacity;
     });
 
     fullIndex[cat]=positions;
@@ -237,10 +220,6 @@ document.addEventListener('DOMContentLoaded', function(){
   window.moveSlide = function(cat,step){
     sliders[cat].index = (sliders[cat].index + step + data[cat].length)%data[cat].length;
     updateSlider(cat);
-  }
-
-  function animateSlider(cat){
-    setInterval(()=>moveSlide(cat,1),5000);
   }
 
   window.openLightbox = function(src){
