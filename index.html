@@ -120,6 +120,8 @@ footer {
   padding:15px;
   margin-top:40px;
 }
+footer a {color:#4da6ff; margin:0 15px; text-decoration:none;}
+footer a:hover {text-decoration:underline;}
 </style>
 </head>
 <body>
@@ -190,11 +192,13 @@ footer {
 </div>
 
 <footer>
-  &copy; 2025 Remy Reyne - Tous droits réservés
+  <a href="https://www.facebook.com/tonprofil" target="_blank">Facebook</a>
+  <a href="https://www.linkedin.com/in/tonprofil" target="_blank">LinkedIn</a>
+  <div style="margin-top:10px;">&copy; 2025 Remy Reyne - Tous droits réservés</div>
 </footer>
 
 <script>
-const data = {
+const data={
   logos:['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'],
   affiches:['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg','images/affiches/affiche5.jpg','images/affiches/affiche6.jpg','images/affiches/affiche7.jpg','images/affiches/affiche8.jpg'],
   flyers:['images/flyers/flyers1.jpg','images/flyers/flyers2.jpg'],
@@ -253,15 +257,15 @@ function updateSlider(cat){
 
     const absDiff=Math.abs(diff);
 
-    // Orientation convexe
+    // Orientation convexe, centrale toujours devant
     const offset=diff*(sliderWidth/5);
-    const rotateY=diff*40;          // rotation vers l'extérieur
-    const translateZ=-absDiff*80;
+    const rotateY=diff*40;
+    const translateZ=(diff===0)?0:-absDiff*120;
     const scale=1-absDiff*0.2;
     const opacity=1-absDiff*0.3;
 
     img.classList.toggle('active', diff===0);
-    img.style.zIndex=total-absDiff;
+    img.style.zIndex=(diff===0)?total+10:total-absDiff;
     img.style.opacity=opacity;
     img.style.transform=`translateX(${offset}px) translate(-50%, -50%) translateZ(${translateZ}px) scale(${scale}) rotateY(${rotateY}deg)`;
     img.style.filter=absDiff>=2?'blur(4px)':'none';
