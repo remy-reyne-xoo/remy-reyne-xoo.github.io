@@ -6,19 +6,15 @@
 <title>Portfolio - Remy Reyne</title>
 <style>
 body { font-family: Arial,sans-serif; margin:0; padding:0; text-align:center; color:#f1f1f1; background:#001a33; }
-
 nav { background:#001a33; padding:10px; position:sticky; top:0; z-index:50; }
 nav a { color:#fff; margin:0 15px; text-decoration:none; font-weight:bold; }
 nav a:hover { color:#4da6ff; }
-
 header { padding:20px; }
 header video { width:85%; max-width:1000px; height:auto; display:block; margin:20px auto; }
 header h1 { font-size:3em; margin:10px 0 5px; }
 header h2 { display:inline-block; background: rgba(0,0,0,0.3); border-radius:25px; border:3px solid #4da6ff; padding:10px 20px; color:#fff; font-size:1.4em; margin-bottom:20px; }
-
 .section { margin:60px auto; max-width:1100px; position:relative; }
 .section h2 { display:inline-block; background: rgba(0,0,0,0.3); border-radius:25px; border:3px solid #4da6ff; padding:10px 20px; color:#fff; font-size:2em; margin-bottom:25px; }
-
 .slider { position: relative; width: 100%; max-width: 1000px; margin: 0 auto; overflow: hidden; perspective: 1200px; }
 .slides { position: relative; width: 100%; height: 350px; transform-style: preserve-3d; }
 .slides img, .slides iframe { position: absolute; top: 50%; left: 50%; transform-origin: center center; width:auto; max-height:100%; border-radius:12px; cursor:pointer; transition: transform 0.8s ease, opacity 0.8s ease; backface-visibility:hidden; }
@@ -27,16 +23,12 @@ header h2 { display:inline-block; background: rgba(0,0,0,0.3); border-radius:25p
 .arrow:hover { color:#82c6ff; }
 .arrow.left { left:0; }
 .arrow.right { right:0; }
-
-/* Grilles Flyers / Mockups / CD centrées et images respectées */
 .grid { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-top:20px; }
 .grid img { width:auto; height:140px; object-fit:contain; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.5); cursor:pointer; transition: transform 0.3s ease; }
 .grid img:hover { transform:scale(1.05); }
-
 #lightbox { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:none; justify-content:center; align-items:center; z-index:100; opacity:0; transition: opacity 0.4s ease; }
 #lightbox.show { display:flex; opacity:1; }
 #lightbox img { max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 20px rgba(0,0,0,0.7); }
-
 footer { background:#001a33; color:#fff; padding:15px; margin-top:40px; }
 footer a { color:#4da6ff; margin:0 15px; text-decoration:none; }
 footer a:hover { text-decoration:underline; }
@@ -83,77 +75,104 @@ footer a:hover { text-decoration:underline; }
 const data = {
   logos:['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'],
   affiches:['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg','images/affiches/affiche5.jpg','images/affiches/affiche6.jpg'],
-  videos:['https://www.youtube.com/embed/qAsG_P2ZtGk','https://www.youtube.com/embed/uEW7lNnpXJw','https://www.youtube.com/embed/gmBgCF2VcV8','https://www.youtube.com/embed/lbvV0KJK0C8','https://www.youtube.com/embed/uMWTLTYN1RI']
+  videos:[
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F992019422192079%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1046719850354572%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1871767593301350%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F8182628635105181%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1128191708465484%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F3392508274380366%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F457573133705162%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F820511136706394%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F766437438901830%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1517265682500481%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1527111301524646%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F426339150382242%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1630542697429917%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F828698934869678%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F263044686412619%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F637041755124769%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F639421378106278%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F960168361911615%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1507945709728525%2F&show_text=0&width=560",
+    "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1230940850788187%2F&show_text=0&width=560"
+  ]
 };
 
 let sliders = {};
 
-function initSliders(){
-  for(const cat in data){
+function initSliders() {
+  for (const cat in data) {
     const slidesDiv = document.querySelector(`#slider-${cat} .slides`);
-    sliders[cat] = { index:0, slidesDiv };
+    sliders[cat] = { index: 0, slidesDiv };
 
-    data[cat].forEach(src=>{
+    data[cat].forEach((src, i) => {
       let el;
-      if(cat==='videos'){
-        el=document.createElement('iframe');
-        el.src=src;
-        el.width="560"; el.height="315";
-        el.frameBorder="0";
-        el.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-        el.allowFullscreen=true;
+      if (cat === 'videos') {
+        el = document.createElement('iframe');
+        el.src = src;
+        el.width = "560";
+        el.height = "315";
+        el.frameBorder = "0";
+        el.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        el.allowFullscreen = true;
       } else {
-        el=document.createElement('img');
-        el.src=src;
-        el.alt=src;
-        el.onclick=()=>openLightbox(src);
+        el = document.createElement('img');
+        el.src = src;
+        el.alt = `${cat} image ${i + 1}`;
+        el.onclick = () => openLightbox(src);
       }
       slidesDiv.appendChild(el);
     });
 
-    slidesDiv.parentElement.querySelector('.arrow.left').onclick = ()=>moveSlide(cat,-1);
-    slidesDiv.parentElement.querySelector('.arrow.right').onclick = ()=>moveSlide(cat,1);
+    slidesDiv.parentElement.querySelector('.arrow.left').onclick = () => moveSlide(cat, -1);
+    slidesDiv.parentElement.querySelector('.arrow.right').onclick = () => moveSlide(cat, 1);
 
     updateSlider(cat);
-
-    // Auto pour logos et affiches uniquement
-    if(cat!=='videos') setInterval(()=>moveSlide(cat,1),7000);
+    if (cat !== 'videos') setInterval(() => moveSlide(cat, 1), 7000); // Les vidéos n'ont pas d'auto-défilement
   }
 }
 
-function updateSlider(cat){
-  const {slidesDiv,index} = sliders[cat];
+function updateSlider(cat) {
+  const { slidesDiv, index } = sliders[cat];
   const els = slidesDiv.children;
   const total = els.length;
   const sliderWidth = slidesDiv.clientWidth;
 
-  Array.from(els).forEach((el,i)=>{
-    let diff=i-index;
-    if(diff<-Math.floor(total/2)) diff+=total;
-    if(diff>Math.floor(total/2)) diff-=total;
+  Array.from(els).forEach((el, i) => {
+    let diff = i - index;
+    if (diff < -Math.floor(total / 2)) diff += total;
+    if (diff > Math.floor(total / 2)) diff -= total;
+    const absDiff = Math.abs(diff);
+    const offset = diff * (sliderWidth / 4.5);
+    const rotateY = diff * 35;
+    const translateZ = diff === 0 ? 0 : -absDiff * 120;
+    const scale = 1 - absDiff * 0.15;
+    const opacity = 1 - absDiff * 0.25;
 
-    const absDiff=Math.abs(diff);
-    const offset=diff*(sliderWidth/5); // 5 images visibles
-    const rotateY=diff*30;
-    const translateZ=(diff===0)?0:-absDiff*120;
-    const scale=1-absDiff*0.15;
-    const opacity=1-absDiff*0.25;
-
-    el.classList.toggle('active', diff===0);
-    el.style.zIndex=(diff===0)?total+10:total-absDiff;
-    el.style.opacity=opacity;
-    el.style.transform=`translateX(${offset}px) translate(-50%, -50%) translateZ(${translateZ}px) scale(${scale}) rotateY(${rotateY}deg)`;
-    el.style.filter=absDiff>=2?'blur(3px)':'none';
+    el.classList.toggle('active', diff === 0);
+    el.style.zIndex = diff === 0 ? total + 10 : total - absDiff;
+    el.style.opacity = opacity;
+    el.style.transform = `translateX(${offset}px) translate(-50%, -50%) translateZ(${translateZ}px) scale(${scale}) rotateY(${rotateY}deg)`;
+    el.style.filter = absDiff >= 2 ? 'blur(3px)' : 'none';
   });
 }
 
-function moveSlide(cat,step){
-  sliders[cat].index=(sliders[cat].index+step+data[cat].length)%data[cat].length;
+function moveSlide(cat, step) {
+  sliders[cat].index = (sliders[cat].index + step + data[cat].length) % data[cat].length;
   updateSlider(cat);
 }
 
-function openLightbox(src){ const lb=document.getElementById('lightbox'); lb.querySelector('img').src=src; lb.classList.add('show'); }
-function closeLightbox(){ document.getElementById('lightbox').classList.remove('show'); }
+function openLightbox(src) {
+  const lightbox = document.getElementById('lightbox');
+  lightbox.querySelector('img').src = src;
+  lightbox.classList.add('show');
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  lightbox.classList.remove('show');
+}
 
 initSliders();
 </script>
