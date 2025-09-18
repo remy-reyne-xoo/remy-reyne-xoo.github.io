@@ -76,6 +76,17 @@ const data = {
   logos:['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'],
   affiches:['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg','images/affiches/affiche5.jpg','images/affiches/affiche6.jpg'],
   videos:[
+    // YouTube
+    'https://www.youtube.com/embed/qAsG_P2ZtGk',
+    'https://www.youtube.com/embed/uEW7lNnpXJw',
+    'https://www.youtube.com/embed/gmBgCF2VcV8',
+    'https://www.youtube.com/embed/lbvV0KJK0C8',
+    'https://www.youtube.com/embed/uMWTLTYN1RI',
+    'https://www.youtube.com/embed/KPJuC8V4o3E',
+    'https://www.youtube.com/embed/qw8sg7PVUXI',
+    'https://www.youtube.com/embed/YuCIzb6xlQM',
+    'https://www.youtube.com/embed/sftigWJkCMk',
+    // Facebook
     "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F992019422192079%2F&show_text=0&width=560",
     "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1046719850354572%2F&show_text=0&width=560",
     "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1871767593301350%2F&show_text=0&width=560",
@@ -108,18 +119,19 @@ function initSliders() {
 
     data[cat].forEach((src, i) => {
       let el;
-      if (cat === 'videos') {
+      if(cat === 'videos') {
         el = document.createElement('iframe');
         el.src = src;
-        el.width = "560";
-        el.height = "315";
+        el.style.width = "100%";
+        el.style.height = "100%";
+        el.style.maxHeight = "315px";
         el.frameBorder = "0";
         el.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
         el.allowFullscreen = true;
       } else {
         el = document.createElement('img');
         el.src = src;
-        el.alt = `${cat} image ${i + 1}`;
+        el.alt = `${cat} image ${i+1}`;
         el.onclick = () => openLightbox(src);
       }
       slidesDiv.appendChild(el);
@@ -129,7 +141,6 @@ function initSliders() {
     slidesDiv.parentElement.querySelector('.arrow.right').onclick = () => moveSlide(cat, 1);
 
     updateSlider(cat);
-    if (cat !== 'videos') setInterval(() => moveSlide(cat, 1), 7000); // Les vidéos n'ont pas d'auto-défilement
   }
 }
 
@@ -139,22 +150,22 @@ function updateSlider(cat) {
   const total = els.length;
   const sliderWidth = slidesDiv.clientWidth;
 
-  Array.from(els).forEach((el, i) => {
+  Array.from(els).forEach((el,i) => {
     let diff = i - index;
-    if (diff < -Math.floor(total / 2)) diff += total;
-    if (diff > Math.floor(total / 2)) diff -= total;
+    if(diff < -Math.floor(total/2)) diff += total;
+    if(diff > Math.floor(total/2)) diff -= total;
     const absDiff = Math.abs(diff);
-    const offset = diff * (sliderWidth / 4.5);
-    const rotateY = diff * 35;
-    const translateZ = diff === 0 ? 0 : -absDiff * 120;
-    const scale = 1 - absDiff * 0.15;
-    const opacity = 1 - absDiff * 0.25;
+    const offset = diff * (sliderWidth/4.5);
+    const rotateY = diff*35;
+    const translateZ = diff===0?0:-absDiff*120;
+    const scale = 1 - absDiff*0.15;
+    const opacity = 1 - absDiff*0.25;
 
-    el.classList.toggle('active', diff === 0);
-    el.style.zIndex = diff === 0 ? total + 10 : total - absDiff;
+    el.classList.toggle('active', diff===0);
+    el.style.zIndex = diff===0 ? total+10 : total-absDiff;
     el.style.opacity = opacity;
     el.style.transform = `translateX(${offset}px) translate(-50%, -50%) translateZ(${translateZ}px) scale(${scale}) rotateY(${rotateY}deg)`;
-    el.style.filter = absDiff >= 2 ? 'blur(3px)' : 'none';
+    el.style.filter = absDiff>=2?'blur(3px)':'none';
   });
 }
 
@@ -176,6 +187,5 @@ function closeLightbox() {
 
 initSliders();
 </script>
-
 </body>
 </html>
