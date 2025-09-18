@@ -6,66 +6,53 @@
   <title>Portfolio - Remy Reyne</title>
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #0a0a0a, #001a33);
-      color: #fff;
-    }
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      padding: 15px;
+      margin: 0;
+      padding: 0;
+      background: #111;
+      color: #f1f1f1;
       text-align: center;
-      z-index: 1000;
     }
-    nav a {
-      color: #fff;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover { color: #4da6ff; }
 
     header {
-      padding: 120px 20px 60px;
-      text-align: center;
+      padding: 20px;
     }
-    header h1 {
-      font-size: 3em;
-      margin-bottom: 10px;
-      color: #4da6ff;
-    }
-    header h2 {
-      font-size: 1.3em;
-      font-weight: normal;
-      margin-bottom: 20px;
-      color: #ccc;
-    }
+
     header video {
-      max-width: 300px;
+      max-width: 600px;
       display: block;
       margin: 20px auto;
     }
 
-    section {
-      padding: 80px 20px;
-      max-width: 1100px;
-      margin: auto;
+    header h1 {
+      font-size: 3em;
+      margin: 10px 0 5px;
     }
-    section h2 {
-      text-align: center;
-      margin-bottom: 40px;
+
+    header h2 {
+      font-size: 1.5em;
+      font-weight: normal;
+      color: #aaa;
+      margin-bottom: 20px;
+    }
+
+    .section {
+      margin: 50px auto;
+      max-width: 1100px;
+    }
+
+    .section h2 {
+      margin-bottom: 20px;
+      font-size: 2em;
       color: #4da6ff;
     }
 
-    /* Coverflow */
+    /* Carrousel Coverflow */
     .slider {
       position: relative;
       width: 100%;
       max-width: 1000px;
-      height: 280px;
+      height: 350px;
       margin: auto;
       overflow: hidden;
     }
@@ -81,9 +68,12 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      transition: all 0.5s ease;
-      max-height: 220px;
+      transition: transform 0.6s ease, opacity 0.6s ease; /* effet fluide */
+      max-height: 280px;
       object-fit: cover;
+    }
+    .slides img.active {
+      box-shadow: 0 0 25px rgba(0,0,0,0.8);
     }
     .arrow {
       position: absolute;
@@ -94,216 +84,159 @@
       cursor: pointer;
       user-select: none;
       z-index: 10;
+      transition: color 0.3s ease;
+    }
+    .arrow:hover {
+      color: #82c6ff;
     }
     .arrow.left { left: 10px; }
     .arrow.right { right: 10px; }
 
     /* Lightbox */
     #lightbox {
-      display: none;
       position: fixed;
-      z-index: 2000;
-      left: 0; top: 0;
+      top: 0; left: 0;
       width: 100%; height: 100%;
       background: rgba(0,0,0,0.9);
-      align-items: center;
+      display: none;
       justify-content: center;
+      align-items: center;
+      z-index: 100;
     }
     #lightbox img {
       max-width: 90%;
-      max-height: 80%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.7);
     }
-    #lightbox .close {
-      position: absolute;
-      top: 20px; right: 30px;
-      font-size: 40px;
-      color: #fff;
-      cursor: pointer;
+    #lightbox:target {
+      display: flex;
     }
-    #lightbox .nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 50px;
-      color: #fff;
-      cursor: pointer;
-      user-select: none;
-    }
-    #lightbox .prev { left: 30px; }
-    #lightbox .next { right: 30px; }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      background: #000;
-      margin-top: 50px;
-    }
-    footer a {
-      color: #4da6ff;
-      margin: 0 10px;
-      text-decoration: none;
-    }
-    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
-
-  <nav>
-    <a href="#accueil">Accueil</a>
-    <a href="#cv">CV</a>
-    <a href="#logos">Logos</a>
-    <a href="#affiches">Affiches</a>
-    <a href="#flyers">Flyers</a>
-    <a href="#mockups">Mockups</a>
-    <a href="#cd">CD</a>
-    <a href="#videos">Vidéos</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <header id="accueil">
-    <h1>Remy Reyne</h1>
-    <h2>Graphiste senior 360° • Illustrateur • Motion Designer • Photographe</h2>
+  <header>
     <video autoplay loop muted playsinline>
       <source src="videos/logo&slogan.webm" type="video/webm">
     </video>
+    <h1>Remy Reyne</h1>
+    <h2>Graphiste senior 360 / Illustrateur / Motion designer / Photographe</h2>
   </header>
 
-  <section id="cv">
-    <h2>Mon CV</h2>
-    <a href="cv.pdf" target="_blank">
-      <img src="images/cv_preview.jpg" alt="Aperçu CV" style="max-width:400px;display:block;margin:auto;border-radius:10px;">
-    </a>
-  </section>
-
-  <!-- Carrousels -->
-  <section id="logos"><h2>Logos</h2>
-    <div class="slider">
-      <span class="arrow left" onclick="slideLeft('logos')">&#10094;</span>
-      <div class="slides" id="carousel-logos"></div>
-      <span class="arrow right" onclick="slideRight('logos')">&#10095;</span>
+  <!-- Logos -->
+  <div class="section">
+    <h2>Logos</h2>
+    <div class="slider" id="slider-logos">
+      <span class="arrow left" onclick="moveSlide('logos', -1)">&#10094;</span>
+      <div class="slides"></div>
+      <span class="arrow right" onclick="moveSlide('logos', 1)">&#10095;</span>
     </div>
-  </section>
-
-  <section id="affiches"><h2>Affiches</h2>
-    <div class="slider">
-      <span class="arrow left" onclick="slideLeft('affiches')">&#10094;</span>
-      <div class="slides" id="carousel-affiches"></div>
-      <span class="arrow right" onclick="slideRight('affiches')">&#10095;</span>
-    </div>
-  </section>
-
-  <section id="flyers"><h2>Flyers</h2>
-    <div class="slider">
-      <span class="arrow left" onclick="slideLeft('flyers')">&#10094;</span>
-      <div class="slides" id="carousel-flyers"></div>
-      <span class="arrow right" onclick="slideRight('flyers')">&#10095;</span>
-    </div>
-  </section>
-
-  <section id="mockups"><h2>Mockups</h2>
-    <div class="slider">
-      <span class="arrow left" onclick="slideLeft('mockups')">&#10094;</span>
-      <div class="slides" id="carousel-mockups"></div>
-      <span class="arrow right" onclick="slideRight('mockups')">&#10095;</span>
-    </div>
-  </section>
-
-  <section id="cd"><h2>CD</h2>
-    <div class="slider">
-      <span class="arrow left" onclick="slideLeft('cd')">&#10094;</span>
-      <div class="slides" id="carousel-cd"></div>
-      <span class="arrow right" onclick="slideRight('cd')">&#10095;</span>
-    </div>
-  </section>
-
-  <!-- Vidéos YouTube -->
-  <section id="videos">
-    <h2>Vidéos</h2>
-    <div class="videos-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;">
-      <iframe src="https://www.youtube.com/embed/qAsG_P2ZtGk" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/uEW7lNnpXJw" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/gmBgCF2VcV8" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/lbvV0KJK0C8" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/uMWTLTYN1RI" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/KPJuC8V4o3E" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/qw8sg7PVUXI" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/YuCIzb6xlQM" frameborder="0" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/sftigWJkCMk" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </section>
-
-  <footer id="contact">
-    <p>Contactez-moi :</p>
-    <a href="mailto:remy.reyne@gmail.com">Email</a> |
-    <a href="https://www.facebook.com/XooDesign/" target="_blank">Facebook</a> |
-    <a href="https://www.linkedin.com/in/r%C3%A9my-reyne-699519b5/" target="_blank">LinkedIn</a>
-  </footer>
-
-  <!-- Lightbox -->
-  <div id="lightbox">
-    <span class="close" onclick="closeLightbox()">&times;</span>
-    <span class="nav prev" onclick="prevImage()">&#10094;</span>
-    <img id="lightbox-img">
-    <span class="nav next" onclick="nextImage()">&#10095;</span>
   </div>
 
-<script>
-const categories = {
-  'logos': Array.from({length:9},(_,i)=>`images/logos/logo${i+1}.jpg`),
-  'affiches': Array.from({length:10},(_,i)=>`images/affiches/affiche${i+1}.jpg`),
-  'flyers': Array.from({length:2},(_,i)=>`images/flyers/flyers${i+1}.jpg`),
-  'mockups': ['images/mockups/mockup2.jpg','images/mockups/mockup1.jpg'],
-  'cd': Array.from({length:2},(_,i)=>`images/cd/cd${i+1}.jpg`)
-};
+  <!-- Affiches -->
+  <div class="section">
+    <h2>Affiches</h2>
+    <div class="slider" id="slider-affiches">
+      <span class="arrow left" onclick="moveSlide('affiches', -1)">&#10094;</span>
+      <div class="slides"></div>
+      <span class="arrow right" onclick="moveSlide('affiches', 1)">&#10095;</span>
+    </div>
+  </div>
 
-let sliders = {};
-let currentImages = [];
-let currentIndex = 0;
+  <!-- Flyers -->
+  <div class="section">
+    <h2>Flyers</h2>
+    <div class="slider" id="slider-flyers">
+      <span class="arrow left" onclick="moveSlide('flyers', -1)">&#10094;</span>
+      <div class="slides"></div>
+      <span class="arrow right" onclick="moveSlide('flyers', 1)">&#10095;</span>
+    </div>
+  </div>
 
-function openLightbox(src, arr){
-  document.getElementById('lightbox').style.display='flex';
-  document.getElementById('lightbox-img').src=src;
-  currentImages=arr;
-  currentIndex=arr.indexOf(src);
-}
-function closeLightbox(){ document.getElementById('lightbox').style.display='none'; }
-function prevImage(){ currentIndex=(currentIndex-1+currentImages.length)%currentImages.length; document.getElementById('lightbox-img').src=currentImages[currentIndex]; }
-function nextImage(){ currentIndex=(currentIndex+1)%currentImages.length; document.getElementById('lightbox-img').src=currentImages[currentIndex]; }
+  <!-- Mockups -->
+  <div class="section">
+    <h2>Mockups</h2>
+    <div class="slider" id="slider-mockups">
+      <span class="arrow left" onclick="moveSlide('mockups', -1)">&#10094;</span>
+      <div class="slides"></div>
+      <span class="arrow right" onclick="moveSlide('mockups', 1)">&#10095;</span>
+    </div>
+  </div>
 
-function updateSlider(cat){
-  const { slidesDiv, index } = sliders[cat];
-  const imgs = slidesDiv.querySelectorAll('img');
-  const total = imgs.length;
-  imgs.forEach((img,i)=>{
-    let diff = i - index;
-    if(diff<-Math.floor(total/2)) diff+=total;
-    if(diff>Math.floor(total/2)) diff-=total;
-    const absDiff=Math.abs(diff);
-    img.style.zIndex=total-absDiff;
-    img.style.opacity=1-0.3*absDiff;
-    img.style.transform=`translate(${diff*150}px,-50%) scale(${1-0.2*absDiff})`;
-  });
-}
-function slideLeft(cat){
-  sliders[cat].index=(sliders[cat].index-1+categories[cat].length)%categories[cat].length;
-  updateSlider(cat);
-}
-function slideRight(cat){
-  sliders[cat].index=(sliders[cat].index+1)%categories[cat].length;
-  updateSlider(cat);
-}
+  <!-- CD -->
+  <div class="section">
+    <h2>CD</h2>
+    <div class="slider" id="slider-cd">
+      <span class="arrow left" onclick="moveSlide('cd', -1)">&#10094;</span>
+      <div class="slides"></div>
+      <span class="arrow right" onclick="moveSlide('cd', 1)">&#10095;</span>
+    </div>
+  </div>
 
-Object.keys(categories).forEach(cat=>{
-  const slidesDiv=document.getElementById('carousel-'+cat);
-  categories[cat].forEach(src=>{
-    const img=document.createElement('img');
-    img.src=src;
-    img.onclick=()=>openLightbox(src,categories[cat]);
-    slidesDiv.appendChild(img);
-  });
-  sliders[cat]={slidesDiv,index:0};
-  updateSlider(cat);
-});
-</script>
+  <!-- Lightbox -->
+  <div id="lightbox" onclick="this.style.display='none'">
+    <img src="" alt="preview">
+  </div>
+
+  <script>
+    const data = {
+      'logos': ['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'],
+      'affiches': ['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg','images/affiches/affiche5.jpg','images/affiches/affiche6.jpg','images/affiches/affiche7.jpg','images/affiches/affiche8.jpg','images/affiches/affiche9.jpg','images/affiches/affiche10.jpg'],
+      'flyers': ['images/flyers/flyers1.jpg','images/flyers/flyers2.jpg'],
+      'mockups': ['images/mockups/mockup1.jpg','images/mockups/mockup2.jpg'],
+      'cd': ['images/cd/cd1.jpg','images/cd/cd2.jpg']
+    };
+
+    let sliders = {};
+
+    function initSliders(){
+      for(const cat in data){
+        const slidesDiv = document.querySelector(`#slider-${cat} .slides`);
+        data[cat].forEach(src=>{
+          const img = document.createElement('img');
+          img.src = src;
+          img.onclick = ()=>openLightbox(src);
+          slidesDiv.appendChild(img);
+        });
+        sliders[cat] = { index: 0, slidesDiv };
+        updateSlider(cat);
+      }
+    }
+
+    function updateSlider(cat){
+      const { slidesDiv, index } = sliders[cat];
+      const imgs = slidesDiv.querySelectorAll('img');
+      const total = imgs.length;
+
+      imgs.forEach((img,i)=>{
+        let diff = i - index;
+        if(diff<-Math.floor(total/2)) diff+=total;
+        if(diff>Math.floor(total/2)) diff-=total;
+
+        const absDiff = Math.abs(diff);
+        const offset = diff * 200;
+        const scale = 1 - absDiff * 0.2;
+        const opacity = 1 - absDiff * 0.3;
+
+        img.classList.toggle('active', diff === 0);
+        img.style.zIndex = total - absDiff;
+        img.style.opacity = opacity;
+        img.style.transform = `translate(${offset}px, -50%) scale(${scale})`;
+      });
+    }
+
+    function moveSlide(cat, step){
+      sliders[cat].index = (sliders[cat].index + step + data[cat].length) % data[cat].length;
+      updateSlider(cat);
+    }
+
+    function openLightbox(src){
+      const lightbox = document.getElementById('lightbox');
+      lightbox.style.display = 'flex';
+      lightbox.querySelector('img').src = src;
+    }
+
+    initSliders();
+  </script>
 </body>
 </html>
