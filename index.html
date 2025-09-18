@@ -107,27 +107,32 @@ header h2 {
 .arrow.left {left:0;}
 .arrow.right {right:0;}
 
-.grid {
+/* Grilles Flyers / Mockups / CD */
+#flyers .grid,
+#mockups .grid,
+#cd .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px; /* réduit l'espace entre miniatures */
+  justify-items: center;
   margin-top: 20px;
 }
-.grid img {
-  width: 60%;
-  max-width: 300px;
-  margin: auto;
+
+#flyers .grid img,
+#mockups .grid img,
+#cd .grid img {
+  width: 90%;
+  max-width: 250px; 
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.5);
   cursor: pointer;
   transition: transform 0.3s ease;
 }
-.grid img:hover {transform: scale(1.05);}
 
-#mockups .grid img,
-#cd .grid img {
-  width: 70%;
-  max-width: 350px;
+#flyers .grid img:hover,
+#mockups .grid img:hover,
+#cd .grid img:hover {
+  transform: scale(1.05);
 }
 
 #lightbox {
@@ -255,6 +260,12 @@ const data={
 let sliders={};
 let sliderIntervals={};
 
+function initYouTubeIframes(){
+  document.querySelectorAll('iframe').forEach(iframe=>{
+    iframe.src += iframe.src.includes('?') ? '&enablejsapi=1' : '?enablejsapi=1';
+  });
+}
+
 function initSliders(){
   for(const cat in data){
     const slidesDiv=document.querySelector(`#slider-${cat} .slides`);
@@ -318,6 +329,12 @@ function updateSlider(cat){
     el.style.opacity=opacity;
     el.style.transform=`translateX(${offset}px) translate(-50%, -50%) translateZ(${translateZ}px) scale(${scale}) rotateY(${rotateY}deg)`;
     el.style.filter=absDiff>=2?'blur(3px)':'none';
+
+    if(el.tagName==='IFRAME'){
+      if(diff!==0){
+        el.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+      }
+    }
   });
 }
 
@@ -332,17 +349,16 @@ function openLightbox(src){
   img.src=src;
   img.onerror = ()=>console.error('Image introuvable:', src);
   lightbox.classList.add('show');
-  // Pause tous les sliders pendant lightbox
   Object.values(sliders).forEach(s=>s.paused=true);
 }
 
 function closeLightbox(){
   const lightbox=document.getElementById('lightbox');
   lightbox.classList.remove('show');
-  // Reprendre les sliders
   Object.values(sliders).forEach(s=>s.paused=false);
 }
 
+initYouTubeIframes();
 initSliders();
 </script>
 </body>
