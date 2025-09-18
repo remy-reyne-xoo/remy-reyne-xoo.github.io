@@ -3,99 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio Xoo Design</title>
+  <title>Xoo Design - Portfolio</title>
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #00111a, #003366);
-      color: white;
+      background: #111;
+      color: #fff;
+      margin: 0;
+      padding: 0;
       text-align: center;
     }
-
     h2 {
       margin: 40px 0 20px;
-      font-size: 2rem;
-      background: #003366;
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: 20px;
     }
 
-    .carousel-container {
-      position: relative;
-      perspective: 1500px;
-      margin: 40px auto;
-      width: 90%;
-      max-width: 1000px;
-      height: 400px;
-    }
-
+    /* Container global */
     .carousel {
-      width: 100%;
-      height: 100%;
       position: relative;
-      transform-style: preserve-3d;
-      transition: transform 1s;
+      width: 90%;
+      margin: auto;
+      perspective: 1000px;
+      overflow: hidden;
+    }
+
+    .slides {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.8s ease-in-out;
+      gap: 15px;
     }
 
     .slide {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform-origin: center center;
-      transition: transform 1s, opacity 1s;
-      opacity: 0.6;
+      min-width: 250px;
+      max-width: 320px;
+      transition: transform 0.5s;
+    }
+
+    /* Images du carrousel */
+    .slide img {
+      max-width: 300px;
+      max-height: 200px;
+      object-fit: contain;
       border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     }
 
-    .slide.active {
-      opacity: 1;
-      z-index: 5;
-    }
-
-    .slide img, 
+    /* Vidéos YouTube */
     .slide iframe {
-      width: 560px;
+      width: 480px;
+      height: 270px;
       max-width: 80vw;
-      height: 315px;
+      aspect-ratio: 16/9;
       border-radius: 12px;
-      border: none;
     }
 
-    .nav-btn {
+    /* Boutons */
+    .carousel button {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 2rem;
-      background: rgba(0,0,0,0.5);
-      color: white;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
       border: none;
-      padding: 10px 20px;
+      padding: 12px;
       cursor: pointer;
       border-radius: 50%;
     }
-
-    .nav-btn:hover {
-      background: rgba(0,0,0,0.8);
-    }
-
-    .nav-left {
-      left: -50px;
-    }
-
-    .nav-right {
-      right: -50px;
-    }
+    .carousel button.prev { left: 10px; }
+    .carousel button.next { right: 10px; }
   </style>
 </head>
 <body>
 
+  <h1>Portfolio Xoo Design</h1>
+
+  <!-- Logos -->
   <h2>Logos</h2>
-  <div class="carousel-container">
-    <div class="carousel" id="slider-logos">
+  <div class="carousel" id="logos">
+    <button class="prev" onclick="moveSlide('logos', -1)">❮</button>
+    <div class="slides">
       <div class="slide"><img src="images/logos/logo1.jpg" alt="Logo 1"></div>
       <div class="slide"><img src="images/logos/logo2.jpg" alt="Logo 2"></div>
       <div class="slide"><img src="images/logos/logo3.jpg" alt="Logo 3"></div>
@@ -106,101 +92,95 @@
       <div class="slide"><img src="images/logos/logo8.jpg" alt="Logo 8"></div>
       <div class="slide"><img src="images/logos/logo9.jpg" alt="Logo 9"></div>
     </div>
-    <button class="nav-btn nav-left" onclick="moveSlide('logos', -1)">&#10094;</button>
-    <button class="nav-btn nav-right" onclick="moveSlide('logos', 1)">&#10095;</button>
+    <button class="next" onclick="moveSlide('logos', 1)">❯</button>
   </div>
 
+  <!-- Affiches -->
   <h2>Affiches</h2>
-  <div class="carousel-container">
-    <div class="carousel" id="slider-affiches">
-      <div class="slide"><img src="images/affiches/affiche1.jpg" alt="Affiche 1"></div>
-      <div class="slide"><img src="images/affiches/affiche2.jpg" alt="Affiche 2"></div>
-      <div class="slide"><img src="images/affiches/affiche3.jpg" alt="Affiche 3"></div>
-      <div class="slide"><img src="images/affiches/affiche4.jpg" alt="Affiche 4"></div>
-      <div class="slide"><img src="images/affiches/affiche5.jpg" alt="Affiche 5"></div>
-      <div class="slide"><img src="images/affiches/affiche6.jpg" alt="Affiche 6"></div>
-      <div class="slide"><img src="images/affiches/affiche7.jpg" alt="Affiche 7"></div>
-      <div class="slide"><img src="images/affiches/affiche8.jpg" alt="Affiche 8"></div>
+  <div class="carousel" id="affiches">
+    <button class="prev" onclick="moveSlide('affiches', -1)">❮</button>
+    <div class="slides">
+      <div class="slide"><img src="images/affiches/affiche1.jpg"></div>
+      <div class="slide"><img src="images/affiches/affiche2.jpg"></div>
+      <div class="slide"><img src="images/affiches/affiche3.jpg"></div>
+      <div class="slide"><img src="images/affiches/affiche4.jpg"></div>
+      <div class="slide"><img src="images/affiches/affiche5.jpg"></div>
+      <div class="slide"><img src="images/affiches/affiche6.jpg"></div>
+      <div class="slide"><img src="images/affiches/affiche7.jpg"></div>
+      <div class="slide"><img src="images/affiches/affiche8.jpg"></div>
     </div>
-    <button class="nav-btn nav-left" onclick="moveSlide('affiches', -1)">&#10094;</button>
-    <button class="nav-btn nav-right" onclick="moveSlide('affiches', 1)">&#10095;</button>
+    <button class="next" onclick="moveSlide('affiches', 1)">❯</button>
   </div>
 
+  <!-- Vidéos -->
   <h2>Vidéos</h2>
-  <div class="carousel-container">
-    <div class="carousel" id="slider-videos">
-      <div class="slide active"><iframe src="https://www.youtube.com/embed/VIDEO_ID1" allowfullscreen></iframe></div>
-      <div class="slide"><iframe src="https://www.youtube.com/embed/VIDEO_ID2" allowfullscreen></iframe></div>
-      <div class="slide"><iframe src="https://www.youtube.com/embed/VIDEO_ID3" allowfullscreen></iframe></div>
-      <div class="slide"><iframe src="https://www.youtube.com/embed/VIDEO_ID4" allowfullscreen></iframe></div>
-      <!-- Ajoute ici toutes tes autres vidéos YouTube -->
+  <div class="carousel" id="youtube">
+    <button class="prev" onclick="moveSlide('youtube', -1)">❮</button>
+    <div class="slides">
+      <div class="slide"><iframe src="https://www.youtube.com/embed/qAsG_P2ZtGk" frameborder="0" allowfullscreen></iframe></div>
+      <div class="slide"><iframe src="https://www.youtube.com/embed/uEW7lNnpXJw" frameborder="0" allowfullscreen></iframe></div>
+      <div class="slide"><iframe src="https://www.youtube.com/embed/gmBgCF2VcV8" frameborder="0" allowfullscreen></iframe></div>
+      <div class="slide"><iframe src="https://www.youtube.com/embed/lbvV0KJK0C8" frameborder="0" allowfullscreen></iframe></div>
+      <div class="slide"><iframe src="https://www.youtube.com/embed/uMWTLTYN1RI" frameborder="0" allowfullscreen></iframe></div>
+      <div class="slide"><iframe src="https://www.youtube.com/embed/KPJuC8V4o3E" frameborder="0" allowfullscreen></iframe></div>
+      <div class="slide"><iframe src="https://www.youtube.com/embed/qw8sg7PVUXI" frameborder="0" allowfullscreen></iframe></div>
+      <div class="slide"><iframe src="https://www.youtube.com/embed/YuCIzb6xlQM" frameborder="0" allowfullscreen></iframe></div>
+      <div class="slide"><iframe src="https://www.youtube.com/embed/sftigWJkCMk" frameborder="0" allowfullscreen></iframe></div>
     </div>
-    <button class="nav-btn nav-left" onclick="moveSlide('videos', -1)">&#10094;</button>
-    <button class="nav-btn nav-right" onclick="moveSlide('videos', 1)">&#10095;</button>
+    <button class="next" onclick="moveSlide('youtube', 1)">❯</button>
   </div>
 
+  <!-- Flyers -->
   <h2>Flyers</h2>
-  <div class="carousel-container">
-    <div class="carousel" id="slider-flyers">
-      <div class="slide"><img src="images/flyers/flyers1.jpg" alt="Flyer 1"></div>
-      <div class="slide"><img src="images/flyers/flyers2.jpg" alt="Flyer 2"></div>
+  <div class="carousel" id="flyers">
+    <button class="prev" onclick="moveSlide('flyers', -1)">❮</button>
+    <div class="slides">
+      <div class="slide"><img src="images/flyers/flyers1.jpg"></div>
+      <div class="slide"><img src="images/flyers/flyers2.jpg"></div>
     </div>
-    <button class="nav-btn nav-left" onclick="moveSlide('flyers', -1)">&#10094;</button>
-    <button class="nav-btn nav-right" onclick="moveSlide('flyers', 1)">&#10095;</button>
+    <button class="next" onclick="moveSlide('flyers', 1)">❯</button>
   </div>
 
+  <!-- Mockups -->
   <h2>Mockups</h2>
-  <div class="carousel-container">
-    <div class="carousel" id="slider-mockups">
-      <div class="slide"><img src="images/mockups/mockup1.jpg" alt="Mockup 1"></div>
-      <div class="slide"><img src="images/mockups/mockup2.jpg" alt="Mockup 2"></div>
+  <div class="carousel" id="mockups">
+    <button class="prev" onclick="moveSlide('mockups', -1)">❮</button>
+    <div class="slides">
+      <div class="slide"><img src="images/mockups/mockup1.jpg"></div>
+      <div class="slide"><img src="images/mockups/mockup2.jpg"></div>
     </div>
-    <button class="nav-btn nav-left" onclick="moveSlide('mockups', -1)">&#10094;</button>
-    <button class="nav-btn nav-right" onclick="moveSlide('mockups', 1)">&#10095;</button>
+    <button class="next" onclick="moveSlide('mockups', 1)">❯</button>
   </div>
 
+  <!-- CD -->
   <h2>CD</h2>
-  <div class="carousel-container">
-    <div class="carousel" id="slider-cd">
-      <div class="slide"><img src="images/cd/cd1.jpg" alt="CD 1"></div>
-      <div class="slide"><img src="images/cd/cd2.jpg" alt="CD 2"></div>
+  <div class="carousel" id="cd">
+    <button class="prev" onclick="moveSlide('cd', -1)">❮</button>
+    <div class="slides">
+      <div class="slide"><img src="images/cd/cd1.jpg"></div>
+      <div class="slide"><img src="images/cd/cd2.jpg"></div>
     </div>
-    <button class="nav-btn nav-left" onclick="moveSlide('cd', -1)">&#10094;</button>
-    <button class="nav-btn nav-right" onclick="moveSlide('cd', 1)">&#10095;</button>
+    <button class="next" onclick="moveSlide('cd', 1)">❯</button>
   </div>
 
   <script>
     const sliders = {
-      logos: { index: 0, el: document.getElementById("slider-logos") },
-      affiches: { index: 0, el: document.getElementById("slider-affiches") },
-      videos: { index: 0, el: document.getElementById("slider-videos") },
-      flyers: { index: 0, el: document.getElementById("slider-flyers") },
-      mockups: { index: 0, el: document.getElementById("slider-mockups") },
-      cd: { index: 0, el: document.getElementById("slider-cd") },
+      logos: { index: 0 },
+      affiches: { index: 0 },
+      youtube: { index: 0 },
+      flyers: { index: 0 },
+      mockups: { index: 0 },
+      cd: { index: 0 }
     };
 
-    function updateCarousel(key) {
-      const slider = sliders[key];
-      const slides = slider.el.querySelectorAll(".slide");
-      const total = slides.length;
-      const angle = 360 / total;
-
-      slides.forEach((slide, i) => {
-        const offset = (i - slider.index + total) % total;
-        const theta = offset * angle;
-        slide.style.transform = `rotateY(${theta}deg) translateZ(600px)`;
-        slide.classList.toggle("active", i === slider.index);
-      });
+    function moveSlide(key, direction) {
+      const carousel = document.getElementById(key);
+      const slides = carousel.querySelector(".slides");
+      const totalSlides = slides.children.length;
+      sliders[key].index = (sliders[key].index + direction + totalSlides) % totalSlides;
+      slides.style.transform = `translateX(-${sliders[key].index * 320}px)`;
     }
-
-    function moveSlide(key, dir) {
-      const slider = sliders[key];
-      const total = slider.el.querySelectorAll(".slide").length;
-      slider.index = (slider.index + dir + total) % total;
-      updateCarousel(key);
-    }
-
-    Object.keys(sliders).forEach(updateCarousel);
   </script>
+
 </body>
 </html>
