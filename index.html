@@ -14,11 +14,7 @@ body {
   background-size: 600% 600%;
   animation: gradientBG 20s ease infinite;
 }
-@keyframes gradientBG {
-  0% {background-position:0% 50%;}
-  50% {background-position:100% 50%;}
-  100% {background-position:0% 50%;}
-}
+@keyframes gradientBG {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 
 header {padding:20px;}
 header video {width:85%; max-width:1000px; height:auto; display:block; margin:30px auto;}
@@ -51,9 +47,9 @@ header h2 {
 .slider {
   position: relative;
   width: 100%;
-  max-width: 1000px;   /* Limite la largeur */
+  max-width: 1000px;
   margin: 0 auto;
-  overflow: hidden;     /* Empêche de dépasser */
+  overflow: hidden;
   perspective: 1200px;
 }
 
@@ -78,10 +74,7 @@ header h2 {
   backface-visibility: hidden;
 }
 
-.slides img.active {
-  box-shadow: 0 0 40px rgba(77,166,255,0.8);
-  transform: scale(1.1);
-}
+.slides img.active {box-shadow:0 0 40px rgba(77,166,255,0.8); transform: scale(1.1);}
 
 .arrow {
   position: absolute; top:50%; transform:translateY(-50%);
@@ -115,45 +108,45 @@ header h2 {
 <div class="section">
   <h2>Logos</h2>
   <div class="slider" id="slider-logos">
-    <span class="arrow left" onclick="moveSlide('logos', -1)">&#10094;</span>
+    <span class="arrow left">&#10094;</span>
     <div class="slides"></div>
-    <span class="arrow right" onclick="moveSlide('logos', 1)">&#10095;</span>
+    <span class="arrow right">&#10095;</span>
   </div>
 </div>
 
 <div class="section">
   <h2>Affiches</h2>
   <div class="slider" id="slider-affiches">
-    <span class="arrow left" onclick="moveSlide('affiches', -1)">&#10094;</span>
+    <span class="arrow left">&#10094;</span>
     <div class="slides"></div>
-    <span class="arrow right" onclick="moveSlide('affiches', 1)">&#10095;</span>
+    <span class="arrow right">&#10095;</span>
   </div>
 </div>
 
 <div class="section">
   <h2>Flyers</h2>
   <div class="slider" id="slider-flyers">
-    <span class="arrow left" onclick="moveSlide('flyers', -1)">&#10094;</span>
+    <span class="arrow left">&#10094;</span>
     <div class="slides"></div>
-    <span class="arrow right" onclick="moveSlide('flyers', 1)">&#10095;</span>
+    <span class="arrow right">&#10095;</span>
   </div>
 </div>
 
 <div class="section">
   <h2>Mockups</h2>
   <div class="slider" id="slider-mockups">
-    <span class="arrow left" onclick="moveSlide('mockups', -1)">&#10094;</span>
+    <span class="arrow left">&#10094;</span>
     <div class="slides"></div>
-    <span class="arrow right" onclick="moveSlide('mockups', 1)">&#10095;</span>
+    <span class="arrow right">&#10095;</span>
   </div>
 </div>
 
 <div class="section">
   <h2>CD</h2>
   <div class="slider" id="slider-cd">
-    <span class="arrow left" onclick="moveSlide('cd', -1)">&#10094;</span>
+    <span class="arrow left">&#10094;</span>
     <div class="slides"></div>
-    <span class="arrow right" onclick="moveSlide('cd', 1)">&#10095;</span>
+    <span class="arrow right">&#10095;</span>
   </div>
 </div>
 
@@ -162,108 +155,103 @@ header h2 {
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function(){
-  const data = {
-    logos:['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'],
-    affiches:['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg','images/affiches/affiche5.jpg','images/affiches/affiche6.jpg','images/affiches/affiche7.jpg','images/affiches/affiche8.jpg'],
-    flyers:['images/flyers/flyers1.jpg','images/flyers/flyers2.jpg'],
-    mockups:['images/mockups/mockup1.jpg','images/mockups/mockup2.jpg'],
-    cd:['images/cd/cd1.jpg','images/cd/cd2.jpg']
-  };
+const data = {
+  logos:['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'],
+  affiches:['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg','images/affiches/affiche5.jpg','images/affiches/affiche6.jpg','images/affiches/affiche7.jpg','images/affiches/affiche8.jpg'],
+  flyers:['images/flyers/flyers1.jpg','images/flyers/flyers2.jpg'],
+  mockups:['images/mockups/mockup1.jpg','images/mockups/mockup2.jpg'],
+  cd:['images/cd/cd1.jpg','images/cd/cd2.jpg']
+};
 
-  let sliders={}, fullIndex={};
+let sliders={}, fullIndex={};
 
-  function initSliders(){
-    for(const cat in data){
-      const slidesDiv = document.querySelector(`#slider-${cat} .slides`);
-      if(!slidesDiv) continue;
+function initSliders(){
+  for(const cat in data){
+    const slidesDiv=document.querySelector(`#slider-${cat} .slides`);
+    sliders[cat]={index:0, slidesDiv};
+    fullIndex[cat]=[];
 
-      data[cat].forEach((src,i)=>{
-        const img = document.createElement('img');
-        img.src = src;
-        img.alt = `${cat} image ${i+1}`;
-        img.onclick = ()=>openLightbox(src);
-        slidesDiv.appendChild(img);
-      });
-
-      sliders[cat] = {index:0, slidesDiv};
-      fullIndex[cat] = [];
-
-      // swipe mobile
-      let startX=0;
-      slidesDiv.addEventListener('touchstart', e=>startX=e.touches[0].clientX);
-      slidesDiv.addEventListener('touchend', e=>{
-        const endX=e.changedTouches[0].clientX;
-        if(endX-startX>50) moveSlide(cat,-1);
-        if(startX-endX>50) moveSlide(cat,1);
-      });
-
-      updateSlider(cat);
-
-      // auto-slide seulement pour Logos et Affiches
-      if(cat==='logos'||cat==='affiches') animateSlider(cat);
-    }
-
-    document.addEventListener('keydown', e=>{
-      if(e.key==='ArrowLeft') for(const cat in sliders) moveSlide(cat,-1);
-      if(e.key==='ArrowRight') for(const cat in sliders) moveSlide(cat,1);
-    });
-  }
-
-  function updateSlider(cat){
-    const {slidesDiv,index} = sliders[cat];
-    const imgs = slidesDiv.querySelectorAll('img');
-    const total = imgs.length;
-    const sliderWidth = slidesDiv.clientWidth;
-    let positions=[];
-
-    imgs.forEach((img,i)=>{
-      let diff = i-index;
-      if(diff < -Math.floor(total/2)) diff += total;
-      if(diff > Math.floor(total/2)) diff -= total;
-
-      positions.push(diff);
-
-      const absDiff = Math.abs(diff);
-      const offset = diff * (sliderWidth / 5);
-      const scale = 1 - absDiff*0.2;
-      const rotateY = diff*-40;
-      const opacity = 1 - absDiff*0.3;
-
-      img.classList.toggle('active', diff===0);
-      img.style.zIndex = total - absDiff;
-      img.style.opacity = opacity;
-      img.style.transform = `translateX(${offset}px) translate(-50%, -50%) translateZ(${-absDiff*100}px) scale(${scale}) rotateY(${rotateY}deg)`;
-      img.style.filter = absDiff>=2?'blur(4px)':'none';
+    data[cat].forEach((src,i)=>{
+      const img=document.createElement('img');
+      img.src=src;
+      img.alt=`${cat} image ${i+1}`;
+      img.onclick=()=>openLightbox(src);
+      slidesDiv.appendChild(img);
     });
 
-    fullIndex[cat] = positions;
-    console.log('Index complet :', fullIndex);
-  }
+    // flèches
+    slidesDiv.parentElement.querySelector('.arrow.left').onclick = ()=>moveSlide(cat,-1);
+    slidesDiv.parentElement.querySelector('.arrow.right').onclick = ()=>moveSlide(cat,1);
 
-  window.moveSlide = function(cat,step){
-    sliders[cat].index = (sliders[cat].index + step + data[cat].length)%data[cat].length;
+    // swipe mobile
+    let startX=0;
+    slidesDiv.addEventListener('touchstart',e=>startX=e.touches[0].clientX);
+    slidesDiv.addEventListener('touchend',e=>{
+      const endX=e.changedTouches[0].clientX;
+      if(endX-startX>50) moveSlide(cat,-1);
+      if(startX-endX>50) moveSlide(cat,1);
+    });
+
     updateSlider(cat);
+
+    // auto-slide seulement pour Logos et Affiches
+    if(cat==='logos'||cat==='affiches') animateSlider(cat);
   }
 
-  function animateSlider(cat){
-    setInterval(()=>{ moveSlide(cat,1); }, 5000);
-  }
+  document.addEventListener('keydown', e=>{
+    if(e.key==='ArrowLeft') for(const cat in sliders) moveSlide(cat,-1);
+    if(e.key==='ArrowRight') for(const cat in sliders) moveSlide(cat,1);
+  });
+}
 
-  window.openLightbox = function(src){
-    const lightbox = document.getElementById('lightbox');
-    lightbox.querySelector('img').src=src;
-    lightbox.classList.add('show');
-  }
+function updateSlider(cat){
+  const {slidesDiv,index}=sliders[cat];
+  const imgs=slidesDiv.querySelectorAll('img');
+  const total=imgs.length;
+  const sliderWidth=slidesDiv.clientWidth;
 
-  window.closeLightbox = function(){
-    const lightbox = document.getElementById('lightbox');
-    lightbox.classList.remove('show');
-    setTimeout(()=>lightbox.style.display='none',400);
-  }
+  imgs.forEach((img,i)=>{
+    let diff=i-index;
+    if(diff<-Math.floor(total/2)) diff+=total;
+    if(diff>Math.floor(total/2)) diff-=total;
 
-  initSliders();
-});
+    const absDiff=Math.abs(diff);
+    const offset=diff*(sliderWidth/5);
+    const scale=1-absDiff*0.2;
+    const rotateY=diff*-40;
+    const opacity=1-absDiff*0.3;
+
+    img.classList.toggle('active', diff===0);
+    img.style.zIndex=total-absDiff;
+    img.style.opacity=opacity;
+    img.style.transform=`translateX(${offset}px) translate(-50%, -50%) translateZ(${-absDiff*100}px) scale(${scale}) rotateY(${rotateY}deg)`;
+    img.style.filter=absDiff>=2?'blur(4px)':'none';
+  });
+
+  fullIndex[cat]=Array.from(imgs).map((_,i)=>i-index);
+  console.log('Index complet :', fullIndex);
+}
+
+function moveSlide(cat,step){
+  sliders[cat].index=(sliders[cat].index+step+data[cat].length)%data[cat].length;
+  updateSlider(cat);
+}
+
+function animateSlider(cat){ setInterval(()=>moveSlide(cat,1),5000); }
+
+function openLightbox(src){
+  const lightbox=document.getElementById('lightbox');
+  lightbox.querySelector('img').src=src;
+  lightbox.classList.add('show');
+}
+
+function closeLightbox(){
+  const lightbox=document.getElementById('lightbox');
+  lightbox.classList.remove('show');
+  setTimeout(()=>lightbox.style.display='none',400);
+}
+
+initSliders();
 </script>
 </body>
 </html>
