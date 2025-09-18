@@ -1,94 +1,86 @@
-let sliders = {};
-let fullIndex = {}; // objet qui stocke l'index complet de chaque slider
+<script>
+const data = {
+  logos: ['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg'],
+  affiches: ['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg'],
+  flyers: ['images/flyers/flyers1.jpg','images/flyers/flyers2.jpg'],
+  mockups: ['images/mockups/mockup1.jpg','images/mockups/mockup2.jpg'],
+  cd: ['images/cd/cd1.jpg','images/cd/cd2.jpg']
+};
 
-function initSliders() {
-  for (const cat in data) {
-    const slidesDiv = document.querySelector(`#slider-${cat} .slides`);
+document.addEventListener('DOMContentLoaded', function(){
+  let sliders = {};
+  let fullIndex = {};
 
-    // Création des images
-    data[cat].forEach((src, i) => {
-      const img = document.createElement('img');
-      img.src = src;
-      img.loading = 'lazy';
-      img.alt = `${cat} image ${i + 1}`;
-      img.onclick = () => openLightbox(src);
-      slidesDiv.appendChild(img);
-    });
-
-    sliders[cat] = { index: 0, slidesDiv };
-    fullIndex[cat] = []; // initialisation
-
-    // Swipe mobile
-    let startX = 0;
-    slidesDiv.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-    slidesDiv.addEventListener('touchend', e => {
-      const endX = e.changedTouches[0].clientX;
-      if (endX - startX > 50) moveSlide(cat, -1);
-      if (startX - endX > 50) moveSlide(cat, 1);
-    });
-
-    updateSlider(cat);
-    animateSlider(cat);
+  function initSliders() {
+    for (const cat in data) {
+      const slidesDiv = document.querySelector(`#slider-${cat} .slides`);
+      data[cat].forEach((src, i) => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = `${cat} image ${i+1}`;
+        img.onclick = () => openLightbox(src);
+        slidesDiv.appendChild(img);
+      });
+      sliders[cat] = { index: 0, slidesDiv };
+      fullIndex[cat] = [];
+      updateSlider(cat);
+      animateSlider(cat);
+    }
   }
 
-  // Navigation clavier
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowLeft') for (const cat in sliders) moveSlide(cat, -1);
-    if (e.key === 'ArrowRight') for (const cat in sliders) moveSlide(cat, 1);
+  function updateSlider(cat) {
+    const { slidesDiv, index } = sliders[cat];
+    const imgs = slidesDiv.querySelectorAll('img');
+    const total = imgs.length;
+    const sliderWidth = slidesDiv.clientWidth;
+    let positions = [];
+    imgs.forEach((img,i)=>{
+      let diff = i-index;
+      if(diff<-Math.floor(total/2)) diff+=total;
+      if(diff>Math.floor(total/2)) diff-=total;
+      positions.push(diff);
+      const absDiff = Math.abs(diff);
+      const offset = diff * (sliderWidth/4);
+      const scale = 1 - absDiff*0.2;
+      const rotateY = diff * -40;
+      const opacity = 1 - absDiff*0.3;
+      img.classList.toggle('active', diff===0);
+      img.style.zIndex = total - absDiff;
+      img.style.opacity = opacity;
+      img.style.transform = `translateX(${offset}px) translateZ(${-absDiff*100}px) scale(${scale}) rotateY(${rotateY}deg)`;
+      img.style.filter = absDiff>=2?'blur(4px)':'none';
+    });
+    fullIndex[cat] = positions;
+    console.log('Index complet :', fullIndex);
+  }
+
+  function moveSlide(cat, step) {
+    sliders[cat].index = (sliders[cat].index + step + data[cat].length)%data[cat].length;
+    updateSlider(cat);
+  }
+
+  function animateSlider(cat){
+    setInterval(()=>{ moveSlide(cat,1); },5000);
+  }
+
+  function openLightbox(src){
+    const lightbox = document.getElementById('lightbox');
+    lightbox.querySelector('img').src=src;
+    lightbox.classList.add('show');
+  }
+
+  function closeLightbox(){
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('show');
+    setTimeout(()=>lightbox.style.display='none',400);
+  }
+
+  // navigation clavier
+  document.addEventListener('keydown', e=>{
+    if(e.key==='ArrowLeft') for(const cat in sliders) moveSlide(cat,-1);
+    if(e.key==='ArrowRight') for(const cat in sliders) moveSlide(cat,1);
   });
-}
 
-function updateSlider(cat) {
-  const { slidesDiv, index } = sliders[cat];
-  const imgs = slidesDiv.querySelectorAll('img');
-  const total = imgs.length;
-  const sliderWidth = slidesDiv.clientWidth;
-
-  let positions = []; // positions relatives à l'image centrale
-
-  imgs.forEach((img, i) => {
-    let diff = i - index;
-    if (diff < -Math.floor(total / 2)) diff += total;
-    if (diff > Math.floor(total / 2)) diff -= total;
-
-    positions.push(diff); // ajout à l'objet complet
-
-    const absDiff = Math.abs(diff);
-    const offset = diff * (sliderWidth / 4);
-    const scale = 1 - absDiff * 0.2;
-    const rotateY = diff * -40;
-    const opacity = 1 - absDiff * 0.3;
-
-    img.classList.toggle('active', diff === 0);
-    img.style.zIndex = total - absDiff;
-    img.style.opacity = opacity;
-    img.style.transform = `translateX(${offset}px) translateZ(${-absDiff * 100}px) scale(${scale}) rotateY(${rotateY}deg)`;
-    img.style.filter = absDiff >= 2 ? 'blur(4px)' : 'none';
-  });
-
-  fullIndex[cat] = positions; // mise à jour de l'index complet
-  console.log('Index complet :', fullIndex);
-}
-
-function moveSlide(cat, step) {
-  sliders[cat].index = (sliders[cat].index + step + data[cat].length) % data[cat].length;
-  updateSlider(cat);
-}
-
-function openLightbox(src) {
-  const lightbox = document.getElementById('lightbox');
-  lightbox.querySelector('img').src = src;
-  lightbox.classList.add('show');
-}
-
-function closeLightbox() {
-  const lightbox = document.getElementById('lightbox');
-  lightbox.classList.remove('show');
-  setTimeout(() => lightbox.style.display = 'none', 400);
-}
-
-function animateSlider(cat) {
-  setInterval(() => { moveSlide(cat, 1); }, 5000);
-}
-
-initSliders();
+  initSliders();
+});
+</script>
