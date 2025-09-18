@@ -70,32 +70,24 @@ header h2 {
   max-width: 1000px;
   margin: 0 auto;
   overflow: hidden;
-  perspective: 1200px;
 }
 
 .slides {
   position: relative;
   width: 100%;
   height: 350px;
-  transform-style: preserve-3d;
 }
 
 .slides img, .slides iframe {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform-origin: center center;
+  transform: translate(-50%, -50%);
   max-height: 100%;
   width: auto;
   border-radius: 12px;
   cursor: pointer;
-  transition: transform 0.8s ease, opacity 0.8s ease, filter 0.6s ease, box-shadow 0.6s ease;
-  backface-visibility: hidden;
-}
-
-.slides img.active, .slides iframe.active {
-  box-shadow:0 0 40px rgba(77,166,255,0.8);
-  transform: scale(1.1);
+  transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
 .arrow {
@@ -110,11 +102,11 @@ header h2 {
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 10px; /* réduit l'espace entre miniatures */
+  gap: 10px; /* réduit espacement */
   margin-top: 20px;
 }
 .grid img {
-  width: 95%; /* plus grand pour flyers/mockup/CD */
+  width: 85%; /* réduit légèrement pour flyers/mockup/CD */
   margin: auto;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -240,24 +232,21 @@ footer a:hover {text-decoration:underline;}
 </footer>
 
 <script>
-// --- Données ---
+// --- DATA ---
 const data = {
-  logos: ['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg'],
-  affiches: ['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg'],
-  youtube: [
-    'https://www.youtube.com/embed/qAsG_P2ZtGk',
-    'https://www.youtube.com/embed/uEW7lNnpXJw',
-    'https://www.youtube.com/embed/gmBgCF2VcV8'
-  ]
+  logos:['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg'],
+  affiches:['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg'],
+  youtube:[]
 };
 
+// --- SLIDERS LOGOS / AFFICHES / YOUTUBE ---
 let sliders = {};
 
-// --- Initialisation des carrousels Logos / Affiches / YouTube ---
 function initSliders(){
   for(const cat in data){
     const slidesDiv = document.querySelector(`#slider-${cat} .slides`);
-    sliders[cat] = {index:0, slidesDiv};
+    sliders[cat]={index:0, slidesDiv};
+
     data[cat].forEach((src,i)=>{
       let el;
       if(cat==='youtube'){
@@ -266,12 +255,12 @@ function initSliders(){
         el.width="560"; el.height="315";
         el.frameBorder="0";
         el.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-        el.allowFullscreen = true;
+        el.allowFullscreen=true;
       } else {
         el = document.createElement('img');
         el.src = src;
-        el.alt = `${cat} image ${i+1}`;
-        el.onclick = ()=>openLightbox(src);
+        el.alt=`${cat} image ${i+1}`;
+        el.onclick=()=>openLightbox(src);
       }
       slidesDiv.appendChild(el);
     });
@@ -280,99 +269,78 @@ function initSliders(){
     slidesDiv.parentElement.querySelector('.arrow.right').onclick = ()=>moveSlide(cat,1);
 
     updateSlider(cat);
-    if(cat!=='youtube') setInterval(()=>moveSlide(cat,1),7000);
   }
 }
 
 function updateSlider(cat){
-  const {slidesDiv,index}=sliders[cat];
+  const {slidesDiv,index} = sliders[cat];
   const els = slidesDiv.children;
   const total = els.length;
-  const sliderWidth = slidesDiv.clientWidth;
-
   Array.from(els).forEach((el,i)=>{
-    let diff = i - index;
-    if(diff<-Math.floor(total/2)) diff+=total;
-    if(diff>Math.floor(total/2)) diff-=total;
-    const absDiff = Math.abs(diff);
-    const offset = diff*(sliderWidth/4.5);
-    const rotateY = diff*35;
-    const translateZ = (diff===0)?0:-absDiff*120;
-    const scale = 1 - absDiff*0.15;
-    const opacity = 1 - absDiff*0.25;
-    el.classList.toggle('active', diff===0);
-    el.style.zIndex = (diff===0)?total+10:total-absDiff;
-    el.style.opacity = opacity;
-    el.style.transform = `translateX(${offset}px) translate(-50%, -50%) translateZ(${translateZ}px) scale(${scale}) rotateY(${rotateY}deg)`;
-    el.style.filter = absDiff>=2?'blur(3px)':'none';
+    el.style.display = (i===index)?'block':'none';
   });
 }
 
 function moveSlide(cat,step){
-  sliders[cat].index=(sliders[cat].index+step+data[cat].length)%data[cat].length;
+  sliders[cat].index = (sliders[cat].index + step + data[cat].length)%data[cat].length;
   updateSlider(cat);
 }
 
-// --- Lightbox ---
-function openLightbox(src){ 
-  const lightbox=document.getElementById('lightbox'); 
-  lightbox.querySelector('img').src=src; 
-  lightbox.classList.add('show'); 
-}
-function closeLightbox(){ 
-  document.getElementById('lightbox').classList.remove('show'); 
-}
-
-// --- Carrousel Facebook ---
+// --- SLIDER FACEBOOK ---
 const fbVideos = [
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F992019422192079%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1046719850354572%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1871767593301350%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F8182628635105181%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1128191708465484%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F3392508274380366%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F457573133705162%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F820511136706394%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F766437438901830%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1517265682500481%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1527111301524646%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F426339150382242%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1630542697429917%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F828698934869678%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F263044686412619%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F637041755124769%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F639421378106278%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F960168361911615%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1507945709728525%2F&show_text=0&width=560",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1230940850788187%2F&show_text=0&width=560"
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F992019422192079%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1046719850354572%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1871767593301350%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F8182628635105181%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1128191708465484%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F3392508274380366%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F457573133705162%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F820511136706394%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F766437438901830%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1517265682500481%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1527111301524646%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F426339150382242%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1630542697429917%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F828698934869678%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F263044686412619%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F637041755124769%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F639421378106278%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F960168361911615%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1507945709728525%2F&show_text=0&width=720",
+  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1230940850788187%2F&show_text=0&width=720"
 ];
 
-const fbSlidesDiv = document.querySelector("#slider-fb .slides");
-let fbIndex = 0;
-
-fbVideos.forEach(url=>{
-  const iframe = document.createElement("iframe");
-  iframe.src = url;
-  iframe.width="560"; iframe.height="315";
-  iframe.style.border="none";
-  iframe.allow="autoplay; clipboard-write; encrypted-media; picture-in-picture";
+let fbSliderIndex = 0;
+function showFbVideo(index){
+  const container = document.querySelector('#slider-fb .slides');
+  container.innerHTML = '';
+  const iframe = document.createElement('iframe');
+  iframe.src = fbVideos[index];
+  iframe.width = "720";
+  iframe.height = "405";
+  iframe.style.maxWidth = "100%";
+  iframe.style.height = "auto";
+  iframe.frameBorder = "0";
+  iframe.allow = "autoplay; clipboard-write; encrypted-media; picture-in-picture";
   iframe.allowFullscreen = true;
-  fbSlidesDiv.appendChild(iframe);
-});
+  container.appendChild(iframe);
+}
+document.querySelector('#slider-fb .arrow.left').onclick = ()=>{ fbSliderIndex = (fbSliderIndex-1+fbVideos.length)%fbVideos.length; showFbVideo(fbSliderIndex);};
+document.querySelector('#slider-fb .arrow.right').onclick = ()=>{ fbSliderIndex = (fbSliderIndex+1)%fbVideos.length; showFbVideo(fbSliderIndex);};
+showFbVideo(fbSliderIndex);
 
-document.querySelector("#slider-fb .arrow.left").onclick = ()=>{ fbIndex = (fbIndex-1+fbVideos.length)%fbVideos.length; updateFbSlider();};
-document.querySelector("#slider-fb .arrow.right").onclick = ()=>{ fbIndex = (fbIndex+1)%fbVideos.length; updateFbSlider();};
-
-function updateFbSlider(){
-  const els = fbSlidesDiv.children;
-  Array.from(els).forEach((el,i)=>{
-    el.style.display = (i===fbIndex) ? "block" : "none";
-  });
+// Lightbox
+function openLightbox(src){
+  const lightbox=document.getElementById('lightbox');
+  lightbox.querySelector('img').src=src;
+  lightbox.classList.add('show');
+}
+function closeLightbox(){
+  const lightbox=document.getElementById('lightbox');
+  lightbox.classList.remove('show');
 }
 
-// --- Initialisation ---
 initSliders();
-updateFbSlider();
 </script>
 </body>
 </html>
