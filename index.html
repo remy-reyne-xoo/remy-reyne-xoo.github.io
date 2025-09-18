@@ -1,202 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfolio - Remy Reyne</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  margin:0; padding:0;
-  text-align:center;
-  color:#f1f1f1;
-  background: linear-gradient(270deg, #0a0a0a, #001a33, #0a0a0a);
-  background-size: 600% 600%;
-  animation: gradientBG 20s ease infinite;
-}
-@keyframes gradientBG {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-
-nav {
-  background:#001a33;
-  padding:10px;
-  position:sticky;
-  top:0;
-  z-index:50;
-}
-nav a {
-  color:#fff;
-  margin:0 15px;
-  text-decoration:none;
-  font-weight:bold;
-}
-nav a:hover {color:#4da6ff;}
-
-header {padding:20px;}
-header video {width:85%; max-width:1000px; height:auto; display:block; margin:20px auto;}
-header h1 {font-size:3em; margin:10px 0 5px;}
-header h2 {
-  display: inline-block;
-  background: rgba(0,0,0,0.3);
-  border-radius: 25px;
-  border: 3px solid #4da6ff;
-  padding: 10px 20px;
-  color: #fff;
-  box-shadow: 0 8px 15px rgba(0,0,0,0.5);
-  font-size: 1.4em;
-  margin-bottom: 20px;
-}
-
-.section {
-  margin:60px auto;
-  max-width:1100px;
-  position:relative;
-}
-
-.section h2 {
-  display: inline-block;
-  background: rgba(0,0,0,0.3);
-  border-radius: 25px;
-  border: 3px solid #4da6ff;
-  padding: 10px 20px;
-  color: #fff;
-  box-shadow: 0 8px 15px rgba(0,0,0,0.5);
-  font-size: 2em;
-  margin-bottom: 25px;
-}
-
-.slider {
-  position: relative;
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  overflow: hidden;
-  perspective: 1200px;
-}
-
-.slides {
-  position: relative;
-  width: 100%;
-  height: 350px;
-  transform-style: preserve-3d;
-}
-
-.slides img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform-origin: center center;
-  max-height: 100%;
-  width: auto;
-  object-fit: contain;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.8s ease, opacity 0.8s ease, filter 0.6s ease, box-shadow 0.6s ease;
-  backface-visibility: hidden;
-}
-
-.slides img.active {box-shadow:0 0 40px rgba(77,166,255,0.8); transform: scale(1.1);}
-
-.arrow {
-  position: absolute; top:50%; transform:translateY(-50%);
-  font-size:2.5em; color:#4da6ff; cursor:pointer; user-select:none; z-index:10;
-  transition: color 0.3s ease;
-}
-.arrow:hover {color:#82c6ff;}
-.arrow.left {left:0;}
-.arrow.right {right:0;}
-
-#lightbox {
-  position: fixed; top:0; left:0; width:100%; height:100%;
-  background: rgba(0,0,0,0.9); display: none;
-  justify-content: center; align-items:center; z-index:100;
-  opacity:0; transition: opacity 0.4s ease;
-}
-#lightbox.show {display:flex; opacity:1;}
-#lightbox img {max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 20px rgba(0,0,0,0.7);}
-
-footer {
-  background:#001a33;
-  color:#fff;
-  padding:15px;
-  margin-top:40px;
-}
-footer a {color:#4da6ff; margin:0 15px; text-decoration:none;}
-footer a:hover {text-decoration:underline;}
-</style>
-</head>
-<body>
-
-<nav>
-  <a href="#slider-logos">Logos</a>
-  <a href="#slider-affiches">Affiches</a>
-  <a href="#slider-flyers">Flyers</a>
-  <a href="#slider-mockups">Mockups</a>
-  <a href="#slider-cd">CD</a>
-</nav>
-
-<header>
-  <video autoplay loop muted playsinline>
-    <source src="videos/logo&slogan.webm" type="video/webm">
-  </video>
-  <h1>Remy Reyne</h1>
-  <h2>Graphiste senior 360 / Illustrateur / Motion designer / Photographe</h2>
-</header>
-
-<div class="section">
-  <h2>Logos</h2>
-  <div class="slider" id="slider-logos">
-    <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right">&#10095;</span>
-  </div>
-</div>
-
-<div class="section">
-  <h2>Affiches</h2>
-  <div class="slider" id="slider-affiches">
-    <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right">&#10095;</span>
-  </div>
-</div>
-
-<div class="section">
-  <h2>Flyers</h2>
-  <div class="slider" id="slider-flyers">
-    <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right">&#10095;</span>
-  </div>
-</div>
-
-<div class="section">
-  <h2>Mockups</h2>
-  <div class="slider" id="slider-mockups">
-    <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right">&#10095;</span>
-  </div>
-</div>
-
-<div class="section">
-  <h2>CD</h2>
-  <div class="slider" id="slider-cd">
-    <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right">&#10095;</span>
-  </div>
-</div>
-
-<div id="lightbox" onclick="closeLightbox()">
-  <img src="" alt="preview">
-</div>
-
-<footer>
-  <a href="https://www.facebook.com/tonprofil" target="_blank">Facebook</a>
-  <a href="https://www.linkedin.com/in/tonprofil" target="_blank">LinkedIn</a>
-  <div style="margin-top:10px;">&copy; 2025 Remy Reyne - Tous droits réservés</div>
-</footer>
-
 <script>
 const data={
   logos:['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'],
@@ -257,21 +58,25 @@ function updateSlider(cat){
 
     const absDiff=Math.abs(diff);
 
-    // Orientation convexe, centrale toujours devant
-    const offset=diff*(sliderWidth/5);
-    const rotateY=diff*40;
-    const translateZ=(diff===0)?0:-absDiff*120;
-    const scale=1-absDiff*0.2;
-    const opacity=1-absDiff*0.3;
+    // 🔹 ESPACEMENT AUGMENTÉ pour éviter chevauchement
+    const baseOffset = sliderWidth / 5;   // espace de base plus grand
+    const extraGap = absDiff * 30;        // espacement supplémentaire selon distance
+    const offset = diff * baseOffset + (diff>0?extraGap:-extraGap);
+
+    const rotateY = diff * 25;
+    const translateZ = (diff===0)?0:-absDiff*120;
+    const scale = 1 - absDiff*0.2;
+    const opacity = 1 - absDiff*0.3;
 
     img.classList.toggle('active', diff===0);
-    img.style.zIndex=(diff===0)?total+10:total-absDiff;
-    img.style.opacity=opacity;
-    img.style.transform=`translateX(${offset}px) translate(-50%, -50%) translateZ(${translateZ}px) scale(${scale}) rotateY(${rotateY}deg)`;
-    img.style.filter=absDiff>=2?'blur(4px)':'none';
+    img.style.zIndex = (diff===0)?total+10:total-absDiff;
+    img.style.opacity = opacity;
+    img.style.transform = `translateX(${offset}px) translate(-50%, -50%) translateZ(${translateZ}px) scale(${scale}) rotateY(${rotateY}deg)`;
+    img.style.filter = absDiff>=2?'blur(4px)':'none';
   });
 
-  fullIndex[cat]=Array.from(imgs).map((_,i)=>i-index);
+  // fullIndex complet
+  fullIndex[cat] = Array.from(imgs).map((_,i)=>i-index);
   console.log('Index complet :', fullIndex);
 }
 
@@ -296,5 +101,3 @@ function closeLightbox(){
 
 initSliders();
 </script>
-</body>
-</html>
