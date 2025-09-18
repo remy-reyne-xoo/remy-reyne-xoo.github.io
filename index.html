@@ -16,9 +16,27 @@ body {
 }
 @keyframes gradientBG {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 
+nav {
+  background:#001a33;
+  padding:10px;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+nav a {
+  color:#fff;
+  margin:0 15px;
+  text-decoration:none;
+  font-weight:bold;
+}
+nav a:hover {color:#4da6ff;}
+
 header {padding:20px;}
-header video {width:85%; max-width:1000px; height:auto; display:block; margin:30px auto;}
-header h1 {font-size:3.2em; margin:10px 0 5px;}
+header video {width:85%; max-width:1000px; height:auto; display:block; margin:20px auto;}
+header h1 {
+  font-size:3em;
+  margin:10px 0 5px;
+}
 header h2 {
   display: inline-block;
   background: rgba(0,0,0,0.3);
@@ -31,7 +49,12 @@ header h2 {
   margin-bottom: 20px;
 }
 
-.section {margin:60px auto; max-width:1100px; position:relative;}
+.section {
+  margin:60px auto;
+  max-width:1100px;
+  position:relative;
+}
+
 .section h2 {
   display: inline-block;
   background: rgba(0,0,0,0.3);
@@ -56,7 +79,7 @@ header h2 {
 .slides {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 350px;
   transform-style: preserve-3d;
 }
 
@@ -65,7 +88,7 @@ header h2 {
   top: 50%;
   left: 50%;
   transform-origin: center center;
-  max-height: 300px;
+  max-height: 100%;
   width: auto;
   object-fit: contain;
   border-radius: 12px;
@@ -82,8 +105,8 @@ header h2 {
   transition: color 0.3s ease;
 }
 .arrow:hover {color:#82c6ff;}
-.arrow.left {left:10px;}
-.arrow.right {right:10px;}
+.arrow.left {left:0;}
+.arrow.right {right:0;}
 
 #lightbox {
   position: fixed; top:0; left:0; width:100%; height:100%;
@@ -93,9 +116,24 @@ header h2 {
 }
 #lightbox.show {display:flex; opacity:1;}
 #lightbox img {max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 20px rgba(0,0,0,0.7);}
+
+footer {
+  background:#001a33;
+  color:#fff;
+  padding:15px;
+  margin-top:40px;
+}
 </style>
 </head>
 <body>
+
+<nav>
+  <a href="#slider-logos">Logos</a>
+  <a href="#slider-affiches">Affiches</a>
+  <a href="#slider-flyers">Flyers</a>
+  <a href="#slider-mockups">Mockups</a>
+  <a href="#slider-cd">CD</a>
+</nav>
 
 <header>
   <video autoplay loop muted playsinline>
@@ -154,6 +192,10 @@ header h2 {
   <img src="" alt="preview">
 </div>
 
+<footer>
+  &copy; 2025 Remy Reyne - Tous droits réservés
+</footer>
+
 <script>
 const data = {
   logos:['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'],
@@ -194,7 +236,7 @@ function initSliders(){
 
     updateSlider(cat);
 
-    // auto-slide seulement pour Logos et Affiches
+    // auto-slide pour Logos et Affiches
     if(cat==='logos'||cat==='affiches') animateSlider(cat);
   }
 
