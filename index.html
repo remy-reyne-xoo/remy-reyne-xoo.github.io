@@ -70,24 +70,32 @@ header h2 {
   max-width: 1000px;
   margin: 0 auto;
   overflow: hidden;
+  perspective: 1200px;
 }
 
 .slides {
   position: relative;
   width: 100%;
   height: 350px;
+  transform-style: preserve-3d;
 }
 
 .slides img, .slides iframe {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform-origin: center center;
   max-height: 100%;
   width: auto;
   border-radius: 12px;
   cursor: pointer;
-  transition: transform 0.5s ease, opacity 0.5s ease;
+  transition: transform 0.8s ease, opacity 0.8s ease, filter 0.6s ease, box-shadow 0.6s ease;
+  backface-visibility: hidden;
+}
+
+.slides img.active, .slides iframe.active {
+  box-shadow:0 0 40px rgba(77,166,255,0.8);
+  transform: scale(1.1);
 }
 
 .arrow {
@@ -101,12 +109,12 @@ header h2 {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 10px; /* réduit espacement */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
   margin-top: 20px;
 }
 .grid img {
-  width: 85%; /* réduit légèrement pour flyers/mockup/CD */
+  width: 90%;
   margin: auto;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -159,7 +167,17 @@ footer a:hover {text-decoration:underline;}
   <h2>Logos</h2>
   <div class="slider" id="slider-logos">
     <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
+    <div class="slides">
+      <img src="images/logos/logo1.jpg">
+      <img src="images/logos/logo2.jpg">
+      <img src="images/logos/logo3.jpg">
+      <img src="images/logos/logo4.jpg">
+      <img src="images/logos/logo5.jpg">
+      <img src="images/logos/logo6.jpg">
+      <img src="images/logos/logo7.jpg">
+      <img src="images/logos/logo8.jpg">
+      <img src="images/logos/logo9.jpg">
+    </div>
     <span class="arrow right">&#10095;</span>
   </div>
 </div>
@@ -169,22 +187,41 @@ footer a:hover {text-decoration:underline;}
   <h2>Affiches</h2>
   <div class="slider" id="slider-affiches">
     <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
+    <div class="slides">
+      <img src="images/affiches/affiche1.jpg">
+      <img src="images/affiches/affiche2.jpg">
+      <img src="images/affiches/affiche3.jpg">
+      <img src="images/affiches/affiche4.jpg">
+      <img src="images/affiches/affiche5.jpg">
+      <img src="images/affiches/affiche6.jpg">
+      <img src="images/affiches/affiche7.jpg">
+      <img src="images/affiches/affiche8.jpg">
+    </div>
     <span class="arrow right">&#10095;</span>
   </div>
 </div>
 
-<!-- Carrousel YouTube -->
+<!-- Carrousel Vidéos YouTube -->
 <div class="section">
   <h2>Vidéos YouTube</h2>
   <div class="slider" id="slider-youtube">
     <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
+    <div class="slides">
+      <iframe src="https://www.youtube.com/embed/qAsG_P2ZtGk" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/uEW7lNnpXJw" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/gmBgCF2VcV8" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/lbvV0KJK0C8" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/uMWTLTYN1RI" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/KPJuC8V4o3E" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/qw8sg7PVUXI" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/YuCIzb6xlQM" frameborder="0" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/sftigWJkCMk" frameborder="0" allowfullscreen></iframe>
+    </div>
     <span class="arrow right">&#10095;</span>
   </div>
 </div>
 
-<!-- Carrousel Facebook -->
+<!-- Carrousel Vidéos Facebook -->
 <div class="section">
   <h2>Vidéos Facebook</h2>
   <div class="slider" id="slider-fb">
@@ -232,104 +269,71 @@ footer a:hover {text-decoration:underline;}
 </footer>
 
 <script>
-// --- DATA ---
-const data = {
-  logos:['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg'],
-  affiches:['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg'],
-  youtube:[]
-};
+const sliders = {};
 
-// --- SLIDERS LOGOS / AFFICHES / YOUTUBE ---
-let sliders = {};
-
+// Carrousels Logos et Affiches
 function initSliders(){
-  for(const cat in data){
+  const sliderIds = ['logos','affiches','youtube'];
+  sliderIds.forEach(cat=>{
     const slidesDiv = document.querySelector(`#slider-${cat} .slides`);
-    sliders[cat]={index:0, slidesDiv};
-
-    data[cat].forEach((src,i)=>{
-      let el;
-      if(cat==='youtube'){
-        el = document.createElement('iframe');
-        el.src = src;
-        el.width="560"; el.height="315";
-        el.frameBorder="0";
-        el.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-        el.allowFullscreen=true;
-      } else {
-        el = document.createElement('img');
-        el.src = src;
-        el.alt=`${cat} image ${i+1}`;
-        el.onclick=()=>openLightbox(src);
-      }
-      slidesDiv.appendChild(el);
-    });
-
+    sliders[cat] = {index:0, slidesDiv};
+    const els = slidesDiv.children;
+    Array.from(els).forEach(el=>el.classList.remove('active'));
+    els[0].classList.add('active');
     slidesDiv.parentElement.querySelector('.arrow.left').onclick = ()=>moveSlide(cat,-1);
     slidesDiv.parentElement.querySelector('.arrow.right').onclick = ()=>moveSlide(cat,1);
-
-    updateSlider(cat);
-  }
-}
-
-function updateSlider(cat){
-  const {slidesDiv,index} = sliders[cat];
-  const els = slidesDiv.children;
-  const total = els.length;
-  Array.from(els).forEach((el,i)=>{
-    el.style.display = (i===index)?'block':'none';
   });
 }
 
+// Fonction pour changer de slide
 function moveSlide(cat,step){
-  sliders[cat].index = (sliders[cat].index + step + data[cat].length)%data[cat].length;
-  updateSlider(cat);
+  const {slidesDiv} = sliders[cat];
+  const els = slidesDiv.children;
+  sliders[cat].index = (sliders[cat].index + step + els.length) % els.length;
+  Array.from(els).forEach((el,i)=>{
+    el.classList.toggle('active', i === sliders[cat].index);
+  });
 }
 
-// --- SLIDER FACEBOOK ---
+// Carrousel vidéos Facebook
 const fbVideos = [
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F992019422192079%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1046719850354572%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1871767593301350%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F8182628635105181%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1128191708465484%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F3392508274380366%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F457573133705162%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F820511136706394%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F766437438901830%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1517265682500481%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1527111301524646%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F426339150382242%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1630542697429917%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F828698934869678%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F263044686412619%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F637041755124769%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F639421378106278%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F960168361911615%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1507945709728525%2F&show_text=0&width=720",
-  "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1230940850788187%2F&show_text=0&width=720"
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F992019422192079%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1046719850354572%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1871767593301350%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F8182628635105181%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1128191708465484%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F3392508274380366%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F457573133705162%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F820511136706394%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F766437438901830%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1517265682500481%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1527111301524646%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F426339150382242%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1630542697429917%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F828698934869678%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F263044686412619%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F637041755124769%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F639421378106278%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F960168361911615%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1507945709728525%2F&show_text=0&width=720",
+"https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FXooDesign%2Fvideos%2F1230940850788187%2F&show_text=0&width=720"
 ];
 
-let fbSliderIndex = 0;
-function showFbVideo(index){
-  const container = document.querySelector('#slider-fb .slides');
-  container.innerHTML = '';
+const fbSlidesDiv = document.querySelector('#slider-fb .slides');
+fbVideos.forEach(src=>{
   const iframe = document.createElement('iframe');
-  iframe.src = fbVideos[index];
-  iframe.width = "720";
-  iframe.height = "405";
-  iframe.style.maxWidth = "100%";
-  iframe.style.height = "auto";
-  iframe.frameBorder = "0";
-  iframe.allow = "autoplay; clipboard-write; encrypted-media; picture-in-picture";
+  iframe.src = src;
+  iframe.width = "560"; iframe.height="315";
+  iframe.frameBorder="0";
+  iframe.allow="autoplay; clipboard-write; encrypted-media; picture-in-picture";
   iframe.allowFullscreen = true;
-  container.appendChild(iframe);
-}
-document.querySelector('#slider-fb .arrow.left').onclick = ()=>{ fbSliderIndex = (fbSliderIndex-1+fbVideos.length)%fbVideos.length; showFbVideo(fbSliderIndex);};
-document.querySelector('#slider-fb .arrow.right').onclick = ()=>{ fbSliderIndex = (fbSliderIndex+1)%fbVideos.length; showFbVideo(fbSliderIndex);};
-showFbVideo(fbSliderIndex);
+  fbSlidesDiv.appendChild(iframe);
+});
+sliders['fb'] = {index:0, slidesDiv: fbSlidesDiv};
+document.querySelector('#slider-fb .arrow.left').onclick = ()=>moveSlide('fb',-1);
+document.querySelector('#slider-fb .arrow.right').onclick = ()=>moveSlide('fb',1);
+Array.from(fbSlidesDiv.children).forEach((el,i)=>el.classList.toggle('active', i===0));
 
-// Lightbox
 function openLightbox(src){
   const lightbox=document.getElementById('lightbox');
   lightbox.querySelector('img').src=src;
