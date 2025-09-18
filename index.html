@@ -14,7 +14,11 @@ body {
   background-size: 600% 600%;
   animation: gradientBG 20s ease infinite;
 }
-@keyframes gradientBG {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+@keyframes gradientBG {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
 
 nav {
   background:#001a33;
@@ -32,7 +36,13 @@ nav a {
 nav a:hover {color:#4da6ff;}
 
 header {padding:20px;}
-header video {width:85%; max-width:1000px; height:auto; display:block; margin:20px auto;}
+header video {
+  width:85%;
+  max-width:1000px;
+  height:auto;
+  display:block;
+  margin:20px auto;
+}
 header h1 {font-size:3em; margin:10px 0 5px;}
 header h2 {
   display: inline-block;
@@ -47,7 +57,7 @@ header h2 {
 }
 
 .section {
-  margin:60px auto;
+  margin:80px auto;
   max-width:1100px;
   position:relative;
 }
@@ -94,11 +104,20 @@ header h2 {
   backface-visibility: hidden;
 }
 
-.slides img.active {box-shadow:0 0 40px rgba(77,166,255,0.8); transform: scale(1.1);}
+.slides img.active {
+  box-shadow:0 0 40px rgba(77,166,255,0.8);
+  transform: scale(1.1);
+}
 
 .arrow {
-  position: absolute; top:50%; transform:translateY(-50%);
-  font-size:2.5em; color:#4da6ff; cursor:pointer; user-select:none; z-index:10;
+  position: absolute; 
+  top:50%; 
+  transform:translateY(-50%);
+  font-size:2.5em; 
+  color:#4da6ff; 
+  cursor:pointer; 
+  user-select:none; 
+  z-index:10;
   transition: color 0.3s ease;
 }
 .arrow:hover {color:#82c6ff;}
@@ -106,13 +125,24 @@ header h2 {
 .arrow.right {right:0;}
 
 #lightbox {
-  position: fixed; top:0; left:0; width:100%; height:100%;
-  background: rgba(0,0,0,0.9); display: none;
-  justify-content: center; align-items:center; z-index:100;
-  opacity:0; transition: opacity 0.4s ease;
+  position: fixed; 
+  top:0; left:0; 
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.9); 
+  display: none;
+  justify-content: center; 
+  align-items:center; 
+  z-index:100;
+  opacity:0; 
+  transition: opacity 0.4s ease;
 }
 #lightbox.show {display:flex; opacity:1;}
-#lightbox img {max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 20px rgba(0,0,0,0.7);}
+#lightbox img {
+  max-width:90%; 
+  max-height:90%; 
+  border-radius:10px; 
+  box-shadow:0 0 20px rgba(0,0,0,0.7);
+}
 
 footer {
   background:#001a33;
@@ -120,7 +150,11 @@ footer {
   padding:15px;
   margin-top:40px;
 }
-footer a {color:#4da6ff; margin:0 15px; text-decoration:none;}
+footer a {
+  color:#4da6ff; 
+  margin:0 15px; 
+  text-decoration:none;
+}
 footer a:hover {text-decoration:underline;}
 </style>
 </head>
@@ -129,9 +163,6 @@ footer a:hover {text-decoration:underline;}
 <nav>
   <a href="#slider-logos">Logos</a>
   <a href="#slider-affiches">Affiches</a>
-  <a href="#slider-flyers">Flyers</a>
-  <a href="#slider-mockups">Mockups</a>
-  <a href="#slider-cd">CD</a>
 </nav>
 
 <header>
@@ -160,50 +191,29 @@ footer a:hover {text-decoration:underline;}
   </div>
 </div>
 
-<div class="section">
-  <h2>Flyers</h2>
-  <div class="slider" id="slider-flyers">
-    <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right">&#10095;</span>
-  </div>
-</div>
-
-<div class="section">
-  <h2>Mockups</h2>
-  <div class="slider" id="slider-mockups">
-    <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right">&#10095;</span>
-  </div>
-</div>
-
-<div class="section">
-  <h2>CD</h2>
-  <div class="slider" id="slider-cd">
-    <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right">&#10095;</span>
-  </div>
-</div>
-
 <div id="lightbox" onclick="closeLightbox()">
   <img src="" alt="preview">
 </div>
 
 <footer>
-  <a href="https://www.facebook.com/tonprofil" target="_blank">Facebook</a>
-  <a href="https://www.linkedin.com/in/tonprofil" target="_blank">LinkedIn</a>
+  <a href="https://www.facebook.com/XooDesign/" target="_blank">Facebook</a>
+  <a href="https://www.linkedin.com/in/r%C3%A9my-reyne-699519b5/" target="_blank">LinkedIn</a>
   <div style="margin-top:10px;">&copy; 2025 Remy Reyne - Tous droits réservés</div>
 </footer>
 
 <script>
 const data={
-  logos:['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'],
-  affiches:['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg','images/affiches/affiche5.jpg','images/affiches/affiche6.jpg','images/affiches/affiche7.jpg','images/affiches/affiche8.jpg'],
-  flyers:['images/flyers/flyers1.jpg','images/flyers/flyers2.jpg'],
-  mockups:['images/mockups/mockup1.jpg','images/mockups/mockup2.jpg'],
-  cd:['images/cd/cd1.jpg','images/cd/cd2.jpg']
+  logos:[
+    'images/logos/logo1.jpg',
+    'images/logos/logo2.jpg',
+    'images/logos/logo3.jpg',
+    'images/logos/logo4.jpg'
+  ],
+  affiches:[
+    'images/affiches/affiche1.jpg',
+    'images/affiches/affiche2.jpg',
+    'images/affiches/affiche3.jpg'
+  ]
 };
 
 let sliders={}, fullIndex={};
@@ -235,13 +245,8 @@ function initSliders(){
 
     updateSlider(cat);
 
-    if(cat==='logos'||cat==='affiches') animateSlider(cat);
+    animateSlider(cat);
   }
-
-  document.addEventListener('keydown', e=>{
-    if(e.key==='ArrowLeft') for(const cat in sliders) moveSlide(cat,-1);
-    if(e.key==='ArrowRight') for(const cat in sliders) moveSlide(cat,1);
-  });
 }
 
 function updateSlider(cat){
@@ -257,10 +262,10 @@ function updateSlider(cat){
 
     const absDiff=Math.abs(diff);
 
-    // Orientation convexe, centrale toujours devant
-    const offset=diff*(sliderWidth/5);
+    // Décalage un peu plus grand pour espacer les images
+    const offset=diff*(sliderWidth/4.5);
     const rotateY=diff*40;
-    const translateZ=(diff===0)?0:-absDiff*120;
+    const translateZ=(diff===0)?0:-absDiff*140;
     const scale=1-absDiff*0.2;
     const opacity=1-absDiff*0.3;
 
@@ -270,9 +275,6 @@ function updateSlider(cat){
     img.style.transform=`translateX(${offset}px) translate(-50%, -50%) translateZ(${translateZ}px) scale(${scale}) rotateY(${rotateY}deg)`;
     img.style.filter=absDiff>=2?'blur(4px)':'none';
   });
-
-  fullIndex[cat]=Array.from(imgs).map((_,i)=>i-index);
-  console.log('Index complet :', fullIndex);
 }
 
 function moveSlide(cat,step){
