@@ -38,14 +38,26 @@ footer { background:#001a33; color:#fff; padding:15px; margin-top:40px; }
 footer a { color:#4da6ff; margin:0 15px; text-decoration:none; }
 footer a:hover { text-decoration:underline; }
 
-/* Vidéos : réduites et centrées */
+/* Vidéos : centrées et réduites */
+#slider-videos .slides {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  min-height: 400px;
+}
+
 #slider-videos .slides iframe {
   width: 80%;
   aspect-ratio: 16/9;
   height: auto;
   border-radius: 12px;
-  display: block;
+  display: none; /* toutes cachées sauf active */
   margin: 0 auto;
+}
+
+#slider-videos .slides iframe.active {
+  display: block;
 }
 
 /* Flyers : réduire la taille à 80% */
@@ -226,10 +238,10 @@ function updateSlider(cat){
 
       el.style.transform = `translateX(${offsetX}px) translate(-50%, -50%) translateZ(${translateZ}px) scale(${scale}) rotateY(${rotateY}deg)`;
       el.style.filter = absDiff>=2?'blur(3px)':'none';
-    } else {
-      // vidéos : juste l'actif visible
-      el.style.display = (diff===0)?'block':'none';
-    }
+} else {
+  // vidéos : on active uniquement l'iframe correspondant
+  el.classList.toggle('active', diff === 0);
+}
   });
 }
 
