@@ -55,10 +55,10 @@ footer a:hover { text-decoration:underline; }
 <body>
 
 <nav>
+  <a href="#slider-videos">Vidéos</a>
   <a href="#slider-logos">Logos</a>
   <a href="#slider-affiches">Affiches</a>
   <a href="#slider-affiches2">Affiches 2</a>
-  <a href="#slider-videos">Vidéos</a>
   <a href="#slider-flyers">Flyers</a>
   <a href="#slider-autres">Autres documents</a>
 </nav>
@@ -72,6 +72,14 @@ footer a:hover { text-decoration:underline; }
 </header>
 
 <!-- Carrousels -->
+<div class="section"><h2>Vidéos</h2>
+  <div class="slider" id="slider-videos">
+    <span class="arrow left">&#10094;</span>
+    <div class="slides"></div>
+    <span class="arrow right">&#10095;</span>
+  </div>
+</div>
+
 <div class="section"><h2>Logos</h2>
   <div class="slider" id="slider-logos">
     <span class="arrow left">&#10094;</span>
@@ -90,14 +98,6 @@ footer a:hover { text-decoration:underline; }
 
 <div class="section"><h2>Affiches 2</h2>
   <div class="slider" id="slider-affiches2">
-    <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right">&#10095;</span>
-  </div>
-</div>
-
-<div class="section"><h2>Vidéos</h2>
-  <div class="slider" id="slider-videos">
     <span class="arrow left">&#10094;</span>
     <div class="slides"></div>
     <span class="arrow right">&#10095;</span>
@@ -130,6 +130,10 @@ footer a:hover { text-decoration:underline; }
 
 <script>
 const data = {
+  videos:[
+    'https://www.youtube.com/embed/qAsG_P2ZtGk','https://www.youtube.com/embed/uEW7lNnpXJw','https://www.youtube.com/embed/gmBgCF2VcV8',
+    'https://www.youtube.com/embed/lbvV0KJK0C8','https://www.youtube.com/embed/uMWTLTYN1RI'
+  ],
   logos:[
     'images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg',
     'images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg','images/logos/logo10.jpg',
@@ -160,10 +164,6 @@ const data = {
   autres:[
     'images/mockups/mockup1.jpg','images/mockups/mockup2.jpg','images/mockups/mockup3.jpg','images/mockups/mockup4.jpg',
     'images/mockups/mockup5.jpg','images/mockups/mockup6.jpg','images/mockups/mockup7.jpg','images/mockups/mockup8.jpg'
-  ],
-  videos:[
-    'https://www.youtube.com/embed/qAsG_P2ZtGk','https://www.youtube.com/embed/uEW7lNnpXJw','https://www.youtube.com/embed/gmBgCF2VcV8',
-    'https://www.youtube.com/embed/lbvV0KJK0C8','https://www.youtube.com/embed/uMWTLTYN1RI'
   ]
 };
 
