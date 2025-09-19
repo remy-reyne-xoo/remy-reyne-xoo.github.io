@@ -21,7 +21,7 @@ header h2 { display:inline-block; background: rgba(0,0,0,0.3); border-radius:25p
 
 .slider { position: relative; width: 100%; max-width: 1000px; margin: 0 auto; overflow: hidden; perspective: 2000px; }
 .slides { position: relative; width: 100%; height: 350px; transform-style: preserve-3d; }
-.slides img, .slides iframe { position: absolute; top: 50%; left: 50%; transform-origin: center center; border-radius:12px; cursor:pointer; transition: transform 0.8s ease, opacity 0.8s ease; backface-visibility:hidden; }
+.slides img, .slides iframe { position: absolute; top: 50%; left: 50%; transform-origin: center center; width:auto; max-height:100%; border-radius:12px; cursor:pointer; transition: transform 0.8s ease, opacity 0.8s ease; backface-visibility:hidden; }
 .slides img.active, .slides iframe.active { box-shadow:0 0 40px rgba(77,166,255,0.8); transform: scale(1.1); }
 .arrow { position:absolute; top:50%; transform:translateY(-50%); font-size:2.5em; color:#4da6ff; cursor:pointer; user-select:none; z-index:10; }
 .arrow:hover { color:#82c6ff; }
@@ -43,28 +43,22 @@ footer { background:#001a33; color:#fff; padding:15px; margin-top:40px; }
 footer a { color:#4da6ff; margin:0 15px; text-decoration:none; }
 footer a:hover { text-decoration:underline; }
 
-/* Carrousel Vidéo */
+/* Fix responsive carrousel vidéo */
 #slider-videos .slides iframe {
   width: 100%;
-  max-width:560px;
-  aspect-ratio:16/9;
-  height:auto;
+  max-width: 560px;
+  height: auto;
   transform: translate(-50%, -50%);
-}
-
-/* Flyer17 redimensionné */
-#slider-flyers .slides img[src$="flyers17.jpg"] {
-  max-width:150px;
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="#slider-videos">Vidéos</a>
   <a href="#slider-logos">Logos</a>
   <a href="#slider-affiches">Affiches</a>
   <a href="#slider-affiches2">Affiches 2</a>
+  <a href="#slider-videos">Vidéos</a>
   <a href="#slider-flyers">Flyers</a>
   <a href="#slider-autres">Autres documents</a>
 </nav>
@@ -77,16 +71,7 @@ footer a:hover { text-decoration:underline; }
   <h2>Graphiste senior 360 / Illustrateur / Motion designer / Photographe</h2>
 </header>
 
-<!-- Carrousel Vidéos -->
-<div class="section"><h2>Vidéos</h2>
-  <div class="slider" id="slider-videos">
-    <span class="arrow left">&#10094;</span>
-    <div class="slides"></div>
-    <span class="arrow right">&#10095;</span>
-  </div>
-</div>
-
-<!-- Logos -->
+<!-- Carrousels -->
 <div class="section"><h2>Logos</h2>
   <div class="slider" id="slider-logos">
     <span class="arrow left">&#10094;</span>
@@ -95,7 +80,6 @@ footer a:hover { text-decoration:underline; }
   </div>
 </div>
 
-<!-- Affiches -->
 <div class="section"><h2>Affiches</h2>
   <div class="slider" id="slider-affiches">
     <span class="arrow left">&#10094;</span>
@@ -112,7 +96,14 @@ footer a:hover { text-decoration:underline; }
   </div>
 </div>
 
-<!-- Flyers -->
+<div class="section"><h2>Vidéos</h2>
+  <div class="slider" id="slider-videos">
+    <span class="arrow left">&#10094;</span>
+    <div class="slides"></div>
+    <span class="arrow right">&#10095;</span>
+  </div>
+</div>
+
 <div class="section"><h2>Flyers</h2>
   <div class="slider" id="slider-flyers">
     <span class="arrow left">&#10094;</span>
@@ -121,7 +112,6 @@ footer a:hover { text-decoration:underline; }
   </div>
 </div>
 
-<!-- Autres documents -->
 <div class="section"><h2>Autres documents</h2>
   <div class="slider" id="slider-autres">
     <span class="arrow left">&#10094;</span>
@@ -206,14 +196,9 @@ function initSliders(){
     slidesDiv.parentElement.querySelector('.arrow.left').onclick = ()=>moveSlide(cat,-1);
     slidesDiv.parentElement.querySelector('.arrow.right').onclick = ()=>moveSlide(cat,1);
 
-    // Ajustement scale spécifique pour flyers17
-    if(cat==='flyers'){
-      const el17 = slidesDiv.querySelector('img[src$="flyers17.jpg"]');
-      if(el17) el17.style.transform = 'scale(0.85)';
-    }
-
     updateSlider(cat);
 
+    // Auto pour tous sauf vidéos
     if(cat!=='videos') setInterval(()=>moveSlide(cat,1),7000);
   }
 }
@@ -231,22 +216,20 @@ function updateSlider(cat){
 
     const absDiff = Math.abs(diff);
 
-    if(cat!=='videos'){
-      let offsetX = diff * (sliderWidth / 3);
-      let rotateY = diff * 40;
-      let translateZ = (diff===0)?0:-absDiff*220;
-      let scale = 1 - absDiff*0.15;
-      let opacity = absDiff>2?0:1-absDiff*0.25;
+    let offsetX = diff * (sliderWidth / 3);
+    let rotateY = diff * 40;
+    let translateZ = (diff===0)?0:-absDiff*220;
+    let scale = 1 - absDiff*0.15;
+    let opacity = absDiff>2?0:1-absDiff*0.25;
 
-      el.classList.toggle('active', diff===0);
-      el.style.zIndex = (diff===0)?total+10:total-absDiff;
-      el.style.opacity = opacity;
-      el.style.pointerEvents = absDiff>2?'none':'auto';
+    el.classList.toggle('active', diff===0);
+    el.style.zIndex = (diff===0)?total+10:total-absDiff;
+    el.style.opacity = opacity;
+    el.style.pointerEvents = absDiff>2?'none':'auto';
+
+    if(cat!=='videos'){
       el.style.transform = `translateX(${offsetX}px) translate(-50%, -50%) translateZ(${translateZ}px) scale(${scale}) rotateY(${rotateY}deg)`;
       el.style.filter = absDiff>=2?'blur(3px)':'none';
-    } else {
-      el.classList.toggle('active', diff===0);
-      el.style.zIndex = (diff===0)?total+10:total-absDiff;
     }
   });
 }
