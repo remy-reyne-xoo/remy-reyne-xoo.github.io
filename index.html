@@ -130,7 +130,7 @@ const data = {
     'images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg','images/affiches/affiche5.jpg',
     'images/affiches/affiche6.jpg','images/affiches/affiche7.jpg','images/affiches/affiche8.jpg','images/affiches/affiche9.jpg','images/affiches/affiche10.jpg',
     'images/affiches/affiche11.jpg','images/affiches/affiche12.jpg','images/affiches/affiche13.jpg','images/affiches/affiche14.jpg','images/affiches/affiche15.jpg',
-    'images/affiches/affiche16.jpg','images/affiches/affiche17.jpg'
+    'images/affiches/affiche16.jpg'
   ],
   affiches2:[
     'images/affiches/afficher1.jpg','images/affiches/afficher2.jpg','images/affiches/afficher3.jpg','images/affiches/afficher4.jpg','images/affiches/afficher5.jpg',
@@ -141,15 +141,15 @@ const data = {
     'images/affiches/afficher26.jpg'
   ],
   flyers:[
-    'images/flyers/flyer1.jpg','images/flyers/flyer2.jpg','images/flyers/flyer3.jpg','images/flyers/flyer4.jpg','images/flyers/flyer5.jpg',
-    'images/flyers/flyer6.jpg','images/flyers/flyer7.jpg','images/flyers/flyer8.jpg','images/flyers/flyer9.jpg','images/flyers/flyer10.jpg',
-    'images/flyers/flyer11.jpg','images/flyers/flyer12.jpg','images/flyers/flyer13.jpg','images/flyers/flyer14.jpg','images/flyers/flyer15.jpg',
-    'images/flyers/flyer16.jpg','images/flyers/flyer17.jpg','images/flyers/flyer18.jpg','images/flyers/flyer19.jpg','images/flyers/flyer20.jpg',
-    'images/flyers/flyer21.jpg','images/flyers/flyer22.jpg','images/flyers/flyer23.jpg'
+    'images/flyers/flyers1.jpg','images/flyers/flyers2.jpg','images/flyers/flyers3.jpg','images/flyers/flyers4.jpg','images/flyers/flyers5.jpg',
+    'images/flyers/flyers6.jpg','images/flyers/flyers7.jpg','images/flyers/flyers8.jpg','images/flyers/flyers9.jpg','images/flyers/flyers10.jpg',
+    'images/flyers/flyers11.jpg','images/flyers/flyers12.jpg','images/flyers/flyers13.jpg','images/flyers/flyers14.jpg','images/flyers/flyers15.jpg',
+    'images/flyers/flyers16.jpg','images/flyers/flyers17.jpg','images/flyers/flyers18.jpg','images/flyers/flyers19.jpg','images/flyers/flyers20.jpg',
+    'images/flyers/flyers21.jpg','images/flyers/flyers22.jpg','images/flyers/flyers23.jpg'
   ],
   autres:[
-    'images/mockups/autre1.jpg','images/mockups/autre2.jpg','images/mockups/autre3.jpg','images/mockups/autre4.jpg',
-    'images/mockups/autre5.jpg','images/mockups/autre6.jpg','images/mockups/autre7.jpg','images/mockups/autre8.jpg'
+    'images/mockups/mockup1.jpg','images/mockups/mockup2.jpg','images/mockups/mockup3.jpg','images/mockups/mockup4.jpg',
+    'images/mockups/mockup5.jpg','images/mockups/mockup6.jpg','images/mockups/mockup7.jpg','images/mockups/mockup8.jpg'
   ],
   videos:[
     'https://www.youtube.com/embed/qAsG_P2ZtGk','https://www.youtube.com/embed/uEW7lNnpXJw','https://www.youtube.com/embed/gmBgCF2VcV8',
@@ -188,7 +188,7 @@ function initSliders(){
 
     updateSlider(cat);
 
-    // Auto pour logos, affiches et flyers et autres
+    // Auto pour logos, affiches, flyers et autres
     if(cat!=='videos') setInterval(()=>moveSlide(cat,1),7000);
   }
 }
