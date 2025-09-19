@@ -21,8 +21,8 @@ header h2 { display:inline-block; background: rgba(0,0,0,0.3); border-radius:25p
 
 .slider { position: relative; width: 100%; max-width: 1000px; margin: 0 auto; overflow: hidden; perspective: 2000px; }
 .slides { position: relative; width: 100%; height: 350px; transform-style: preserve-3d; }
-.slides img, .slides iframe { position: absolute; top: 50%; left: 50%; transform-origin: center center; width:auto; max-height:100%; border-radius:12px; cursor:pointer; transition: transform 0.8s ease, opacity 0.8s ease; backface-visibility:hidden; }
-.slides img.active, .slides iframe.active { box-shadow:0 0 40px rgba(77,166,255,0.8); transform: scale(1.1); }
+.slides img { position: absolute; top: 50%; left: 50%; transform-origin: center center; width:auto; max-height:100%; border-radius:12px; cursor:pointer; transition: transform 0.8s ease, opacity 0.8s ease; backface-visibility:hidden; }
+.slides img.active { box-shadow:0 0 40px rgba(77,166,255,0.8); transform: scale(1.1); }
 .arrow { position:absolute; top:50%; transform:translateY(-50%); font-size:2.5em; color:#4da6ff; cursor:pointer; user-select:none; z-index:10; }
 .arrow:hover { color:#82c6ff; }
 .arrow.left { left:0; }
@@ -45,6 +45,7 @@ footer a:hover { text-decoration:underline; }
   align-items: center;
   height: auto;
   min-height: 400px;
+  position: relative;
 }
 
 #slider-videos .slides iframe {
@@ -54,6 +55,8 @@ footer a:hover { text-decoration:underline; }
   border-radius: 12px;
   display: none; /* toutes cachées sauf active */
   margin: 0 auto;
+  position: static;
+  transform: none;
 }
 
 #slider-videos .slides iframe.active {
@@ -206,7 +209,6 @@ function initSliders(){
 
     updateSlider(cat);
 
-    // Auto slide sauf vidéos
     if(cat!=='videos') setInterval(()=>moveSlide(cat,1),7000);
   }
 }
@@ -238,10 +240,9 @@ function updateSlider(cat){
 
       el.style.transform = `translateX(${offsetX}px) translate(-50%, -50%) translateZ(${translateZ}px) scale(${scale}) rotateY(${rotateY}deg)`;
       el.style.filter = absDiff>=2?'blur(3px)':'none';
-} else {
-  // vidéos : on active uniquement l'iframe correspondant
-  el.classList.toggle('active', diff === 0);
-}
+    } else {
+      el.classList.toggle('active', diff === 0);
+    }
   });
 }
 
