@@ -47,10 +47,10 @@ footer a:hover { text-decoration:underline; }
 <nav>
   <a href="#slider-logos">Logos</a>
   <a href="#slider-affiches">Affiches</a>
+  <a href="#slider-affiches2">Affiches 2</a>
   <a href="#slider-videos">Vidéos</a>
-  <a href="#flyers">Flyers</a>
-  <a href="#mockups">Mockups</a>
-  <a href="#cd">CD</a>
+  <a href="#slider-flyers">Flyers</a>
+  <a href="#slider-autres">Autres documents</a>
 </nav>
 
 <header>
@@ -62,14 +62,53 @@ footer a:hover { text-decoration:underline; }
 </header>
 
 <!-- Carrousels -->
-<div class="section"><h2>Logos</h2><div class="slider" id="slider-logos"><span class="arrow left">&#10094;</span><div class="slides"></div><span class="arrow right">&#10095;</span></div></div>
-<div class="section"><h2>Affiches</h2><div class="slider" id="slider-affiches"><span class="arrow left">&#10094;</span><div class="slides"></div><span class="arrow right">&#10095;</span></div></div>
-<div class="section"><h2>Vidéos</h2><div class="slider" id="slider-videos"><span class="arrow left">&#10094;</span><div class="slides"></div><span class="arrow right">&#10095;</span></div></div>
+<div class="section"><h2>Logos</h2>
+  <div class="slider" id="slider-logos">
+    <span class="arrow left">&#10094;</span>
+    <div class="slides"></div>
+    <span class="arrow right">&#10095;</span>
+  </div>
+</div>
 
-<!-- Flyers / Mockups / CD -->
-<div class="section" id="flyers"><h2>Flyers</h2><div class="grid"><img src="images/flyers/flyers1.jpg" onclick="openLightbox(this.src)"><img src="images/flyers/flyers2.jpg" onclick="openLightbox(this.src)"></div></div>
-<div class="section" id="mockups"><h2>Mockups</h2><div class="grid"><img src="images/mockups/mockup1.jpg" onclick="openLightbox(this.src)"><img src="images/mockups/mockup2.jpg" onclick="openLightbox(this.src)"></div></div>
-<div class="section" id="cd"><h2>CD</h2><div class="grid"><img src="images/cd/cd1.jpg" onclick="openLightbox(this.src)"><img src="images/cd/cd2.jpg" onclick="openLightbox(this.src)"></div></div>
+<div class="section"><h2>Affiches</h2>
+  <div class="slider" id="slider-affiches">
+    <span class="arrow left">&#10094;</span>
+    <div class="slides"></div>
+    <span class="arrow right">&#10095;</span>
+  </div>
+</div>
+
+<div class="section"><h2>Affiches 2</h2>
+  <div class="slider" id="slider-affiches2">
+    <span class="arrow left">&#10094;</span>
+    <div class="slides"></div>
+    <span class="arrow right">&#10095;</span>
+  </div>
+</div>
+
+<div class="section"><h2>Vidéos</h2>
+  <div class="slider" id="slider-videos">
+    <span class="arrow left">&#10094;</span>
+    <div class="slides"></div>
+    <span class="arrow right">&#10095;</span>
+  </div>
+</div>
+
+<div class="section"><h2>Flyers</h2>
+  <div class="slider" id="slider-flyers">
+    <span class="arrow left">&#10094;</span>
+    <div class="slides"></div>
+    <span class="arrow right">&#10095;</span>
+  </div>
+</div>
+
+<div class="section"><h2>Autres documents</h2>
+  <div class="slider" id="slider-autres">
+    <span class="arrow left">&#10094;</span>
+    <div class="slides"></div>
+    <span class="arrow right">&#10095;</span>
+  </div>
+</div>
 
 <div id="lightbox" onclick="closeLightbox()"><img></div>
 
@@ -81,9 +120,41 @@ footer a:hover { text-decoration:underline; }
 
 <script>
 const data = {
-  logos:['images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg'],
-  affiches:['images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg','images/affiches/affiche5.jpg','images/affiches/affiche6.jpg'],
-  videos:['https://www.youtube.com/embed/qAsG_P2ZtGk','https://www.youtube.com/embed/uEW7lNnpXJw','https://www.youtube.com/embed/gmBgCF2VcV8','https://www.youtube.com/embed/lbvV0KJK0C8','https://www.youtube.com/embed/uMWTLTYN1RI']
+  logos:[
+    'images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg',
+    'images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg','images/logos/logo10.jpg',
+    'images/logos/logo11.jpg','images/logos/logo12.jpg','images/logos/logo13.jpg','images/logos/logo14.jpg','images/logos/logo15.jpg',
+    'images/logos/logo16.jpg','images/logos/logo17.jpg'
+  ],
+  affiches:[
+    'images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg','images/affiches/affiche5.jpg',
+    'images/affiches/affiche6.jpg','images/affiches/affiche7.jpg','images/affiches/affiche8.jpg','images/affiches/affiche9.jpg','images/affiches/affiche10.jpg',
+    'images/affiches/affiche11.jpg','images/affiches/affiche12.jpg','images/affiches/affiche13.jpg','images/affiches/affiche14.jpg','images/affiches/affiche15.jpg',
+    'images/affiches/affiche16.jpg','images/affiches/affiche17.jpg'
+  ],
+  affiches2:[
+    'images/affiches/afficher1.jpg','images/affiches/afficher2.jpg','images/affiches/afficher3.jpg','images/affiches/afficher4.jpg','images/affiches/afficher5.jpg',
+    'images/affiches/afficher6.jpg','images/affiches/afficher7.jpg','images/affiches/afficher8.jpg','images/affiches/afficher9.jpg','images/affiches/afficher10.jpg',
+    'images/affiches/afficher11.jpg','images/affiches/afficher12.jpg','images/affiches/afficher13.jpg','images/affiches/afficher14.jpg','images/affiches/afficher15.jpg',
+    'images/affiches/afficher16.jpg','images/affiches/afficher17.jpg','images/affiches/afficher18.jpg','images/affiches/afficher19.jpg','images/affiches/afficher20.jpg',
+    'images/affiches/afficher21.jpg','images/affiches/afficher22.jpg','images/affiches/afficher23.jpg','images/affiches/afficher24.jpg','images/affiches/afficher25.jpg',
+    'images/affiches/afficher26.jpg'
+  ],
+  flyers:[
+    'images/flyers/flyer1.jpg','images/flyers/flyer2.jpg','images/flyers/flyer3.jpg','images/flyers/flyer4.jpg','images/flyers/flyer5.jpg',
+    'images/flyers/flyer6.jpg','images/flyers/flyer7.jpg','images/flyers/flyer8.jpg','images/flyers/flyer9.jpg','images/flyers/flyer10.jpg',
+    'images/flyers/flyer11.jpg','images/flyers/flyer12.jpg','images/flyers/flyer13.jpg','images/flyers/flyer14.jpg','images/flyers/flyer15.jpg',
+    'images/flyers/flyer16.jpg','images/flyers/flyer17.jpg','images/flyers/flyer18.jpg','images/flyers/flyer19.jpg','images/flyers/flyer20.jpg',
+    'images/flyers/flyer21.jpg','images/flyers/flyer22.jpg','images/flyers/flyer23.jpg'
+  ],
+  autres:[
+    'images/mockups/autre1.jpg','images/mockups/autre2.jpg','images/mockups/autre3.jpg','images/mockups/autre4.jpg',
+    'images/mockups/autre5.jpg','images/mockups/autre6.jpg','images/mockups/autre7.jpg','images/mockups/autre8.jpg'
+  ],
+  videos:[
+    'https://www.youtube.com/embed/qAsG_P2ZtGk','https://www.youtube.com/embed/uEW7lNnpXJw','https://www.youtube.com/embed/gmBgCF2VcV8',
+    'https://www.youtube.com/embed/lbvV0KJK0C8','https://www.youtube.com/embed/uMWTLTYN1RI'
+  ]
 };
 
 let sliders = {};
@@ -91,6 +162,7 @@ let sliders = {};
 function initSliders(){
   for(const cat in data){
     const slidesDiv = document.querySelector(`#slider-${cat} .slides`);
+    if(!slidesDiv) continue;
     sliders[cat] = { index:0, slidesDiv };
 
     data[cat].forEach(src=>{
@@ -116,7 +188,7 @@ function initSliders(){
 
     updateSlider(cat);
 
-    // Auto pour logos et affiches uniquement
+    // Auto pour logos, affiches et flyers et autres
     if(cat!=='videos') setInterval(()=>moveSlide(cat,1),7000);
   }
 }
@@ -133,7 +205,7 @@ function updateSlider(cat){
     if(diff>Math.floor(total/2)) diff-=total;
 
     const absDiff=Math.abs(diff);
-    const offset=diff*(sliderWidth/5); // 5 images visibles
+    const offset=diff*(sliderWidth/5);
     const rotateY=diff*30;
     const translateZ=(diff===0)?0:-absDiff*120;
     const scale=1-absDiff*0.15;
