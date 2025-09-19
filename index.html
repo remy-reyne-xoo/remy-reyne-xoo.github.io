@@ -17,39 +17,35 @@
       margin: 40px 0 20px;
     }
 
-    /* Container global */
-    .carousel {
+    /* Carrousel 3D */
+    .carousel-3d {
       position: relative;
-      width: 90%;
+      width: 100%;
+      height: 350px;
       margin: auto;
       perspective: 1000px;
       overflow: hidden;
     }
-
-    .slides {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: transform 0.8s ease-in-out;
-      gap: 15px;
+    .carousel-3d .slides {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1s;
     }
-
-    .slide {
-      min-width: 250px;
-      max-width: 320px;
-      transition: transform 0.5s;
+    .carousel-3d .slide {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
-
-    /* Images du carrousel */
-    .slide img {
+    .carousel-3d img {
       max-width: 300px;
       max-height: 200px;
       object-fit: contain;
       border-radius: 12px;
     }
-
-    /* Vidéos YouTube */
-    .slide iframe {
+    .carousel-3d iframe {
       width: 480px;
       height: 270px;
       max-width: 80vw;
@@ -57,8 +53,32 @@
       border-radius: 12px;
     }
 
+    /* Slider simple */
+    .carousel-simple {
+      position: relative;
+      width: 90%;
+      margin: auto;
+      overflow: hidden;
+    }
+    .carousel-simple .slides {
+      display: flex;
+      transition: transform 0.8s ease-in-out;
+      gap: 15px;
+    }
+    .carousel-simple .slide {
+      min-width: 250px;
+      max-width: 300px;
+    }
+    .carousel-simple img {
+      width: 100%;
+      max-width: 300px;
+      max-height: 200px;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
     /* Boutons */
-    .carousel button {
+    .carousel-3d button, .carousel-simple button {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -68,9 +88,10 @@
       padding: 12px;
       cursor: pointer;
       border-radius: 50%;
+      z-index: 10;
     }
-    .carousel button.prev { left: 10px; }
-    .carousel button.next { right: 10px; }
+    .carousel-3d button.prev, .carousel-simple button.prev { left: 10px; }
+    .carousel-3d button.next, .carousel-simple button.next { right: 10px; }
   </style>
 </head>
 <body>
@@ -79,26 +100,26 @@
 
   <!-- Logos -->
   <h2>Logos</h2>
-  <div class="carousel" id="logos">
-    <button class="prev" onclick="moveSlide('logos', -1)">❮</button>
+  <div class="carousel-3d" id="logos">
+    <button class="prev" onclick="rotate3D('logos', -1)">❮</button>
     <div class="slides">
-      <div class="slide"><img src="images/logos/logo1.jpg" alt="Logo 1"></div>
-      <div class="slide"><img src="images/logos/logo2.jpg" alt="Logo 2"></div>
-      <div class="slide"><img src="images/logos/logo3.jpg" alt="Logo 3"></div>
-      <div class="slide"><img src="images/logos/logo4.jpg" alt="Logo 4"></div>
-      <div class="slide"><img src="images/logos/logo5.jpg" alt="Logo 5"></div>
-      <div class="slide"><img src="images/logos/logo6.jpg" alt="Logo 6"></div>
-      <div class="slide"><img src="images/logos/logo7.jpg" alt="Logo 7"></div>
-      <div class="slide"><img src="images/logos/logo8.jpg" alt="Logo 8"></div>
-      <div class="slide"><img src="images/logos/logo9.jpg" alt="Logo 9"></div>
+      <div class="slide"><img src="images/logos/logo1.jpg"></div>
+      <div class="slide"><img src="images/logos/logo2.jpg"></div>
+      <div class="slide"><img src="images/logos/logo3.jpg"></div>
+      <div class="slide"><img src="images/logos/logo4.jpg"></div>
+      <div class="slide"><img src="images/logos/logo5.jpg"></div>
+      <div class="slide"><img src="images/logos/logo6.jpg"></div>
+      <div class="slide"><img src="images/logos/logo7.jpg"></div>
+      <div class="slide"><img src="images/logos/logo8.jpg"></div>
+      <div class="slide"><img src="images/logos/logo9.jpg"></div>
     </div>
-    <button class="next" onclick="moveSlide('logos', 1)">❯</button>
+    <button class="next" onclick="rotate3D('logos', 1)">❯</button>
   </div>
 
   <!-- Affiches -->
   <h2>Affiches</h2>
-  <div class="carousel" id="affiches">
-    <button class="prev" onclick="moveSlide('affiches', -1)">❮</button>
+  <div class="carousel-3d" id="affiches">
+    <button class="prev" onclick="rotate3D('affiches', -1)">❮</button>
     <div class="slides">
       <div class="slide"><img src="images/affiches/affiche1.jpg"></div>
       <div class="slide"><img src="images/affiches/affiche2.jpg"></div>
@@ -109,13 +130,13 @@
       <div class="slide"><img src="images/affiches/affiche7.jpg"></div>
       <div class="slide"><img src="images/affiches/affiche8.jpg"></div>
     </div>
-    <button class="next" onclick="moveSlide('affiches', 1)">❯</button>
+    <button class="next" onclick="rotate3D('affiches', 1)">❯</button>
   </div>
 
-  <!-- Vidéos -->
+  <!-- Vidéos YouTube -->
   <h2>Vidéos</h2>
-  <div class="carousel" id="youtube">
-    <button class="prev" onclick="moveSlide('youtube', -1)">❮</button>
+  <div class="carousel-3d" id="youtube">
+    <button class="prev" onclick="rotate3D('youtube', -1)">❮</button>
     <div class="slides">
       <div class="slide"><iframe src="https://www.youtube.com/embed/qAsG_P2ZtGk" frameborder="0" allowfullscreen></iframe></div>
       <div class="slide"><iframe src="https://www.youtube.com/embed/uEW7lNnpXJw" frameborder="0" allowfullscreen></iframe></div>
@@ -127,12 +148,12 @@
       <div class="slide"><iframe src="https://www.youtube.com/embed/YuCIzb6xlQM" frameborder="0" allowfullscreen></iframe></div>
       <div class="slide"><iframe src="https://www.youtube.com/embed/sftigWJkCMk" frameborder="0" allowfullscreen></iframe></div>
     </div>
-    <button class="next" onclick="moveSlide('youtube', 1)">❯</button>
+    <button class="next" onclick="rotate3D('youtube', 1)">❯</button>
   </div>
 
   <!-- Flyers -->
   <h2>Flyers</h2>
-  <div class="carousel" id="flyers">
+  <div class="carousel-simple" id="flyers">
     <button class="prev" onclick="moveSlide('flyers', -1)">❮</button>
     <div class="slides">
       <div class="slide"><img src="images/flyers/flyers1.jpg"></div>
@@ -143,7 +164,7 @@
 
   <!-- Mockups -->
   <h2>Mockups</h2>
-  <div class="carousel" id="mockups">
+  <div class="carousel-simple" id="mockups">
     <button class="prev" onclick="moveSlide('mockups', -1)">❮</button>
     <div class="slides">
       <div class="slide"><img src="images/mockups/mockup1.jpg"></div>
@@ -154,7 +175,7 @@
 
   <!-- CD -->
   <h2>CD</h2>
-  <div class="carousel" id="cd">
+  <div class="carousel-simple" id="cd">
     <button class="prev" onclick="moveSlide('cd', -1)">❮</button>
     <div class="slides">
       <div class="slide"><img src="images/cd/cd1.jpg"></div>
@@ -164,23 +185,43 @@
   </div>
 
   <script>
-    const sliders = {
-      logos: { index: 0 },
-      affiches: { index: 0 },
-      youtube: { index: 0 },
-      flyers: { index: 0 },
-      mockups: { index: 0 },
-      cd: { index: 0 }
-    };
-
-    function moveSlide(key, direction) {
-      const carousel = document.getElementById(key);
-      const slides = carousel.querySelector(".slides");
-      const totalSlides = slides.children.length;
-      sliders[key].index = (sliders[key].index + direction + totalSlides) % totalSlides;
-      slides.style.transform = `translateX(-${sliders[key].index * 320}px)`;
+    // --- Carrousel 3D ---
+    const carousels3D = {};
+    function init3D(id) {
+      const carousel = document.getElementById(id);
+      const slides = carousel.querySelectorAll('.slide');
+      const total = slides.length;
+      let angle = 360 / total;
+      slides.forEach((slide, i) => {
+        slide.style.transform = `rotateY(${i * angle}deg) translateZ(500px)`;
+      });
+      carousels3D[id] = { current: 0, angle, total, slides };
     }
+    function rotate3D(id, dir) {
+      carousels3D[id].current += dir;
+      const rotation = carousels3D[id].current * -carousels3D[id].angle;
+      const slidesContainer = document.querySelector(`#${id} .slides`);
+      slidesContainer.style.transform = `translateZ(-500px) rotateY(${rotation}deg)`;
+    }
+
+    // --- Carrousel simple ---
+    const sliders = { flyers: 0, mockups: 0, cd: 0 };
+    function moveSlide(id, dir) {
+      const carousel = document.getElementById(id);
+      const slides = carousel.querySelector(".slides");
+      const total = slides.children.length;
+      sliders[id] = (sliders[id] + dir + total) % total;
+      slides.style.transform = `translateX(-${sliders[id] * 320}px)`;
+    }
+
+    // Init
+    window.onload = () => {
+      init3D('logos');
+      init3D('affiches');
+      init3D('youtube');
+    };
   </script>
 
 </body>
 </html>
+
