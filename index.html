@@ -34,12 +34,6 @@ header h2 { display:inline-block; background: rgba(0,0,0,0.3); border-radius:25p
 #lightbox.show { display:flex; opacity:1; }
 #lightbox img { max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 20px rgba(0,0,0,0.7); }
 
-/* CV */
-.cv-container { margin-bottom: 40px; }
-.cv-container img { width:300px; max-width:80%; cursor:pointer; border-radius:12px; margin-bottom:10px; }
-.cv-container a { display:inline-block; margin-top:5px; padding:8px 15px; background:#4da6ff; color:#fff; border-radius:8px; text-decoration:none; font-weight:bold; }
-.cv-container a:hover { background:#82c6ff; }
-
 /* Footer */
 footer { background:#001a33; color:#fff; padding:15px; margin-top:40px; }
 footer a { color:#4da6ff; margin:0 15px; text-decoration:none; }
@@ -71,11 +65,17 @@ footer a:hover { text-decoration:underline; }
   max-width: 80%;
   height: auto;
 }
+
+/* CV */
+.cv-container img { max-width: 80%; cursor:pointer; border-radius:10px; margin-bottom:10px; }
+.cv-container a { display:inline-block; margin-top:5px; color:#4da6ff; text-decoration:none; font-weight:bold; }
+.cv-container a:hover { text-decoration:underline; }
 </style>
 </head>
 <body>
 
 <nav>
+  <a href="#cv">CV</a>
   <a href="#slider-videos">Vidéos</a>
   <a href="#slider-logos">Logos</a>
   <a href="#slider-affiches">Affiches</a>
@@ -93,9 +93,9 @@ footer a:hover { text-decoration:underline; }
 </header>
 
 <!-- CV -->
-<div class="section cv-container">
+<div class="section cv-container" id="cv">
   <h2>Mon CV</h2>
-  <img src="images/cv.jpg" alt="CV Remy Reyne" onclick="openLightbox('images/cv.jpg')">
+  <img src="images/cv_preview.jpg" alt="CV Remy Reyne" onclick="openLightbox('images/cv_preview.jpg')">
   <br>
   <a href="mmain/cv.pdf" download>Télécharger le PDF</a>
 </div>
