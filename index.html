@@ -32,7 +32,7 @@ header h2 { display:inline-block; background: rgba(0,0,0,0.3); border-radius:25p
 /* Lightbox */
 #lightbox { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:none; justify-content:center; align-items:center; z-index:100; opacity:0; transition: opacity 0.4s ease; }
 #lightbox.show { display:flex; opacity:1; }
-#lightbox img, #lightbox iframe { max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 20px rgba(0,0,0,0.7); }
+#lightbox img { max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 20px rgba(0,0,0,0.7); }
 
 /* Footer */
 footer { background:#001a33; color:#fff; padding:15px; margin-top:40px; }
@@ -59,17 +59,16 @@ footer a:hover { text-decoration:underline; }
 /* Flyers : réduire la taille à 80% */
 #slider-flyers .slides img { max-width: 80%; height: auto; }
 
-/* CV */
-#cv-container { margin: 40px auto; max-width: 400px; }
-#cv-container img { width:100%; cursor:pointer; border-radius:12px; margin-bottom:10px; }
-#cv-container a { display:block; color:#4da6ff; margin-top:5px; text-decoration:none; font-weight:bold; }
-#cv-container a:hover { text-decoration:underline; }
+/* Miniature CV */
+.cv-container { margin-bottom: 30px; }
+.cv-container img { width:150px; cursor:pointer; border-radius:8px; }
+.cv-container a { display:block; margin-top:10px; color:#4da6ff; text-decoration:none; font-weight:bold; }
+.cv-container a:hover { text-decoration:underline; }
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="#cv-container">CV</a>
   <a href="#slider-videos">Vidéos</a>
   <a href="#slider-logos">Logos</a>
   <a href="#slider-affiches">Affiches</a>
@@ -87,10 +86,10 @@ footer a:hover { text-decoration:underline; }
 </header>
 
 <!-- CV -->
-<div id="cv-container" class="section">
-  <h2>CV</h2>
-  <img src="images/cv_preview.jpg" alt="CV Remy Reyne" onclick="openLightbox('mmain/cv.pdf')">
-  <a href="mmain/cv.pdf" download>Télécharger le CV (PDF)</a>
+<div class="section cv-container">
+  <h2>Mon CV</h2>
+  <img src="images/cv_preview.jpg" alt="CV Remy Reyne" onclick="window.open('/cv.pdf', '_blank')">
+  <a href="/cv.pdf" download>Télécharger le CV (PDF)</a>
 </div>
 
 <!-- Carrousels -->
@@ -142,10 +141,7 @@ footer a:hover { text-decoration:underline; }
   </div>
 </div>
 
-<div id="lightbox" onclick="closeLightbox()">
-  <img id="lightbox-img" style="display:none">
-  <iframe id="lightbox-pdf" style="display:none; width:90%; height:90%; border:none;"></iframe>
-</div>
+<div id="lightbox" onclick="closeLightbox()"><img></div>
 
 <footer>
   <a href="https://www.facebook.com/XooDesign/" target="_blank">Facebook</a>
@@ -278,23 +274,10 @@ function moveSlide(cat,step){
 }
 
 function openLightbox(src){ 
-  const lb = document.getElementById('lightbox'); 
-  const img = document.getElementById('lightbox-img');
-  const pdf = document.getElementById('lightbox-pdf');
-
-  if(src.endsWith('.pdf')){
-    img.style.display = 'none';
-    pdf.style.display = 'block';
-    pdf.src = src;
-  } else {
-    pdf.style.display = 'none';
-    img.style.display = 'block';
-    img.src = src;
-  }
-
+  const lb=document.getElementById('lightbox'); 
+  lb.querySelector('img').src=src; 
   lb.classList.add('show'); 
 }
-
 function closeLightbox(){ 
   document.getElementById('lightbox').classList.remove('show'); 
 }
