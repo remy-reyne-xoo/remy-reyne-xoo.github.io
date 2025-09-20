@@ -88,11 +88,15 @@ footer a:hover { text-decoration:underline; }
 <!-- CV -->
 <div class="section cv-container">
   <h2>Mon CV</h2>
-  <!-- Miniature beaucoup plus petite -->
-  <a href="/cv.pdf" target="_blank">
-    <img src="images/cv_preview.jpg" alt="CV Remy Reyne" style="width:100px; height:auto; border-radius:8px;">
-  </a>
-  <a href="/cv.pdf" download>Télécharger le CV (PDF)</a>
+  <img src="cv.jpg" alt="CV Remy Reyne" 
+       style="width:25%; height:auto; border-radius:8px; cursor:pointer;" 
+       onclick="openLightbox('cv.jpg')">
+  <div style="margin-top:10px;">
+    <a href="cv.pdf" download 
+       style="color:#4da6ff; text-decoration:none; font-weight:bold; border:2px solid #4da6ff; padding:8px 15px; border-radius:8px;">
+       Télécharger le CV
+    </a>
+  </div>
 </div>
 
 <!-- Carrousels -->
