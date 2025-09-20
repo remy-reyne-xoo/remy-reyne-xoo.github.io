@@ -47,6 +47,7 @@ footer a:hover { text-decoration:underline; }
   min-height: 400px;
   position: relative;
 }
+
 #slider-videos .slides iframe {
   width: 80%;
   aspect-ratio: 16/9;
@@ -54,21 +55,26 @@ footer a:hover { text-decoration:underline; }
   display: none;
   margin: 0 auto;
 }
-#slider-videos .slides iframe.active { display: block; }
+
+#slider-videos .slides iframe.active {
+  display: block;
+}
 
 /* Flyers : réduire la taille à 80% */
-#slider-flyers .slides img { max-width: 80%; height: auto; }
+#slider-flyers .slides img {
+  max-width: 80%;
+  height: auto;
+}
 
-/* Miniature CV */
-.cv-container { margin-bottom: 30px; }
-.cv-container img { width:150px; cursor:pointer; border-radius:8px; }
-.cv-container a { display:block; margin-top:10px; color:#4da6ff; text-decoration:none; font-weight:bold; }
-.cv-container a:hover { text-decoration:underline; }
+/* CV Section */
+.cv-container img { cursor:pointer; border-radius:8px; }
+.cv-container a { text-decoration:none; color:#4da6ff; font-weight:bold; border:2px solid #4da6ff; padding:8px 15px; border-radius:8px; display:inline-block; }
 </style>
 </head>
 <body>
 
 <nav>
+  <a href="#cv-section">CV</a>
   <a href="#slider-videos">Vidéos</a>
   <a href="#slider-logos">Logos</a>
   <a href="#slider-affiches">Affiches</a>
@@ -85,17 +91,14 @@ footer a:hover { text-decoration:underline; }
   <h2>Graphiste senior 360 / Illustrateur / Motion designer / Photographe</h2>
 </header>
 
-<!-- CV -->
-<div class="section cv-container">
+<!-- CV Section -->
+<div class="section cv-container" id="cv-section">
   <h2>Mon CV</h2>
-  <img src="cv.jpg" alt="CV Remy Reyne" 
-       style="width:25%; height:auto; border-radius:8px; cursor:pointer;" 
-       onclick="openLightbox('cv.jpg')">
-  <div style="margin-top:10px;">
-    <a href="cv.pdf" download 
-       style="color:#4da6ff; text-decoration:none; font-weight:bold; border:2px solid #4da6ff; padding:8px 15px; border-radius:8px;">
-       Télécharger le CV
-    </a>
+  <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+    <img src="cv.jpg" alt="CV Remy Reyne" 
+         style="width:25%; height:auto;" 
+         onclick="openLightbox('cv.jpg')">
+    <a href="cv.pdf" download>Télécharger le CV</a>
   </div>
 </div>
 
