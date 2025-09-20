@@ -66,15 +66,18 @@ footer a:hover { text-decoration:underline; }
   height: auto;
 }
 
-/* CV Section */
-.cv-container img { cursor:pointer; border-radius:8px; }
-.cv-container a { text-decoration:none; color:#4da6ff; font-weight:bold; border:2px solid #4da6ff; padding:8px 15px; border-radius:8px; display:inline-block; }
+/* CV */
+#cv-container { margin-bottom:40px; }
+#cv-container img { width:25%; cursor:pointer; border:2px solid #4da6ff; border-radius:8px; transition: transform 0.3s; }
+#cv-container img:hover { transform: scale(1.05); }
+#cv-container a { display:inline-block; margin-left:15px; padding:8px 15px; background:#4da6ff; color:#fff; border-radius:6px; text-decoration:none; font-weight:bold; transition: background 0.3s; }
+#cv-container a:hover { background:#82c6ff; }
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="#cv-section">CV</a>
+  <a href="#cv-container">CV</a>
   <a href="#slider-videos">Vidéos</a>
   <a href="#slider-logos">Logos</a>
   <a href="#slider-affiches">Affiches</a>
@@ -91,15 +94,11 @@ footer a:hover { text-decoration:underline; }
   <h2>Graphiste senior 360 / Illustrateur / Motion designer / Photographe</h2>
 </header>
 
-<!-- CV Section -->
-<div class="section cv-container" id="cv-section">
+<!-- CV -->
+<div class="section" id="cv-container">
   <h2>Mon CV</h2>
-  <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
-    <img src="cv.jpg" alt="CV Remy Reyne" 
-         style="width:25%; height:auto;" 
-         onclick="openLightbox('cv.jpg')">
-    <a href="cv.pdf" download>Télécharger le CV</a>
-  </div>
+  <img src="images/cv_preview.jpg" alt="CV Remy Reyne" onclick="openLightbox('images/cv.jpg')">
+  <a href="cv.pdf" download>Télécharger le CV</a>
 </div>
 
 <!-- Carrousels -->
