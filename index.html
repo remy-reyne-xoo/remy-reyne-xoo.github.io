@@ -32,7 +32,7 @@ header h2 { display:inline-block; background: rgba(0,0,0,0.3); border-radius:25p
 /* Lightbox */
 #lightbox { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:none; justify-content:center; align-items:center; z-index:100; opacity:0; transition: opacity 0.4s ease; }
 #lightbox.show { display:flex; opacity:1; }
-#lightbox img { max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 20px rgba(0,0,0,0.7); }
+#lightbox img, #lightbox iframe { max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 20px rgba(0,0,0,0.7); }
 
 /* Footer */
 footer { background:#001a33; color:#fff; padding:15px; margin-top:40px; }
@@ -47,7 +47,6 @@ footer a:hover { text-decoration:underline; }
   min-height: 400px;
   position: relative;
 }
-
 #slider-videos .slides iframe {
   width: 80%;
   aspect-ratio: 16/9;
@@ -55,27 +54,22 @@ footer a:hover { text-decoration:underline; }
   display: none;
   margin: 0 auto;
 }
-
-#slider-videos .slides iframe.active {
-  display: block;
-}
+#slider-videos .slides iframe.active { display: block; }
 
 /* Flyers : réduire la taille à 80% */
-#slider-flyers .slides img {
-  max-width: 80%;
-  height: auto;
-}
+#slider-flyers .slides img { max-width: 80%; height: auto; }
 
 /* CV */
-.cv-container img { max-width: 80%; cursor:pointer; border-radius:10px; margin-bottom:10px; }
-.cv-container a { display:inline-block; margin-top:5px; color:#4da6ff; text-decoration:none; font-weight:bold; }
-.cv-container a:hover { text-decoration:underline; }
+#cv-container { margin: 40px auto; max-width: 400px; }
+#cv-container img { width:100%; cursor:pointer; border-radius:12px; margin-bottom:10px; }
+#cv-container a { display:block; color:#4da6ff; margin-top:5px; text-decoration:none; font-weight:bold; }
+#cv-container a:hover { text-decoration:underline; }
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="#cv">CV</a>
+  <a href="#cv-container">CV</a>
   <a href="#slider-videos">Vidéos</a>
   <a href="#slider-logos">Logos</a>
   <a href="#slider-affiches">Affiches</a>
@@ -93,13 +87,10 @@ footer a:hover { text-decoration:underline; }
 </header>
 
 <!-- CV -->
-<div class="section cv-container" id="cv">
-  <h2>Mon CV</h2>
-  <div style="text-align:center;">
-    <img src="images/cv_preview.jpg" alt="CV Remy Reyne" onclick="openLightbox('images/cv_preview.jpg')">
-    <br>
-    <a href="mmain/cv.pdf" download>Télécharger le PDF</a>
-  </div>
+<div id="cv-container" class="section">
+  <h2>CV</h2>
+  <img src="images/cv_preview.jpg" alt="CV Remy Reyne" onclick="openLightbox('mmain/cv.pdf')">
+  <a href="mmain/cv.pdf" download>Télécharger le CV (PDF)</a>
 </div>
 
 <!-- Carrousels -->
@@ -151,7 +142,10 @@ footer a:hover { text-decoration:underline; }
   </div>
 </div>
 
-<div id="lightbox" onclick="closeLightbox()"><img></div>
+<div id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" style="display:none">
+  <iframe id="lightbox-pdf" style="display:none; width:90%; height:90%; border:none;"></iframe>
+</div>
 
 <footer>
   <a href="https://www.facebook.com/XooDesign/" target="_blank">Facebook</a>
@@ -284,10 +278,23 @@ function moveSlide(cat,step){
 }
 
 function openLightbox(src){ 
-  const lb=document.getElementById('lightbox'); 
-  lb.querySelector('img').src=src; 
+  const lb = document.getElementById('lightbox'); 
+  const img = document.getElementById('lightbox-img');
+  const pdf = document.getElementById('lightbox-pdf');
+
+  if(src.endsWith('.pdf')){
+    img.style.display = 'none';
+    pdf.style.display = 'block';
+    pdf.src = src;
+  } else {
+    pdf.style.display = 'none';
+    img.style.display = 'block';
+    img.src = src;
+  }
+
   lb.classList.add('show'); 
 }
+
 function closeLightbox(){ 
   document.getElementById('lightbox').classList.remove('show'); 
 }
