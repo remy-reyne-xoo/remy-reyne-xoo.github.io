@@ -6,14 +6,15 @@
 <title>Portfolio - Remy Reyne</title>
 <style>
 body { font-family: Arial,sans-serif; margin:0; padding:0; text-align:center; color:#f1f1f1; background:#001a33; }
+
 nav { background:#001a33; padding:10px; position:sticky; top:0; z-index:50; }
 nav a { color:#fff; margin:0 15px; text-decoration:none; font-weight:bold; }
 nav a:hover { color:#4da6ff; }
+
 header { padding:20px; }
 header video { width:85%; max-width:1000px; height:auto; display:block; margin:20px auto; }
 header h1 { font-size:3em; margin:10px 0 5px; }
-header h2 { display:block; color:#fff; font-size:1.4em; margin-bottom:10px; }
-header p.intro { display:block; margin-top:10px; font-size:1.1em; color:#ccc; }
+header h2 { display:inline-block; background: rgba(0,0,0,0.3); border-radius:25px; border:3px solid #4da6ff; padding:10px 20px; color:#fff; font-size:1.4em; margin-bottom:20px; }
 
 .section { margin:60px auto; max-width:1100px; position:relative; }
 .section h2 { display:inline-block; background: rgba(0,0,0,0.3); border-radius:25px; border:3px solid #4da6ff; padding:10px 20px; color:#fff; font-size:2em; margin-bottom:25px; }
@@ -28,42 +29,55 @@ header p.intro { display:block; margin-top:10px; font-size:1.1em; color:#ccc; }
 .arrow.left { left:0; }
 .arrow.right { right:0; }
 
-#lightbox { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:none; justify-content:center; align-items:center; z-index:100; opacity:0; transition: opacity 0.4s ease; }
+/* Lightbox */
+#lightbox { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); display:none; justify-content:center; align-items:center; z-index:100; opacity:0; transition: opacity 0.4s ease; flex-direction:row; gap:10px; overflow:auto; padding:20px; }
 #lightbox.show { display:flex; opacity:1; }
-#lightbox img { max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 20px rgba(0,0,0,0.7); }
+#lightbox img { max-width:45%; max-height:90%; border-radius:10px; box-shadow:0 0 20px rgba(0,0,0,0.7); cursor:pointer; transition: transform 0.3s; }
+#lightbox img:hover { transform: scale(1.02); }
 
+/* Footer */
 footer { background:#001a33; color:#fff; padding:15px; margin-top:40px; }
 footer a { color:#4da6ff; margin:0 15px; text-decoration:none; }
 footer a:hover { text-decoration:underline; }
 
+/* Vidéos : centrées et réduites */
+#slider-videos .slides {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  position: relative;
+}
+
+#slider-videos .slides iframe {
+  width: 80%;
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  display: none;
+  margin: 0 auto;
+}
+
+#slider-videos .slides iframe.active {
+  display: block;
+}
+
+/* Flyers : réduire la taille à 80% */
+#slider-flyers .slides img {
+  max-width: 80%;
+  height: auto;
+}
+
+/* CV */
 #cv-container { margin-bottom:40px; }
 #cv-container img { width:25%; cursor:pointer; border:2px solid #4da6ff; border-radius:8px; transition: transform 0.3s; }
 #cv-container img:hover { transform: scale(1.05); }
 #cv-container a { display:inline-block; margin-left:15px; padding:8px 15px; background:#4da6ff; color:#fff; border-radius:6px; text-decoration:none; font-weight:bold; transition: background 0.3s; }
 #cv-container a:hover { background:#82c6ff; }
 
-/* Vidéos */
-#slider-videos .slides { display: flex; justify-content: center; align-items: center; min-height: 400px; position: relative; }
-#slider-videos .slides iframe { width: 80%; aspect-ratio: 16/9; border-radius: 12px; display: none; margin: 0 auto; }
-#slider-videos .slides iframe.active { display: block; }
-
-/* Flyers */
-#slider-flyers .slides img { max-width: 80%; height: auto; }
-
-/* Magazine */
-#magazine-container { display:flex; flex-wrap:wrap; justify-content:center; gap:15px; margin-top:30px; }
-#magazine-container img { width:200px; cursor:pointer; border-radius:8px; border:2px solid #4da6ff; transition: transform 0.3s; }
+/* Magazines */
+#magazine-container { display:flex; justify-content:center; flex-wrap:wrap; gap:20px; margin-bottom:60px; }
+#magazine-container img { width:200px; border:3px solid #4da6ff; border-radius:8px; cursor:pointer; transition: transform 0.3s; }
 #magazine-container img:hover { transform: scale(1.05); }
-
-/* Flipbook overlay */
-#flipbook-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); display:none; justify-content:center; align-items:center; z-index:200; }
-#flipbook-overlay.show { display:flex; }
-#flipbook { width:80%; max-width:1200px; height:80%; background:#fff; display:flex; justify-content:center; align-items:center; position:relative; border-radius:12px; overflow:hidden; }
-#flipbook img { max-width:50%; max-height:100%; object-fit:contain; }
-#flipbook .close-btn { position:absolute; top:15px; right:15px; font-size:2em; color:#001a33; cursor:pointer; }
-#flipbook .nav-btn { position:absolute; top:50%; transform:translateY(-50%); font-size:2.5em; color:#001a33; cursor:pointer; user-select:none; }
-#flipbook .nav-left { left:10px; }
-#flipbook .nav-right { right:10px; }
 </style>
 </head>
 <body>
@@ -85,24 +99,24 @@ footer a:hover { text-decoration:underline; }
   </video>
   <h1>Remy Reyne</h1>
   <h2>Graphiste senior 360 / Illustrateur / Motion designer / Photographe</h2>
-  <p class="intro">J'ai sélectionné ici quelques exemples de mes créations ; beaucoup d'autres sont disponibles en version papier non numérisée.</p>
 </header>
 
+<!-- CV -->
 <div class="section" id="cv-container">
   <h2>Mon CV</h2>
   <div style="display:flex; justify-content:center; align-items:flex-start; gap:50px; flex-wrap:wrap;">
     <div style="display:flex; flex-direction:column; align-items:center; gap:15px;">
-      <img src="images/cv_preview.jpg" alt="CV Remy Reyne V.1" onclick="openLightbox('images/cv.jpg')">
+      <img src="images/cv_preview.jpg" alt="CV Remy Reyne V.1" onclick="openLightbox('images/cv.jpg')" style="height:300px; width:auto;">
       <a href="cv.pdf" download>Télécharger V.1</a>
     </div>
     <div style="display:flex; flex-direction:column; align-items:center; gap:15px;">
-      <img src="images/cv_preview2.jpg" alt="CV Remy Reyne V.2" onclick="openLightbox('images/cv2.jpg')">
+      <img src="images/cv_preview2.jpg" alt="CV Remy Reyne V.2" onclick="openLightbox('images/cv2.jpg')" style="height:300px; width:auto;">
       <a href="cv2.pdf" download>Télécharger V.2</a>
     </div>
   </div>
 </div>
 
-<!-- Sliders existants -->
+<!-- Carrousels -->
 <div class="section"><h2>Vidéos</h2>
   <div class="slider" id="slider-videos">
     <span class="arrow left">&#10094;</span>
@@ -151,22 +165,13 @@ footer a:hover { text-decoration:underline; }
   </div>
 </div>
 
-<!-- Section Magazine -->
-<div class="section" id="magazine-container">
+<!-- Magazines -->
+<div class="section">
   <h2>Magazines</h2>
-  <img src="images/magazines/mag1_cover.jpg" alt="Magazine 1" onclick="openFlipbook(0)">
-  <img src="images/magazines/mag2_cover.jpg" alt="Magazine 2" onclick="openFlipbook(1)">
+  <div id="magazine-container"></div>
 </div>
 
 <div id="lightbox" onclick="closeLightbox()"><img></div>
-
-<div id="flipbook-overlay">
-  <div id="flipbook">
-    <span class="close-btn" onclick="closeFlipbook()">&times;</span>
-    <span class="nav-btn nav-left" onclick="prevPage()">&lt;</span>
-    <span class="nav-btn nav-right" onclick="nextPage()">&gt;</span>
-  </div>
-</div>
 
 <footer>
   <a href="https://www.facebook.com/XooDesign/" target="_blank">Facebook</a>
@@ -175,39 +180,66 @@ footer a:hover { text-decoration:underline; }
 </footer>
 
 <script>
-// Données pour sliders et magazines
 const data = {
-  logos:[ 'images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg','images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg','images/logos/logo10.jpg','images/logos/logo11.jpg','images/logos/logo12.jpg','images/logos/logo13.jpg','images/logos/logo14.jpg','images/logos/logo15.jpg','images/logos/logo16.jpg','images/logos/logo17.jpg' ],
-  affiches:[ 'images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg','images/affiches/affiche5.jpg','images/affiches/affiche6.jpg','images/affiches/affiche7.jpg','images/affiches/affiche8.jpg','images/affiches/affiche9.jpg','images/affiches/affiche10.jpg','images/affiches/affiche11.jpg','images/affiches/affiche12.jpg','images/affiches/affiche13.jpg','images/affiches/affiche14.jpg','images/affiches/affiche15.jpg','images/affiches/affiche16.jpg' ],
-  affiches2:[ 'images/affiches/afficher1.jpg','images/affiches/afficher2.jpg','images/affiches/afficher3.jpg','images/affiches/afficher4.jpg','images/affiches/afficher5.jpg','images/affiches/afficher6.jpg','images/affiches/afficher7.jpg','images/affiches/afficher8.jpg','images/affiches/afficher9.jpg','images/affiches/afficher10.jpg','images/affiches/afficher11.jpg','images/affiches/afficher12.jpg','images/affiches/afficher13.jpg','images/affiches/afficher14.jpg','images/affiches/afficher15.jpg','images/affiches/afficher16.jpg','images/affiches/afficher17.jpg','images/affiches/afficher18.jpg','images/affiches/afficher19.jpg','images/affiches/afficher20.jpg','images/affiches/afficher21.jpg','images/affiches/afficher22.jpg','images/affiches/afficher23.jpg','images/affiches/afficher24.jpg','images/affiches/afficher25.jpg','images/affiches/afficher26.jpg' ],
-  flyers:[ 'images/flyers/flyers1.jpg','images/flyers/flyers2.jpg','images/flyers/flyers3.jpg','images/flyers/flyers4.jpg','images/flyers/flyers5.jpg','images/flyers/flyers6.jpg','images/flyers/flyers7.jpg','images/flyers/flyers8.jpg','images/flyers/flyers9.jpg','images/flyers/flyers10.jpg','images/flyers/flyers11.jpg','images/flyers/flyers12.jpg','images/flyers/flyers13.jpg','images/flyers/flyers14.jpg','images/flyers/flyers15.jpg','images/flyers/flyers16.jpg','images/flyers/flyers17.jpg','images/flyers/flyers18.jpg','images/flyers/flyers19.jpg','images/flyers/flyers20.jpg','images/flyers/flyers21.jpg','images/flyers/flyers22.jpg','images/flyers/flyers23.jpg' ],
-  autres:[ 'images/mockups/mockup1.jpg','images/mockups/mockup2.jpg','images/mockups/mockup3.jpg','images/mockups/mockup4.jpg','images/mockups/mockup5.jpg','images/mockups/mockup6.jpg','images/mockups/mockup7.jpg','images/mockups/mockup8.jpg','images/mockups/mockup9.jpg','images/mockups/mockup10.jpg','images/mockups/mockup11.jpg','images/mockups/mockup12.jpg','images/mockups/mockup13.jpg','images/mockups/mockup14.jpg' ],
-  videos:['https://www.youtube.com/embed/qAsG_P2ZtGk?mute=0','https://www.youtube.com/embed/KPJuC8V4o3E?mute=0','https://www.youtube.com/embed/uMWTLTYN1RI?mute=0','https://www.youtube.com/embed/lbvV0KJK0C8?mute=0','https://www.youtube.com/embed/gmBgCF2VcV8?mute=0','https://www.youtube.com/embed/uEW7lNnpXJw?mute=0','https://www.youtube.com/embed/qw8sg7PVUXI?mute=0','https://www.youtube.com/embed/Wjj58sXxXfY?mute=0','https://www.youtube.com/embed/nB5puwqGCJ4?mute=0','https://www.youtube.com/embed/3z6b5lsmktE?mute=0','https://www.youtube.com/embed/zChvXTC3Zfk?mute=0','https://www.youtube.com/embed/qiRv6eb6I-w?mute=0','https://www.youtube.com/embed/_iEp66bnJ-I?mute=0','https://www.youtube.com/embed/rbA2yRHBJic?mute=0','https://www.youtube.com/embed/KFVGHlJOgp0?mute=0','https://www.youtube.com/embed/DOblmPclmVE?mute=0','https://www.youtube.com/embed/XHnIiJHyJjc?mute=0','https://www.youtube.com/embed/VmxHoqgQ2iE?mute=0','https://www.youtube.com/embed/Tok3jIK-KyU?mute=0','https://www.youtube.com/embed/tX6y_iZ3xLI?mute=0' ],
-  magazines:[
-    {
-      cover:'images/magazines/mag1_cover.jpg',
-      pages:[
-        'images/magazines/mag1_page1.jpg','images/magazines/mag1_page2.jpg','images/magazines/mag1_page3.jpg','images/magazines/mag1_page4.jpg',
-        'images/magazines/mag1_page5.jpg','images/magazines/mag1_page6.jpg','images/magazines/mag1_page7.jpg','images/magazines/mag1_page8.jpg',
-        'images/magazines/mag1_page9.jpg','images/magazines/mag1_page10.jpg','images/magazines/mag1_page11.jpg','images/magazines/mag1_page12.jpg',
-        'images/magazines/mag1_page13.jpg','images/magazines/mag1_page14.jpg','images/magazines/mag1_page15.jpg','images/magazines/mag1_page16.jpg',
-        'images/magazines/mag1_page17.jpg','images/magazines/mag1_page18.jpg','images/magazines/mag1_page19.jpg','images/magazines/mag1_page20.jpg',
-        'images/magazines/mag1_page21.jpg','images/magazines/mag1_page22.jpg','images/magazines/mag1_page23.jpg','images/magazines/mag1_page24.jpg',
-        'images/magazines/mag1_page25.jpg','images/magazines/mag1_page26.jpg','images/magazines/mag1_page27.jpg','images/magazines/mag1_page28.jpg',
-        'images/magazines/mag1_page29.jpg','images/magazines/mag1_page30.jpg','images/magazines/mag1_page31.jpg','images/magazines/mag1_page32.jpg',
-        'images/magazines/mag1_page33.jpg','images/magazines/mag1_page34.jpg','images/magazines/mag1_page35.jpg','images/magazines/mag1_page36.jpg',
-        'images/magazines/mag1_page37.jpg','images/magazines/mag1_page38.jpg','images/magazines/mag1_page39.jpg'
-      ]
-    }
+  logos:[ 'images/logos/logo1.jpg','images/logos/logo2.jpg','images/logos/logo3.jpg','images/logos/logo4.jpg','images/logos/logo5.jpg',
+    'images/logos/logo6.jpg','images/logos/logo7.jpg','images/logos/logo8.jpg','images/logos/logo9.jpg','images/logos/logo10.jpg',
+    'images/logos/logo11.jpg','images/logos/logo12.jpg','images/logos/logo13.jpg','images/logos/logo14.jpg','images/logos/logo15.jpg',
+    'images/logos/logo16.jpg','images/logos/logo17.jpg'
+  ],
+  affiches:[ 'images/affiches/affiche1.jpg','images/affiches/affiche2.jpg','images/affiches/affiche3.jpg','images/affiches/affiche4.jpg','images/affiches/affiche5.jpg',
+    'images/affiches/affiche6.jpg','images/affiches/affiche7.jpg','images/affiches/affiche8.jpg','images/affiches/affiche9.jpg','images/affiches/affiche10.jpg',
+    'images/affiches/affiche11.jpg','images/affiches/affiche12.jpg','images/affiches/affiche13.jpg','images/affiches/affiche14.jpg','images/affiches/affiche15.jpg',
+    'images/affiches/affiche16.jpg'
+  ],
+  affiches2:[ 'images/affiches/afficher1.jpg','images/affiches/afficher2.jpg','images/affiches/afficher3.jpg','images/affiches/afficher4.jpg','images/affiches/afficher5.jpg',
+    'images/affiches/afficher6.jpg','images/affiches/afficher7.jpg','images/affiches/afficher8.jpg','images/affiches/afficher9.jpg','images/affiches/afficher10.jpg',
+    'images/affiches/afficher11.jpg','images/affiches/afficher12.jpg','images/affiches/afficher13.jpg','images/affiches/afficher14.jpg','images/affiches/afficher15.jpg',
+    'images/affiches/afficher16.jpg','images/affiches/afficher17.jpg','images/affiches/afficher18.jpg','images/affiches/afficher19.jpg','images/affiches/afficher20.jpg',
+    'images/affiches/afficher21.jpg','images/affiches/afficher22.jpg','images/affiches/afficher23.jpg','images/affiches/afficher24.jpg','images/affiches/afficher25.jpg',
+    'images/affiches/afficher26.jpg'
+  ],
+  flyers:[ 'images/flyers/flyers1.jpg','images/flyers/flyers2.jpg','images/flyers/flyers3.jpg','images/flyers/flyers4.jpg','images/flyers/flyers5.jpg',
+    'images/flyers/flyers6.jpg','images/flyers/flyers7.jpg','images/flyers/flyers8.jpg','images/flyers/flyers9.jpg','images/flyers/flyers10.jpg',
+    'images/flyers/flyers11.jpg','images/flyers/flyers12.jpg','images/flyers/flyers13.jpg','images/flyers/flyers14.jpg','images/flyers/flyers15.jpg',
+    'images/flyers/flyers16.jpg','images/flyers/flyers17.jpg','images/flyers/flyers18.jpg','images/flyers/flyers19.jpg','images/flyers/flyers20.jpg',
+    'images/flyers/flyers21.jpg','images/flyers/flyers22.jpg','images/flyers/flyers23.jpg'
+  ],
+  autres:[ 'images/mockups/mockup1.jpg','images/mockups/mockup2.jpg','images/mockups/mockup3.jpg','images/mockups/mockup4.jpg',
+    'images/mockups/mockup5.jpg','images/mockups/mockup6.jpg','images/mockups/mockup7.jpg','images/mockups/mockup8.jpg','images/mockups/mockup9.jpg',
+    'images/mockups/mockup10.jpg','images/mockups/mockup11.jpg','images/mockups/mockup12.jpg','images/mockups/mockup13.jpg','images/mockups/mockup14.jpg'
+  ],
+  videos:[
+    'https://www.youtube.com/embed/qAsG_P2ZtGk?mute=0',
+    'https://www.youtube.com/embed/KPJuC8V4o3E?mute=0',
+    'https://www.youtube.com/embed/uMWTLTYN1RI?mute=0',
+    'https://www.youtube.com/embed/lbvV0KJK0C8?mute=0',
+    'https://www.youtube.com/embed/gmBgCF2VcV8?mute=0',
+    'https://www.youtube.com/embed/uEW7lNnpXJw?mute=0',
+    'https://www.youtube.com/embed/qw8sg7PVUXI?mute=0',
+    'https://www.youtube.com/embed/Wjj58sXxXfY?mute=0',
+    'https://www.youtube.com/embed/nB5puwqGCJ4?mute=0',
+    'https://www.youtube.com/embed/3z6b5lsmktE?mute=0',
+    'https://www.youtube.com/embed/zChvXTC3Zfk?mute=0',
+    'https://www.youtube.com/embed/qiRv6eb6I-w?mute=0',
+    'https://www.youtube.com/embed/_iEp66bnJ-I?mute=0',
+    'https://www.youtube.com/embed/rbA2yRHBJic?mute=0',
+    'https://www.youtube.com/embed/KFVGHlJOgp0?mute=0',
+    'https://www.youtube.com/embed/DOblmPclmVE?mute=0',
+    'https://www.youtube.com/embed/XHnIiJHyJjc?mute=0',
+    'https://www.youtube.com/embed/VmxHoqgQ2iE?mute=0',
+    'https://www.youtube.com/embed/Tok3jIK-KyU?mute=0',
+    'https://www.youtube.com/embed/tX6y_iZ3xLI?mute=0'
   ]
 };
 
 let sliders = {};
+
 function initSliders(){
   for(const cat in data){
     const slidesDiv = document.querySelector(`#slider-${cat} .slides`);
     if(!slidesDiv) continue;
     sliders[cat] = { index:0, slidesDiv };
+
     data[cat].forEach(src=>{
       let el;
       if(cat==='videos'){
@@ -224,9 +256,12 @@ function initSliders(){
       }
       slidesDiv.appendChild(el);
     });
+
     slidesDiv.parentElement.querySelector('.arrow.left').onclick = ()=>moveSlide(cat,-1);
     slidesDiv.parentElement.querySelector('.arrow.right').onclick = ()=>moveSlide(cat,1);
+
     updateSlider(cat);
+
     if(cat!=='videos') setInterval(()=>moveSlide(cat,1),7000);
   }
 }
@@ -236,21 +271,26 @@ function updateSlider(cat){
   const els = slidesDiv.children;
   const total = els.length;
   const sliderWidth = slidesDiv.clientWidth;
+
   Array.from(els).forEach((el,i)=>{
     let diff = i - index;
     if(diff < -Math.floor(total/2)) diff += total;
     if(diff > Math.floor(total/2)) diff -= total;
+
     const absDiff = Math.abs(diff);
+
     if(cat!=='videos'){
       let offsetX = diff * (sliderWidth / 3);
       let rotateY = diff * 40;
       let translateZ = (diff===0)?0:-absDiff*220;
       let scale = 1 - absDiff*0.15;
       let opacity = absDiff>1?0:1-absDiff*0.25;
+
       el.classList.toggle('active', diff===0);
       el.style.zIndex = (diff===0)?total+10:total-absDiff;
       el.style.opacity = opacity;
       el.style.pointerEvents = absDiff>1?'none':'auto';
+
       el.style.transform = `translateX(${offsetX}px) translate(-50%, -50%) translateZ(${translateZ}px) scale(${scale}) rotateY(${rotateY}deg)`;
       el.style.filter = absDiff>=2?'blur(3px)':'none';
     } else {
@@ -264,56 +304,68 @@ function moveSlide(cat,step){
   updateSlider(cat);
 }
 
+// Lightbox simple
 function openLightbox(src){ 
   const lb=document.getElementById('lightbox'); 
-  lb.querySelector('img').src=src; 
+  lb.innerHTML=''; // Clear previous
+  if(src.pages){ // magazine flipbook
+    // couverture seule à droite
+    let img = document.createElement('img');
+    img.src = src.cover;
+    lb.appendChild(img);
+    lb.dataset.magazine = JSON.stringify(src.pages);
+    lb.dataset.index = 0;
+  } else {
+    let img = document.createElement('img');
+    img.src=src;
+    lb.appendChild(img);
+    lb.dataset.magazine = '';
+  }
   lb.classList.add('show'); 
 }
+
 function closeLightbox(){ 
-  document.getElementById('lightbox').classList.remove('show'); 
+  const lb=document.getElementById('lightbox');
+  lb.classList.remove('show'); 
 }
 
-// Flipbook
-let currentFlipIndex = 0;
-let currentMagazinePages = [];
-function openFlipbook(magIndex){
-  const mag = data.magazines[magIndex];
-  currentFlipIndex = 0;
-  currentMagazinePages = mag.pages;
-  updateFlipbook();
-  document.getElementById('flipbook-overlay').classList.add('show');
-}
-function closeFlipbook(){
-  document.getElementById('flipbook-overlay').classList.remove('show');
-}
-function updateFlipbook(){
-  const fb = document.getElementById('flipbook');
-  fb.querySelectorAll('img').forEach(img=>img.remove());
-  const leftIndex = currentFlipIndex;
-  const rightIndex = currentFlipIndex+1;
-  if(leftIndex<currentMagazinePages.length){
-    const imgL = document.createElement('img');
-    imgL.src=currentMagazinePages[leftIndex];
-    fb.appendChild(imgL);
+// Flipbook navigation
+document.getElementById('lightbox').addEventListener('click', function(e){
+  const lb = this;
+  const mag = lb.dataset.magazine;
+  if(!mag) return; // pas un magazine
+  const pages = JSON.parse(mag);
+  let index = parseInt(lb.dataset.index);
+
+  if(e.clientX > window.innerWidth/2){ // clic droit -> avancer
+    if(index < pages.length-2) index+=2;
+  } else { // clic gauche -> reculer
+    if(index>0) index-=2;
   }
-  if(rightIndex<currentMagazinePages.length){
-    const imgR = document.createElement('img');
-    imgR.src=currentMagazinePages[rightIndex];
-    fb.appendChild(imgR);
+  lb.dataset.index = index;
+  lb.innerHTML='';
+  const left = document.createElement('img'); left.src = pages[index]; lb.appendChild(left);
+  if(index+1<pages.length){
+    const right = document.createElement('img'); right.src = pages[index+1]; lb.appendChild(right);
   }
-}
-function nextPage(){
-  if(currentFlipIndex+2<currentMagazinePages.length){
-    currentFlipIndex+=2;
-    updateFlipbook();
+});
+
+
+// Magazines : affichage côte à côte
+const magazinesData = [
+  {
+    cover:'images/magazines/mag1_cover.jpg',
+    pages:[...Array(39)].map((_,i)=>`images/magazines/mag1_page${i+1}.jpg`)
   }
-}
-function prevPage(){
-  if(currentFlipIndex-2>=0){
-    currentFlipIndex-=2;
-    updateFlipbook();
-  }
-}
+];
+
+const magContainer = document.getElementById('magazine-container');
+magazinesData.forEach(m=>{
+  const img = document.createElement('img');
+  img.src=m.cover;
+  img.onclick=()=>openLightbox(m);
+  magContainer.appendChild(img);
+});
 
 initSliders();
 </script>
